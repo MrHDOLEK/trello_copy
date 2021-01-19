@@ -1,9 +1,8 @@
-name: Build
+name: Deployment
 
 on:
-  push:
-    branches:
-      - frontend
+  repository_dispatch:
+    types: build
 
 jobs:
   build:
