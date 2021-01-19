@@ -1,8 +1,10 @@
 name: Deployment
 
 on:
-  repository_dispatch:
-    types: build
+  push:
+    branches: [frontend]
+  pull_request:
+    branches: [frontend]
 
 jobs:
   build:
