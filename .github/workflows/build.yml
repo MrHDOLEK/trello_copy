@@ -28,7 +28,6 @@ jobs:
       - name: Install deps and run tests
         run: |
           npm install --silent
-          npm run test:action
       - name: Build app
         run: |
           npm run build
