@@ -1,11 +1,24 @@
-// import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import AuthenticationPage from "./Authentication/AuthenticationPage";
+import React, { Fragment } from "react";
+import "./App.scss";
+import AuthenticationPage from "../Authentication/AuthenticationPage";
+import Register from "../Authentication/Register/Register";
+import Login from "../Authentication/Login/Login";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="cotainer min-h-screen box-border bg-gray-700">
-      <AuthenticationPage />
-    </div>
+    <Fragment>
+      <Router>
+        <Switch>
+          <Route exact path="/register">
+            <AuthenticationPage children={<Register />} authType="register" />
+          </Route>
+          <Route exact path="/login">
+            <AuthenticationPage children={<Login />} authType="login" />
+          </Route>
+        </Switch>
+      </Router>
+    </Fragment>
   );
 }
 

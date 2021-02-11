@@ -1,0 +1,55 @@
+@import "../../scss/variables";
+
+.dot_container {
+  max-width: 375px;
+  min-width: 375px;
+  max-height: 300px;
+  min-height: 300px;
+  position: relative;
+
+  .dot {
+    background: linear-gradient($lightGreen, $darkGreen);
+    position: absolute;
+    border-radius: 50%;
+  }
+
+  .first_dot {
+    width: 100px;
+    height: 100px;
+    top: 58px;
+    left: 80px;
+    animation: 0.7s cubic-bezier(0.12, 1.2, 0.86, 0.58) show;
+  }
+
+  .second_dot {
+    width: 80px;
+    height: 80px;
+    top: 120px;
+    right: 60px;
+    animation: 0.9s cubic-bezier(0.12, 1.2, 0.86, 0.58) show;
+  }
+
+  .third_dot {
+    width: 60px;
+    height: 60px;
+    top: 208px;
+    left: 136px;
+    animation: 0.6s cubic-bezier(0.12, 1.2, 0.86, 0.58) show;
+  }
+
+  @keyframes show {
+    0% {
+      transform: scale(0);
+    }
+
+    70% {
+      transform: scale(1.08);
+      background: lighten($lightGreen, 30%);
+    }
+
+    100% {
+      transform: scale(1);
+      background: linear-gradient($lightGreen, $darkGreen);
+    }
+  }
+}
