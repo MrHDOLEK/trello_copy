@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import "./UnderButtonRedirection.scss";
 
 const UnderButtonRedirection = ({ authType }) => {
-  console.log(authType);
   const login = () => {
     return (
       <Fragment>
