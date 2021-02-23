@@ -16,9 +16,9 @@ Aplikacja korzysta z architektury mikro serwisów który jest systemem rozproszo
 
 
 ## Jak odpalić środowisko ?
-1.Klonujemy repozytorium 
-2.Przechodzimy do katalogu z sklonowanym repozytorium
-3.`$ docker compose up`
+1. Klonujemy repozytorium 
+2. Przechodzimy do katalogu z sklonowanym repozytorium
+3. `$ docker compose up`
 4. `$ docker exec -it laravel /bin/bash`
 5. `$ cd /var/www`
 6. `$ composer install`
