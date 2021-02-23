@@ -1,0 +1,96 @@
+version: '3.7'
+services:
+  # PHP-FPM - Service
+  laravel:
+    build:
+      context: .
+      dockerfile: ./.docker/php/Dockerfile
+    ports:
+      - "2220:22"
+    container_name: laravel
+    restart: unless-stopped
+    tty: true
+    working_dir: /var/www
+    volumes:
+      - ./www:/var/www
+      - ./.docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+
+    networks:
+      - trello-network
+
+  # NGINX - Service
+  laravel_www:
+    image: nginx:1.19.4-alpine
+    container_name: laravel_www
+    depends_on:
+      - laravel
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8180:80"
+      - "8120:443"
+    volumes:
+      - ./www:/var/www
+      - ./.docker/nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - trello-network
+  # NGINX - Service
+  react_www:
+    image: nginx:1.19.4-alpine
+    container_name: react_www
+    depends_on:
+      - laravel
+    restart: unless-stopped
+    tty: true
+    working_dir: /var/www
+    ports:
+      - "8185:80"
+      - "8125:443"
+      - "2219:22"
+    volumes:
+      - ./react_www:/var/www
+      - ./.docker/react/conf.d/:/etc/nginx/conf.d/
+
+  # MySQL - Service
+  databases:
+    image: mysql:8.0.22
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci','--default-authentication-plugin=mysql_native_password']
+    container_name: databases
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3315:3306"
+    environment:
+      MYSQL_DATABASE: laraveldb
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: laravelpassworddb
+      MYSQL_ROOT_PASSWORD: rootpasswordmysql
+    volumes:
+      - ./databases:/var/lib/mysql/
+    networks:
+      - trello-network
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:4.8
+    restart: always
+    links:
+      - databases:databases
+    ports:
+      - 8181:80
+    depends_on: 
+      - databases
+    networks: 
+      - trello-network
+    environment:
+      PMA_HOST: databases
+      PMA_USER: root
+      PMA_PASSWORD: rootpasswordmysql
+
+# Volumes
+volumes:
+  mysqldata:
+    driver: local
+
+# Networks
+networks:
+  trello-network:
+    driver: bridge
