@@ -1,0 +1,5 @@
+# ignore files in folder foo
+react_www/*
+
+# but keep the folder
+!react_www/.gitkeep
