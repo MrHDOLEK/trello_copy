@@ -5,7 +5,7 @@ import AuthenticationPage from "./authentication/AuthenticationPage";
 function App() {
   return (
     <div>
-      <AuthenticationPage option={"login"} />
+      <AuthenticationPage option={"register"} />
     </div>
   );
 }
