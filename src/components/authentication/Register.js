@@ -3,7 +3,10 @@ import React, { useState } from "react";
 import InputField from "../common/InputField";
 import AuthButton from "../common/AuthButton";
 
-const Register = () => {
+import { connect } from "react-redux";
+import { getAuth } from "../../actions/auth";
+
+const Register = ({ getAuth }) => {
   const [state, setState] = useState({});
 
   const onChange = (event) => {
@@ -58,9 +61,19 @@ const Register = () => {
           id="ConfirmPassoword"
         />
         <AuthButton text="Register" />
+        <button
+          className="bg-yellow-600 w-full hover:bg-yellow-700"
+          onClick={() => getAuth()}
+        >
+          Test redux
+        </button>
       </form>
     </div>
   );
 };
 
-export default Register;
+const mapStateToProps = (state) => ({
+  auth: state.authReducer.auth,
+});
+
+export default connect(mapStateToProps, { getAuth })(Register);

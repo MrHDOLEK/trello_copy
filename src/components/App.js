@@ -1,12 +1,17 @@
 import React from "react";
 
+import { Provider } from "react-redux";
+import store from "../store";
+
 import AuthenticationPage from "./authentication/AuthenticationPage";
 
 function App() {
   return (
-    <div>
-      <AuthenticationPage option={"register"} />
-    </div>
+    <Provider store={store}>
+      <div>
+        <AuthenticationPage option={"register"} />
+      </div>
+    </Provider>
   );
 }
 
