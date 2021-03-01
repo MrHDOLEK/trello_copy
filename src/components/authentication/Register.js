@@ -26,7 +26,7 @@ const Register = ({ getAuth }) => {
       <h1 className="text-gray-200 text-center text-4xl mb-5">Register</h1>
       <form onSubmit={onSubmit}>
         <InputField
-          label="Email"
+          label="test"
           type="email"
           name="Email"
           id="Email"
