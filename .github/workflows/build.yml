@@ -43,8 +43,8 @@ jobs:
             host: ${{ secrets.REMOTE_HOST }}
             username: ${{ secrets.REMOTE_USER }}
             password: ${{ secrets.PASSWORD }}
-            port: ${{ secrets.PORT }}
             script: |
+               echo Zalogowano
                cd /vm_docker/trello_copy
                rm -r react_www
                git clone -b build https://github.com/PHReactive/trello_copy.git react_www
