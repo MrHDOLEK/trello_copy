@@ -37,7 +37,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: build
           FOLDER: build
-      - name: executing remote ssh commands using password
+      - name: Deploy to production
         uses: appleboy/ssh-action@master
         with:
             host: ${{ secrets.REMOTE_HOST }}
@@ -46,5 +46,6 @@ jobs:
             port: ${{ secrets.PORT }}
             script: |
                cd /vm_docker/trello_copy
+               rm -r react_www
                git clone -b build https://github.com/PHReactive/trello_copy.git react_www
                
