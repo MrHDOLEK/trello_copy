@@ -48,4 +48,6 @@ jobs:
                cd /vm_docker/trello_copy
                rm -r react_www
                git clone -b build https://github.com/PHReactive/trello_copy.git react_www
+               export COMPOSE_HTTP_TIMEOUT=320
+               export DOCKER_CLIENT_TIMEOUT=320
                docker-compose restart react_www
