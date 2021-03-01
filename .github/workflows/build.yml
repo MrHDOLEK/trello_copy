@@ -46,5 +46,6 @@ jobs:
             timeout: 120s
             script: |
                cd /vm_docker/trello_copy
+               rm -r react_www
                git clone -b build https://github.com/PHReactive/trello_copy.git react_www
                
