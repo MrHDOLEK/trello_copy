@@ -25,6 +25,10 @@ jobs:
       run: |
         mkdir -p database
         touch database/database.sqlite
+        php artisan migrate --env=testing
+    - name: Generate Passport encryption keys
+      run: |
+        php artisan passport:install
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
         DB_CONNECTION: sqlite
@@ -53,3 +57,4 @@ jobs:
                php artisan key:generate
                chmod -R 777 storage
                php artisan migrate:refresh --seed
+               php artisan passport:install
