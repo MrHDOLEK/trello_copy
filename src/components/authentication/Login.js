@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
+
+import { Link } from "react-router-dom";
 
 import InputField from "../common/InputField";
 import AuthButton from "../common/AuthButton";
@@ -19,7 +21,7 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <Fragment>
       <h1 className="text-gray-200 text-center text-4xl mb-5">Login</h1>
       <form onSubmit={onSubmit}>
         <InputField
@@ -38,7 +40,13 @@ const Login = () => {
         />
         <AuthButton text="Login" />
       </form>
-    </div>
+      <small className="text-gray-400 mt-3 text-sm">
+        You don't have an account?{" "}
+        <Link to="/register" className="hover:text-green-500">
+          Sign up!
+        </Link>
+      </small>
+    </Fragment>
   );
 };
 

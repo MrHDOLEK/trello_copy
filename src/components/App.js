@@ -1,17 +1,24 @@
 import React from "react";
 
-import { Provider } from "react-redux";
-import store from "../store";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
+import PrivateRoute from "./common/PrivateRoute";
 import AuthenticationPage from "./authentication/AuthenticationPage";
+import Test from "./layout/Test";
 
 function App() {
   return (
-    <Provider store={store}>
-      <div>
-        <AuthenticationPage option={"register"} />
-      </div>
-    </Provider>
+    <Router>
+      <Switch>
+        <Route exact path="/register">
+          <AuthenticationPage option={"register"} />
+        </Route>
+        <Route exact path="/login">
+          <AuthenticationPage option={"login"} />
+        </Route>
+        <PrivateRoute component={Test} path="/test" exact />
+      </Switch>
+    </Router>
   );
 }
 

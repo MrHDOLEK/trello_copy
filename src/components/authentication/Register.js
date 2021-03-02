@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
+
+import { Link, useHistory } from "react-router-dom";
 
 import InputField from "../common/InputField";
 import AuthButton from "../common/AuthButton";
 
-import { connect } from "react-redux";
-import { getAuth } from "../../actions/auth";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../actions/auth";
 
-const Register = ({ getAuth }) => {
+const Register = () => {
   const [state, setState] = useState({});
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const onChange = (event) => {
     setState((prevState) => ({
@@ -19,14 +23,15 @@ const Register = ({ getAuth }) => {
   const onSubmit = (event) => {
     event.preventDefault();
     console.log(state);
+    history.push("/test");
   };
 
   return (
-    <div>
+    <Fragment>
       <h1 className="text-gray-200 text-center text-4xl mb-5">Register</h1>
       <form onSubmit={onSubmit}>
         <InputField
-          label="test_serwisu_docker"
+          label="Adres email"
           type="email"
           name="Email"
           id="Email"
@@ -61,19 +66,21 @@ const Register = ({ getAuth }) => {
           id="ConfirmPassoword"
         />
         <AuthButton text="Register" />
-        <button
-          className="bg-yellow-600 w-full hover:bg-yellow-700"
-          onClick={() => getAuth()}
-        >
-          Test redux
-        </button>
       </form>
-    </div>
+      <small className="text-gray-400 mt-3 text-sm">
+        You already have an account?{" "}
+        <Link to="/login" className="hover:text-green-500">
+          Sign in!
+        </Link>
+      </small>
+      <button
+        className="bg-yellow-600 w-full hover:bg-yellow-700"
+        onClick={() => dispatch(loginUser())}
+      >
+        Test redux
+      </button>
+    </Fragment>
   );
 };
 
-const mapStateToProps = (state) => ({
-  auth: state.authReducer.auth,
-});
-
-export default connect(mapStateToProps, { getAuth })(Register);
+export default Register;
