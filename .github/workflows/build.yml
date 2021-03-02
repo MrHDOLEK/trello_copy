@@ -53,22 +53,20 @@ jobs:
     runs-on: ubuntu-latest
   
     steps:
-      - name: Deploy to build branch
-        uses: JamesIves/github-pages-deploy-action@3.7.1
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: laravel_build
       - name: Deploy to production
         uses: appleboy/ssh-action@master
         with:
             host: ${{ secrets.REMOTE_HOST }}
-            username: ${{ secrets.REMOTE_USER }}
-            password: ${{ secrets.PASSWORD }}
+            username: ${{ secrets.REMOTE_USER_LARAVEL }}
+            password: ${{ secrets.PASSWORD_LARAVEL }}
+            port: ${{ secrets.PORT_LARAVEL }}
             timeout: 120s
             script: |
-               cd /vm_docker/trello_copy
-              
-               git clone -b laravel_build https://github.com/PHReactive/trello_copy.git www
-               export COMPOSE_HTTP_TIMEOUT=320
-               export DOCKER_CLIENT_TIMEOUT=320
-               docker-compose restart laravel_www
+               cd /var
+               rm -r www
+               git clone -b laravel https://github.com/PHReactive/trello_copy.git www
+               cd www 
+               composer install
+               cp .env.example .env
+               php artisan key:generate
+               chmod -R 777 storage
