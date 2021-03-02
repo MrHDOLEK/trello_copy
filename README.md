@@ -16,14 +16,19 @@ Aplikacja korzysta z architektury mikro serwisów który jest systemem rozproszo
 
 
 ## Jak odpalić środowisko ?
-1. Klonujemy repozytorium 
-2. Przechodzimy do katalogu z sklonowanym repozytorium
-3. `$ docker compose up`
-4. `$ docker exec -it laravel /bin/bash`
-5. `$ cd /var/www`
-6. `$ composer install`
-7. Gotowe 
-
+1. Klonujemy repozytorium z brancha Docker
+2. Klonuje repozytorium z brancha laravel do katalogu www
+3. Klonujemy repozytorium z brancha build do katalogu react_www
+4. Przechodzimy do katalogu z dockerem
+5. `$ docker compose up`
+6. `$ docker exec -it laravel /bin/bash`
+7. `$ cd /var/www`
+8. `$ composer install`
+9. `$ cp .env.example .env`
+10. `$ php artisan key:generate`
+11. `$ chmod -R 777 storage`
+12. `$ php artisan migrate:refresh --seed`
+13. Gotowe
 ## Dostępne kontenery:
 - PHP (laravel + narzędzia) Port:  2220:22 (SSH)
 	Dane do logowania:
