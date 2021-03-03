@@ -5,26 +5,36 @@
 ## Routy  
 ### Metoda POST
 - Rejestracja `/api/auth/signup`  
-	 ` {    
-		  "name" : "Aleksander",    
+	```json
+	{    
+		 "name" : "Aleksander",    
 		 "email" : "test@test.pl",   
 		 "password" :"test",  
-		  "password_confirmation": "test"    
-	  }  `  
-	  Jeśli się uda stworzyć użytkownika to dostaniesz taką wiadomość
-	  `{"message":"Successfully created user!"}  `  
+		 "password_confirmation": "test"    
+	}
+	```
+ - Jeśli się uda stworzyć użytkownika to dostaniesz taką wiadomość
+	  ```json
+	  {
+		  "message":"Successfully created user!"
+	  } 
+	  ```
 - Logowanie `/api/auth/login  `
-` {    
+``` json
+	{    
 		 "email" : "test@test.pl",   
 		 "password" :"test",  
-		"remember_me"  :  1  
-	  }  `
-	  Jeśli się uda zalogować to dostaniesz taką odp
-	  `{" access_token" : "13123132",  
-	" token_type" : " Bearer" ,  
-	" expires_at" : "2021-03-09 20:45:03"
-	}`  
+		 "remember_me"  :  1  
+	  } 
+ ```
+- Jeśli się uda się zalogować to dostaniesz taką wiadomość
+```json 
+	{
+		"access_token" : "13123132",  
+		"token_type" : " Bearer" ,  
+		"expires_at" : "2021-03-09 20:45:03"
+	}
+```
 ###  Metoda GET
 - Użytkownik `/api/auth/user`  
 - Wylogowanie `/api/auth/logout`  
-   
