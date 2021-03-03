@@ -28,7 +28,8 @@ Aplikacja korzysta z architektury mikro serwisów który jest systemem rozproszo
 10. `$ php artisan key:generate`
 11. `$ chmod -R 777 storage`
 12. `$ php artisan migrate:refresh --seed`
-13. Gotowe
+13. `$ php artisan passport:install`
+14. Gotowe
 ## Dostępne kontenery:
 - PHP (laravel + narzędzia) Port:  2220:22 (SSH)
 	Dane do logowania:
