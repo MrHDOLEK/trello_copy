@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-use App\User;
+use App\Models\User;
 
 class UserTest extends TestCase
 {
@@ -20,7 +20,6 @@ class UserTest extends TestCase
 
         $name = $this->faker->name();
         $email = $this->faker->email();
-
         $response = $this->postJson('/api/auth/signup', [
             'name' => $name,
             'email' => $email,
@@ -34,6 +33,7 @@ class UserTest extends TestCase
             ->assertExactJson([
                 'message' => "Successfully created user!",
             ]);
+        var_dump($response);
     }//testUserCreation
 
 }

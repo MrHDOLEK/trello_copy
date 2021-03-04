@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-use App\User;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -18,7 +19,7 @@ class AuthController extends Controller
      * @param  [string] password_confirmation
      * @return [string] message
      */
-    public function signup(Request $request)
+    public function signup(Request $request): JsonResponse
     {
         $request->validate([
             'name' => 'required|string',
@@ -27,9 +28,9 @@ class AuthController extends Controller
         ]);
 
         $user = new User([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password)
+            'name' => (string) $request->name,
+            'email' => (string)$request->email,
+            'password' => (string) bcrypt($request->password)
         ]);
 
         $user->save();
@@ -49,7 +50,7 @@ class AuthController extends Controller
      * @return [string] token_type
      * @return [string] expires_at
      */
-    public function login(Request $request)
+    public function login(Request $request): JsonResponse
     {
         $request->validate([
             'email' => 'required|string|email',
@@ -88,7 +89,7 @@ class AuthController extends Controller
      *
      * @return [string] message
      */
-    public function logout(Request $request)
+    public function logout(Request $request): JsonResponse
     {
         $request->user()->token()->revoke();
 
@@ -102,7 +103,7 @@ class AuthController extends Controller
      *
      * @return [json] user object
      */
-    public function user(Request $request)
+    public function user(Request $request): JsonResponse
     {
         return response()->json($request->user());
     }
