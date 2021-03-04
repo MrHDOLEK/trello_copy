@@ -4,10 +4,17 @@ on:
   push:
 
 jobs:
- deploy:
+  deploy: # This name is the one to be used in `running-workflow-name`
     runs-on: ubuntu-latest
-  
     steps:
+      - uses: actions/checkout@v2
+      - name: Wait on tests
+        uses: lewagon/wait-on-check-action@master
+        with:
+          ref: ${{ github.ref }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 10
+          running-workflow-name: 'deploy' 
       - name: Deploy to production
         uses: appleboy/ssh-action@master
         with:
