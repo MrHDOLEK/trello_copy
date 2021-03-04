@@ -34,28 +34,10 @@ jobs:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
       run: vendor/bin/phpunit
-      
-  deploy:
-    runs-on: ubuntu-latest
-  
-    steps:
-      - name: Deploy to production
-        uses: appleboy/ssh-action@master
-        with:
-            host: ${{ secrets.REMOTE_HOST }}
-            username: ${{ secrets.REMOTE_USER_LARAVEL }}
-            password: ${{ secrets.PASSWORD_LARAVEL }}
-            port: ${{ secrets.PORT_LARAVEL }}
-            timeout: 120s
-            script: |
-               cd /var
-               rm -r www
-               git clone -b laravel https://github.com/PHReactive/trello_copy.git www
-               cd www 
-               composer install
-               cp .env.example .env
-               php artisan key:generate
-               chmod -R 777 storage
-               php artisan migrate:reset
-               php artisan migrate:refresh --seed
-               php artisan passport:install
+    - name: Wait on tests
+      uses: lewagon/wait-on-check-action@master
+      with:
+          ref: ${{ github.ref }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 10
+          running-workflow-name: 'deploy'
