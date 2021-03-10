@@ -6,7 +6,7 @@ import InputField from "../common/InputField";
 import AuthButton from "../common/AuthButton";
 
 import { useDispatch } from "react-redux";
-import { loginUser } from "../../actions/auth";
+import { registerUser } from "../../actions/auth";
 
 const Register = () => {
   const [state, setState] = useState({});
@@ -22,7 +22,7 @@ const Register = () => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log(state);
+    dispatch(registerUser(state));
     history.push("/test");
   };
 
@@ -31,39 +31,32 @@ const Register = () => {
       <h1 className="text-gray-200 text-center text-4xl mb-5">Register</h1>
       <form onSubmit={onSubmit}>
         <InputField
-          label="Adres email"
+          label="Name"
+          type="name"
+          name="name"
+          id="name"
+          onChange={onChange}
+        />
+        <InputField
+          label="Addres email"
           type="email"
-          name="Email"
-          id="Email"
+          name="email"
+          id="email"
           onChange={onChange}
-        />
-        <InputField
-          label="First name"
-          type="text"
-          onChange={onChange}
-          name="FirstName"
-          id="FirstName"
-        />
-        <InputField
-          label="Last name"
-          type="text"
-          onChange={onChange}
-          name="LastName"
-          id="LastName"
         />
         <InputField
           label="Password"
           type="password"
           onChange={onChange}
-          name="Password"
-          id="Password"
+          name="password"
+          id="password"
         />
         <InputField
           label="Confirm password"
           type="password"
           onChange={onChange}
-          name="ConfirmPassword"
-          id="ConfirmPassoword"
+          name="password_confirmation"
+          id="password_confirmation"
         />
         <AuthButton text="Register" />
       </form>
@@ -73,12 +66,6 @@ const Register = () => {
           Sign in!
         </Link>
       </small>
-      <button
-        className="bg-yellow-600 w-full hover:bg-yellow-700"
-        onClick={() => dispatch(loginUser())}
-      >
-        Test redux
-      </button>
     </Fragment>
   );
 };

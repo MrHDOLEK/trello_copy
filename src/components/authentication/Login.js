@@ -5,8 +5,12 @@ import { Link } from "react-router-dom";
 import InputField from "../common/InputField";
 import AuthButton from "../common/AuthButton";
 
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../actions/auth";
+
 const Login = () => {
   const [state, setState] = useState({});
+  const dispatch = useDispatch();
 
   const onChange = (event) => {
     setState((prevState) => ({
@@ -17,7 +21,7 @@ const Login = () => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    console.log(state);
+    dispatch(loginUser(state));
   };
 
   return (
@@ -27,15 +31,15 @@ const Login = () => {
         <InputField
           label="Email"
           type="email"
-          name="Email"
-          id="Email"
+          name="email"
+          id="email"
           onChange={onChange}
         />
         <InputField
           label="Password"
           type="password"
-          name="Password"
-          id="Passoword"
+          name="password"
+          id="password"
           onChange={onChange}
         />
         <AuthButton text="Login" />
