@@ -1,16 +1,19 @@
 import React, { Fragment, useState } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import InputField from "../common/InputField";
 import AuthButton from "../common/AuthButton";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../actions/auth";
 
 const Login = () => {
   const [state, setState] = useState({ remember_me: 1 });
   const dispatch = useDispatch();
+  const isAuthenticated = useSelector(
+    (state) => state.authReducer.isAuthenticated
+  );
 
   const onChange = (event) => {
     setState((prevState) => ({
@@ -19,13 +22,15 @@ const Login = () => {
     }));
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
     dispatch(loginUser(state));
   };
 
   return (
     <Fragment>
+      {isAuthenticated && <Redirect to="/test" />}
+
       <h1 className="text-gray-200 text-center text-4xl mb-5">Login</h1>
       <form onSubmit={onSubmit}>
         <InputField

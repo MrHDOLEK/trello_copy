@@ -1,17 +1,19 @@
 import React, { Fragment, useState } from "react";
 
-import { Link, useHistory } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import InputField from "../common/InputField";
 import AuthButton from "../common/AuthButton";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../actions/auth";
 
 const Register = () => {
   const [state, setState] = useState({});
   const dispatch = useDispatch();
-  const history = useHistory();
+  const isAuthenticated = useSelector(
+    (state) => state.authReducer.isAuthenticated
+  );
 
   const onChange = (event) => {
     setState((prevState) => ({
@@ -23,11 +25,12 @@ const Register = () => {
   const onSubmit = (event) => {
     event.preventDefault();
     dispatch(registerUser(state));
-    history.push("/test");
   };
 
   return (
     <Fragment>
+      {isAuthenticated && <Redirect to="/test" />}
+
       <h1 className="text-gray-200 text-center text-4xl mb-5">Register</h1>
       <form onSubmit={onSubmit}>
         <InputField
