@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { loginUser } from "../../actions/auth";
 
 const Login = () => {
-  const [state, setState] = useState({});
+  const [state, setState] = useState({ remember_me: 1 });
   const dispatch = useDispatch();
 
   const onChange = (event) => {

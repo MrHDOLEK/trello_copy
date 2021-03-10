@@ -18,5 +18,5 @@ export const loginUser = (state) => (dispatch) => {
   axios
     .post("http://95.111.242.110:8180/api/auth/login", body)
     .then((res) => dispatch({ type: LOGIN_SUCCESS, payload: res.data }))
-    .catch((err) => dispatch({ type: LOGIN_FAILED, payload: err }));
+    .catch((err) => dispatch({ type: LOGIN_FAILED, payload: err.message }));
 };
