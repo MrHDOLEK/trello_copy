@@ -16,7 +16,7 @@ class CreateUsersPersonalDataTable extends Migration
         Schema::create('users_personal_data', function (Blueprint $table) {
             $table->id();
             $table->binary('avatar')->nullable();
-            $table->boolean('regulamin_accepted');
+            $table->boolean('regulation_accepted');
             $table->string('address');
             $table->timestamps();
 

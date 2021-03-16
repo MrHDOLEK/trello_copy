@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateServiceSettingsTable extends Migration
+class CreatePacketsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,16 @@ class CreateServiceSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('service_settings', function (Blueprint $table) {
+        Schema::create('packets', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('table');
-            $table->integer('value');
-            $table->string('label');
-            $table->boolean('read_only');
+            $table->double('price');
+            $table->text('description');
             $table->timestamps();
+
+            $table->foreignId('permission_id')
+                    ->references('id')
+                    ->on('packets_permissions');
         });
     }
 
@@ -31,6 +33,6 @@ class CreateServiceSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('service_settings');
+        Schema::dropIfExists('packets');
     }
 }
