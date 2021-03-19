@@ -14,7 +14,6 @@ import { getUser } from "../actions/auth";
 function App() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.authReducer.token);
-  console.log(token);
 
   useEffect(() => {
     dispatch(getUser());
