@@ -29,7 +29,7 @@ const Login = () => {
 
   return (
     <Fragment>
-      {isAuthenticated && <Redirect to="/test" />}
+      {isAuthenticated && <Redirect to="/board" />}
 
       <h1 className="text-gray-200 text-center text-4xl mb-5">Login</h1>
       <form onSubmit={onSubmit}>

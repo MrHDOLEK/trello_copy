@@ -1,5 +1,10 @@
 import axios from "axios";
-import { LOGIN_FAILED, LOGIN_SUCCESS, LOGOUT_SUCCESS } from "./types";
+import {
+  LOGIN_FAILED,
+  LOGIN_SUCCESS,
+  LOGOUT_SUCCESS,
+  USER_LOADED,
+} from "./types";
 
 export const registerUser = (state) => (dispatch) => {
   axios
@@ -10,9 +15,9 @@ export const registerUser = (state) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export const logoutUser = () => (dispatch) => {
+export const logoutUser = () => (dispatch, getState) => {
   axios
-    .post("http://95.111.242.110:8180/api/auth/logout")
+    .get("http://95.111.242.110:8180/api/auth/logout", tokenConfig(getState))
     .then(() => dispatch({ type: LOGOUT_SUCCESS }))
     .catch((err) => console.log(err));
 };
@@ -22,7 +27,26 @@ export const loginUser = (state) => (dispatch) => {
     .post("http://95.111.242.110:8180/api/auth/login", state)
     .then((res) => {
       dispatch({ type: LOGIN_SUCCESS, payload: res.data });
-      console.log(res.data);
     })
     .catch((err) => dispatch({ type: LOGIN_FAILED, payload: err.message }));
+};
+
+export const getUser = () => (dispatch, getState) => {
+  axios
+    .get("http://95.111.242.110:8180/api/auth/user", tokenConfig(getState))
+    .then((res) => dispatch({ type: USER_LOADED, payload: res.data }))
+    .catch((err) => console.log(":S"));
+};
+
+export const tokenConfig = (getState) => {
+  const token = getState().authReducer.token;
+  const config = {
+    headers: {},
+  };
+
+  if (token) {
+    config.headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  return config;
 };
