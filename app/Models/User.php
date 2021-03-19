@@ -18,20 +18,24 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    
-    public function personalData() {
+
+    public function personalData()
+    {
         return $this->belongsTo(UserPersonalData::class);
     }
 
-    public function userPermission() {
+    public function userPermission()
+    {
         return $this->belongsTo(UserPermission::class);
     }
 
-    public function tables() {
+    public function tables()
+    {
         return $this->belongsToMany(Table::class);
     }
 
-    public function orders() {
+    public function orders()
+    {
         return $this->belongsToMany(Order::class);
     }
 }
