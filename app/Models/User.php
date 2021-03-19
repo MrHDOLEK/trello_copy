@@ -18,11 +18,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-    public function session() {
-        return $this->belongsTo(Session::class);
-    }
-
+    
     public function personalData() {
         return $this->belongsTo(UserPersonalData::class);
     }
