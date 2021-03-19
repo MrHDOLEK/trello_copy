@@ -14,7 +14,7 @@ class CreatePacketsPermissionsTable extends Migration
     public function up()
     {
         Schema::create('packets_permissions', function (Blueprint $table) {
-            $table->string('id')->primary();
+            $table->id();
             $table->integer('max_cards');
             $table->integer('max_teams');
         });

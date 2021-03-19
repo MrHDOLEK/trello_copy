@@ -14,7 +14,7 @@ class CreateServiceSettingsTable extends Migration
     public function up()
     {
         Schema::create('service_settings', function (Blueprint $table) {
-            $table->string('id')->primary();
+            $table->id();
             $table->string('name');
             $table->integer('table');
             $table->integer('value');

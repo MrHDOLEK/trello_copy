@@ -14,7 +14,7 @@ class CreateBillsTable extends Migration
     public function up()
     {
         Schema::create('bills', function (Blueprint $table) {
-            $table->string('id')->primary();
+            $table->id();
             $table->double('brutto');
             $table->string('currency');
             $table->json('buyer');

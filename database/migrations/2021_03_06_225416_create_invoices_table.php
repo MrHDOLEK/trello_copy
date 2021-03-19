@@ -14,7 +14,7 @@ class CreateInvoicesTable extends Migration
     public function up()
     {
         Schema::create('invoices', function (Blueprint $table) {
-            $table->string('id')->primary();
+            $table->id();
             $table->string('symbol');
             $table->double('brutto');
             $table->string('currency');
