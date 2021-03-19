@@ -14,7 +14,7 @@ class CreatePacketsTable extends Migration
     public function up()
     {
         Schema::create('packets', function (Blueprint $table) {
-            $table->id();
+            $table->string('id')->primary();
             $table->string('name');
             $table->double('price');
             $table->text('description');

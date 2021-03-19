@@ -14,7 +14,7 @@ class CreateArticleTypesTable extends Migration
     public function up()
     {
         Schema::create('article_types', function (Blueprint $table) {
-            $table->id();
+            $table->string('id')->primary();
             $table->string('name');
             $table->text('description');
             $table->timestamps();

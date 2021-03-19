@@ -14,7 +14,7 @@ class CreateTablesTable extends Migration
     public function up()
     {
         Schema::create('tables', function (Blueprint $table) {
-            $table->id();
+            $table->string('id')->primary();
             $table->string('name');
             $table->json('users');
             $table->boolean('isVisible');
