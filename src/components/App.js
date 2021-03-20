@@ -8,6 +8,7 @@ import AuthenticationPage from "./authentication/AuthenticationPage";
 import Board from "./board/Board";
 
 import { getUser } from "../actions/auth";
+import BoardsList from "./board/BoardsList";
 
 // import { getCookie } from "../functions/cookies";
 
@@ -28,7 +29,7 @@ function App() {
         <Route exact path="/login">
           <AuthenticationPage option={"login"} />
         </Route>
-        <PrivateRoute component={Board} path="/board" exact />
+        <PrivateRoute component={BoardsList} path="/" exact />
       </Switch>
     </Router>
   );
