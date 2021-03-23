@@ -3,7 +3,7 @@ import React, { Fragment, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 
 import InputField from "../common/InputField";
-import AuthButton from "../common/AuthButton";
+import Button from "../common/Button";
 
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../actions/auth";
@@ -39,6 +39,7 @@ const Register = () => {
           name="name"
           id="name"
           onChange={onChange}
+          variant="variantOne"
         />
         <InputField
           label="Addres email"
@@ -46,6 +47,7 @@ const Register = () => {
           name="email"
           id="email"
           onChange={onChange}
+          variant="variantOne"
         />
         <InputField
           label="Password"
@@ -53,6 +55,7 @@ const Register = () => {
           onChange={onChange}
           name="password"
           id="password"
+          variant="variantOne"
         />
         <InputField
           label="Confirm password"
@@ -60,8 +63,14 @@ const Register = () => {
           onChange={onChange}
           name="password_confirmation"
           id="password_confirmation"
+          variant="variantOne"
         />
-        <AuthButton text="Register" />
+        <Button
+          text="Register"
+          type="submit"
+          variant="variantOne"
+          width="full"
+        />
       </form>
       <small className="text-gray-400 mt-3 text-sm">
         You already have an account?{" "}

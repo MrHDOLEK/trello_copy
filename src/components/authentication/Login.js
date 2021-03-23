@@ -3,7 +3,7 @@ import React, { Fragment, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 
 import InputField from "../common/InputField";
-import AuthButton from "../common/AuthButton";
+import Button from "../common/Button";
 
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../actions/auth";
@@ -39,6 +39,7 @@ const Login = () => {
           name="email"
           id="email"
           onChange={onChange}
+          variant="variantOne"
         />
         <InputField
           label="Password"
@@ -46,8 +47,9 @@ const Login = () => {
           name="password"
           id="password"
           onChange={onChange}
+          variant="variantOne"
         />
-        <AuthButton text="Login" />
+        <Button text="Login" type="submit" variant="variantOne" width="full" />
       </form>
       <small className="text-gray-400 mt-3 text-sm">
         You don't have an account?{" "}

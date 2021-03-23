@@ -35,7 +35,7 @@ export const getUser = () => (dispatch, getState) => {
   axios
     .get("http://95.111.242.110:8180/api/auth/user", tokenConfig(getState))
     .then((res) => dispatch({ type: USER_LOADED, payload: res.data }))
-    .catch((err) => console.log(":S"));
+    .catch((err) => console.log(err));
 };
 
 export const tokenConfig = (getState) => {
