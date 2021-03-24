@@ -49,7 +49,12 @@ const Login = () => {
           onChange={onChange}
           variant="variantOne"
         />
-        <Button text="Login" type="submit" variant="variantOne" width="full" />
+        <Button
+          text="Sing up"
+          type="submit"
+          variant="variantOne"
+          width="full"
+        />
       </form>
       <small className="text-gray-400 mt-3 text-sm">
         You don't have an account?{" "}
