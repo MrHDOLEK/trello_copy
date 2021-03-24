@@ -5,7 +5,6 @@ on:
     branches: [placeholder_front]
   pull_request:
     branches: [placeholder_front]
-
 jobs:
   build:
     name: Build
