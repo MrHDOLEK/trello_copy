@@ -2,7 +2,6 @@ name: Waiting for checks and deploy
 
 on:
   push:
-
 jobs:
   deploy: # This name is the one to be used in `running-workflow-name`
     runs-on: ubuntu-latest
