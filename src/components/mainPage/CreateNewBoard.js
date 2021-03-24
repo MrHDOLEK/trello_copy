@@ -4,8 +4,8 @@ import Button from "../common/Button";
 
 export const CreateNewBoard = () => {
   return (
-    <div className="bg-gray-700 border border-gray-700 rounded shadow-inner">
-      <div className="h-36 border-2 border-red-500">image</div>
+    <div className="bg-gray-700 rounded-md">
+      <div className="h-36 border-2 border-gray-500">image</div>
       <div className="text-center text-gray-200">
         <h1 className="my-2 text-xl font-bold">Organize everything</h1>
         <p className="p-1">

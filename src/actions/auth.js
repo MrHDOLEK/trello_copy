@@ -6,9 +6,11 @@ import {
   USER_LOADED,
 } from "./types";
 
+const addressAPI = process.env.REACT_APP_BACKEND_API;
+
 export const registerUser = (state) => (dispatch) => {
   axios
-    .post("http://95.111.242.110:8180/api/auth/signup", state)
+    .post(`${addressAPI}/api/auth/signup`, state)
     .then((res) => {
       console.log(res.data.message);
     })
@@ -17,14 +19,14 @@ export const registerUser = (state) => (dispatch) => {
 
 export const logoutUser = () => (dispatch, getState) => {
   axios
-    .get("http://95.111.242.110:8180/api/auth/logout", tokenConfig(getState))
+    .get(`${addressAPI}/api/auth/logout`, tokenConfig(getState))
     .then(() => dispatch({ type: LOGOUT_SUCCESS }))
     .catch((err) => console.log(err));
 };
 
 export const loginUser = (state) => (dispatch) => {
   axios
-    .post("http://95.111.242.110:8180/api/auth/login", state)
+    .post(`${addressAPI}/api/auth/login`, state)
     .then((res) => {
       dispatch({ type: LOGIN_SUCCESS, payload: res.data });
     })
@@ -33,7 +35,7 @@ export const loginUser = (state) => (dispatch) => {
 
 export const getUser = () => (dispatch, getState) => {
   axios
-    .get("http://95.111.242.110:8180/api/auth/user", tokenConfig(getState))
+    .get(`${addressAPI}/api/auth/user`, tokenConfig(getState))
     .then((res) => dispatch({ type: USER_LOADED, payload: res.data }))
     .catch((err) => console.log(err));
 };
