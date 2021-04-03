@@ -33,6 +33,11 @@ class AuthController extends Controller
             'email' => (string)$request->email,
             'password' => (string)bcrypt($request->password)
         ]);
+        if ($user->checkExists($user->name, $user->email)) {
+            return response()->json([
+                'message' => 'User with given e-mail and name exists'
+            ], 201);
+        }
         $user->save();
         $user_permission = new UserPermission([
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -102,15 +107,5 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Successfully logged out'
         ]);
-    }
-
-    /**
-     * Get the authenticated User
-     *
-     * @return [json] user object
-     */
-    public function user(Request $request): JsonResponse
-    {
-        return response()->json($request->user());
     }
 }
