@@ -16,7 +16,6 @@ class User extends Authenticatable
         'name', 'email', 'password',
     ];
 
-
     protected $hidden = [
         'password', 'remember_token',
     ];
@@ -39,5 +38,25 @@ class User extends Authenticatable
     public function orders()
     {
         return $this->belongsToMany(Order::class);
+    }
+    public function checkExists(string $name, string $email): bool
+    {
+        $users = User::where('email', '=', $email)
+            ->where('name', '=' , $name)
+            ->first();
+        if(!($users === null))
+        {
+            return true;
+        }
+        return false;
+    }
+    public function checkPermission(User $user)
+    {
+        $permission_id = UserPermission::where('user_id','=',$user->id)
+            ->first();
+        $permission_id =  $permission_id->attributes['permission_id'];
+        $permission_name = Permission::where('id','=',$permission_id)
+            ->first();
+        return $permission_name;
     }
 }
