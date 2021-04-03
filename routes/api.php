@@ -18,7 +18,7 @@ use App\Http\Controllers\UserController;
 */
 
 Route::group([
-    'prefix' => 'auth'
+    'prefix' => 'v1/auth'
 ], function () {
     Route::post('/login', [AuthController::class,'login']);
     Route::post('/signup',[AuthController::class,'signup']);

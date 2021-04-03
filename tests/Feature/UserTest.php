@@ -20,7 +20,7 @@ class UserTest extends TestCase
 
         $name = $this->faker->name();
         $email = $this->faker->email();
-        $response = $this->postJson('/api/auth/signup', [
+        $response = $this->postJson('/api/v1/auth/signup', [
             'name' => $name,
             'email' => $email,
             'password' => $this->password,
@@ -33,7 +33,7 @@ class UserTest extends TestCase
             ->assertExactJson([
                 'message' => "Successfully created user!",
             ]);
-        var_dump($response);
+
     }//testUserCreation
 
 }
