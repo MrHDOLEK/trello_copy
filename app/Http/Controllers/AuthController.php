@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\WelcomeMessage;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\UserPermission;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -33,12 +35,15 @@ class AuthController extends Controller
             'email' => (string)$request->email,
             'password' => (string)bcrypt($request->password)
         ]);
+
         if ($user->checkExists($user->name, $user->email)) {
             return response()->json([
                 'message' => 'User with given e-mail and name exists'
             ], 201);
         }
+
         $user->save();
+
         $user_permission = new UserPermission([
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -46,6 +51,7 @@ class AuthController extends Controller
         ]);
         $user_permission->save();
 
+        Mail::to($user->email)->send(new WelcomeMessage());
         return response()->json([
             'message' => 'Successfully created user!'
         ], 201);
