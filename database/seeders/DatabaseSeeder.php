@@ -3,9 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Database\Seeders\UserSeeder;
-use Database\Seeders\PermissionSeeder;
-use Database\Seeders\UsersPermissionsSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,5 +16,9 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(PermissionSeeder::class);
         $this->call(UsersPermissionsSeeder::class);
+        $this->call(ThemeSeeder::class);
+        $this->call(TablesSeeder::class);
+        $this->call(CardsSeeder::class);
+        $this->call(TasksSeeder::class);
     }
 }

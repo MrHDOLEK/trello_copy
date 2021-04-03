@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Tables\TablesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,14 +21,23 @@ use App\Http\Controllers\UserController;
 Route::group([
     'prefix' => 'v1/auth'
 ], function () {
-    Route::post('/login', [AuthController::class,'login']);
-    Route::post('/signup',[AuthController::class,'signup']);
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/signup', [AuthController::class, 'signup']);
 
     Route::group([
         'middleware' => 'auth:api'
-    ], function() {
-        Route::get('/logout', [AuthController::class,'logout']);
-        Route::get('/user', [UserController::class,'retrieveInfo']);
+    ], function () {
+        Route::get('/logout', [AuthController::class, 'logout']);
+        Route::get('/user', [UserController::class, 'retrieveInfo']);
     });
 });
-
+Route::group([
+    'prefix' => 'v1/manage'
+], function () {
+    Route::get('/tables', [TablesController::class, 'showAll']);
+    Route::group([
+        'middleware' => 'auth:api'
+    ], function () {
+        Route::get('/tables/private', [TablesController::class, 'showPrivate']);
+    });
+});
