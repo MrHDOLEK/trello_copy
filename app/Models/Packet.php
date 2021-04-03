@@ -11,6 +11,14 @@ class Packet extends Model
 
     protected $table = 'packets';
 
+    protected $fillable = [
+        'name','price','description'
+    ];
+
+    protected $hidden = [
+        'permission_id'
+    ];
+
     public function order() {
         return $this->belongsToMany(Order::class);
     }

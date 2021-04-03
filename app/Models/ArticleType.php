@@ -11,6 +11,10 @@ class ArticleType extends Model
 
     protected $table = 'article_types';
 
+    protected $fillable = [
+        'name','description'
+    ];
+
     public function article() {
         return $this->belongsToMany(Article::class);
     }

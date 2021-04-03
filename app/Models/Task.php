@@ -11,6 +11,14 @@ class Task extends Model
 
     protected $table = 'taks';
 
+    protected $fillable = [
+        'task_name','task_content','task_type'
+    ];
+
+    protected $hidden = [
+        'card_id'
+    ];
+
     public function card() {
         return $this->hasOne(Card::class);
     }

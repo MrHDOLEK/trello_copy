@@ -11,6 +11,14 @@ class Bill extends Model
 
     protected $table = 'bills';
 
+    protected $fillable = [
+        'brutto','currency','netto','vat'
+    ];
+
+    protected $hidden = [
+        'buyer','items','order_id'
+    ];
+
     public function order() {
         return $this->hasOne(Order::class);
     }

@@ -11,6 +11,14 @@ class Table extends Model
 
     protected $table = 'tables';
 
+    protected $fillable = [
+        'name','users','is_visible'
+    ];
+
+    protected $hidden = [
+        'theme_id','creator_id','team_id'
+    ];
+
     public function user() {
         return $this->hasOne(User::class);
     }

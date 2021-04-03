@@ -11,6 +11,14 @@ class Order extends Model
 
     protected $table = 'orders';
 
+    protected $fillable = [
+        'status','invoice','hash'
+    ];
+
+    protected $hidden = [
+        'user_id','subscription_id','invoice_data'
+    ];
+
     public function user() {
         return $this->hasOne(User::class);
     }

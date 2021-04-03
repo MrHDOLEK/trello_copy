@@ -11,6 +11,10 @@ class Team extends Model
 
     protected $table = 'teams';
 
+    protected $fillable = [
+        'name','admin','users'
+    ];
+
     public function table() {
         return $this->belongsToMany(Table::class);
     }

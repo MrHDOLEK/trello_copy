@@ -11,6 +11,14 @@ class Card extends Model
 
     protected $table = 'cards';
 
+    protected $fillable = [
+        'card_name','card_content','card_type'
+    ];
+
+    protected $hidden = [
+        'table_id'
+    ];
+
     public function table() {
         return $this->hasOne(Table::class);
     }

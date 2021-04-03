@@ -11,6 +11,14 @@ class Theme extends Model
 
     protected $table = 'themes';
 
+    protected $fillable = [
+        'name','description'
+    ];
+
+    protected $hidden = [
+        'url'
+    ];
+
     public function table() {
         return $this->belongsTo(Table::class);
     }

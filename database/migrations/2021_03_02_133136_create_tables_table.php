@@ -17,7 +17,7 @@ class CreateTablesTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->json('users');
-            $table->boolean('isVisible');
+            $table->boolean('is_visible');
             $table->timestamps();
 
             $table->foreignId('creator_id')->constrained('users');
