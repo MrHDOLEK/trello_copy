@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\UserPermission;
 
 class AuthController extends Controller
 {
@@ -28,12 +29,17 @@ class AuthController extends Controller
         ]);
 
         $user = new User([
-            'name' => (string) $request->name,
+            'name' => (string)$request->name,
             'email' => (string)$request->email,
-            'password' => (string) bcrypt($request->password)
+            'password' => (string)bcrypt($request->password)
         ]);
-
         $user->save();
+        $user_permission = new UserPermission([
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'user_id' => (int)$user->id,
+        ]);
+        $user_permission->save();
 
         return response()->json([
             'message' => 'Successfully created user!'

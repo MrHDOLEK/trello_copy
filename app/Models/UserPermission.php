@@ -10,7 +10,12 @@ class UserPermission extends Model
     use HasFactory;
 
     protected $table = 'users_permissions';
-
+    protected $fillable = [
+        'users_permissions', 'users_permissions', 'user_id'
+    ];
+    protected $hidden = [
+        'permission_id'
+    ];
     public function user() {
         return $this->hasOne(User::class);
     }
