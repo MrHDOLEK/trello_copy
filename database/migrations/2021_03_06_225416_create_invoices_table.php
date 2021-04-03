@@ -26,9 +26,7 @@ class CreateInvoicesTable extends Migration
             $table->binary('pdf');
             $table->timestamps();
 
-            $table->foreignId('order_id')
-                    ->references('id')
-                    ->on('orders');
+            $table->foreignId('order_id')->constrained();
         });
     }
 

@@ -9,6 +9,8 @@ class Task extends Model
 {
     use HasFactory;
 
+    protected $table = 'taks';
+
     public function card() {
         return $this->hasOne(Card::class);
     }

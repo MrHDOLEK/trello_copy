@@ -9,6 +9,8 @@ class Permission extends Model
 {
     use HasFactory;
 
+    protected $table = 'permissions';
+
     public function userPermission() {
         return $this->belongsTo(UserPermission::class);
     }

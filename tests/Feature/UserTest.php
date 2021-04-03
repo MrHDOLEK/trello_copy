@@ -13,7 +13,7 @@ class UserTest extends TestCase
 
     use WithFaker;
 
-    private $password = "mypassword";
+    private string $password = "mypassword";
 
     public function testUserCreation()
     {

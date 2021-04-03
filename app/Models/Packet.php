@@ -9,6 +9,8 @@ class Packet extends Model
 {
     use HasFactory;
 
+    protected $table = 'packets';
+
     public function order() {
         return $this->belongsToMany(Order::class);
     }

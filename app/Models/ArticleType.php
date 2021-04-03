@@ -9,6 +9,8 @@ class ArticleType extends Model
 {
     use HasFactory;
 
+    protected $table = 'article_types';
+
     public function article() {
         return $this->belongsToMany(Article::class);
     }

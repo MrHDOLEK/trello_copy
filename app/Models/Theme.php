@@ -9,6 +9,8 @@ class Theme extends Model
 {
     use HasFactory;
 
+    protected $table = 'themes';
+
     public function table() {
         return $this->belongsTo(Table::class);
     }

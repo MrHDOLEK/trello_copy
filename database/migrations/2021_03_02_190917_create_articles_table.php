@@ -27,13 +27,8 @@ class CreateArticlesTable extends Migration
             $table->text('meta_description')->nullable();
             $table->timestamps();
 
-            $table->foreignId('type_id')
-                    ->references('id')
-                    ->on('article_types');
-
-            $table->foreignId('category_id')
-                    ->references('id')
-                    ->on('article_categories');
+            $table->foreignId('type_id')->constrained('article_types');
+            $table->foreignId('category_id')->constrained('article_categories');
         });
     }
 

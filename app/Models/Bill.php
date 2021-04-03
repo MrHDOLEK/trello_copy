@@ -9,6 +9,8 @@ class Bill extends Model
 {
     use HasFactory;
 
+    protected $table = 'bills';
+
     public function order() {
         return $this->hasOne(Order::class);
     }

@@ -9,6 +9,8 @@ class ArticleCategory extends Model
 {
     use HasFactory;
 
+    protected $table = 'article_categories';
+
     public function article() {
         return $this->belongsToMany(Article::class);
     }

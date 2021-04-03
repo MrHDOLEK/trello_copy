@@ -23,9 +23,7 @@ class CreateBillsTable extends Migration
             $table->integer('vat');
             $table->timestamps();
 
-            $table->foreignId('order_id')
-                ->references('id')
-                ->on('orders');
+            $table->foreignId('order_id')->constrained();
         });
     }
 

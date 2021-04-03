@@ -9,6 +9,8 @@ class UserPersonalData extends Model
 {
     use HasFactory;
 
+    protected $table = 'users_personal_data';
+
     public function user() {
         return $this->hasOne(User::class);
     }

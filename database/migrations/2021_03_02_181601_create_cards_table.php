@@ -20,9 +20,7 @@ class  CreateCardsTable extends Migration
             $table->integer('card_type');
             $table->timestamps();
 
-            $table->foreignId('table_id')
-                    ->references('id')
-                    ->on('tables');
+            $table->foreignId('table_id')->constrained();
         });
     }
 

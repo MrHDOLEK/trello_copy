@@ -15,14 +15,12 @@ class CreatePacketsTable extends Migration
     {
         Schema::create('packets', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->double('price');
             $table->text('description');
             $table->timestamps();
 
-            $table->foreignId('permission_id')
-                    ->references('id')
-                    ->on('packets_permissions');
+            $table->foreignId('permission_id')->constrained('packets_permissions');
         });
     }
 

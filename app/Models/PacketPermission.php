@@ -9,6 +9,8 @@ class PacketPermission extends Model
 {
     use HasFactory;
 
+    protected $table = 'packets_permissions';
+
     public function packet() {
         return $this->belongsToMany(Packet::class);
     }

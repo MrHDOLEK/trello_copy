@@ -9,6 +9,8 @@ class Article extends Model
 {
     use HasFactory;
 
+    protected $table = 'articles';
+
     public function article_category() {
         return $this->hasOne(ArticleCategory::class);
     }

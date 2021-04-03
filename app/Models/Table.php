@@ -9,6 +9,8 @@ class Table extends Model
 {
     use HasFactory;
 
+    protected $table = 'tables';
+
     public function user() {
         return $this->hasOne(User::class);
     }

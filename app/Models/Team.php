@@ -9,6 +9,8 @@ class Team extends Model
 {
     use HasFactory;
 
+    protected $table = 'teams';
+
     public function table() {
         return $this->belongsToMany(Table::class);
     }

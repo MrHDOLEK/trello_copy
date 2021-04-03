@@ -20,9 +20,7 @@ class CreateUsersPersonalDataTable extends Migration
             $table->string('address');
             $table->timestamps();
 
-            $table->foreignId('user_id')
-                     ->references('id')
-                     ->on('users');
+            $table->foreignId('user_id')->constrained();
         });
     }
 

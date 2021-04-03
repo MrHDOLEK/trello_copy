@@ -21,13 +21,8 @@ class CreateOrdersTable extends Migration
             $table->string('hash');
             $table->timestamps();
 
-            $table->foreignId('user_id')
-                    ->references('id')
-                    ->on('users');
-
-            $table->foreignId('subscription_id')
-                    ->references('id')
-                    ->on('packets');
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('subscription_id')->constrained('packets');
         });
     }
 

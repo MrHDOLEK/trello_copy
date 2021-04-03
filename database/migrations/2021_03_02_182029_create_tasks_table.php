@@ -20,9 +20,7 @@ class CreateTasksTable extends Migration
             $table->integer('task_type');
             $table->timestamps();
 
-            $table->foreignId('card_id')
-                    ->references('id')
-                    ->on('cards');
+            $table->foreignId('card_id')->constrained();
         });
     }
 
