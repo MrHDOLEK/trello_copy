@@ -12,12 +12,9 @@ class UserPersonalData extends Model
     protected $table = 'users_personal_data';
 
     protected $fillable = [
-        'avatar'
+        'avatar','user_id','regulation_accepted','address'
     ];
 
-    protected $hidden = [
-        'regulation_accepted','address'
-    ];
 
     public function user() {
         return $this->hasOne(User::class);
