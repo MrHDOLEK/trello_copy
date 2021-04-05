@@ -34,7 +34,8 @@ Route::group([
 Route::group([
     'prefix' => 'v1/manage'
 ], function () {
-    Route::get('/tables', [TablesController::class, 'showAll']);
+    Route::get('/tables/public', [TablesController::class, 'showPublic']);
+    Route::get('/tables/public/details', [TablesController::class, 'showPublicDetails']);
     Route::group([
         'middleware' => 'auth:api'
     ], function () {

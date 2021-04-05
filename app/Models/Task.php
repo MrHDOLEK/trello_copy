@@ -16,10 +16,14 @@ class Task extends Model
     ];
 
     protected $hidden = [
-        'card_id'
+        'id','card_id'
     ];
 
     public function card() {
-        return $this->hasOne(Card::class);
+        return $this->hasOne(Card::class ,'id','card_id');
+    }
+    public function getAssignedTask(int $id_card)
+    {
+        return Task::get();
     }
 }

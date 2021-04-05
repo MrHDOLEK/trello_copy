@@ -39,7 +39,7 @@ class AuthController extends Controller
         if ($user->checkExists($user->name, $user->email)) {
             return response()->json([
                 'message' => 'User with given e-mail and name exists'
-            ], 201);
+            ], 200);
         }
 
         $user->save();
@@ -98,7 +98,7 @@ class AuthController extends Controller
             'expires_at' => Carbon::parse(
                 $tokenResult->token->expires_at
             )->toDateTimeString()
-        ]);
+        ],200);
     }
 
     /**
@@ -112,6 +112,6 @@ class AuthController extends Controller
 
         return response()->json([
             'message' => 'Successfully logged out'
-        ]);
+        ],200);
     }
 }

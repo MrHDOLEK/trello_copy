@@ -10,13 +10,16 @@ class Theme extends Model
     use HasFactory;
 
     protected $table = 'themes';
+    protected $primaryKey = 'id';
+    public $incrementing = true;
+    protected $keyType = 'int';
 
     protected $fillable = [
-        'name','description'
+        'name','description','url'
     ];
 
     protected $hidden = [
-        'url'
+        'id','created_at','updated_at'
     ];
 
     public function table() {

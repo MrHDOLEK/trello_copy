@@ -4,28 +4,42 @@ namespace App\Http\Controllers\Tables;
 
 use App\Http\Controllers\Controller;
 use App\Models\Table;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class  TablesController extends Controller
 {
-    public function showAll()
+    public function showPublic() : JsonResponse
     {
         $table = new Table();
-        dump($table->getPublic());
+        return response()->json($table->getPublic(),200);
     }
-    public function showPrivate()
+    public function showPublicDetails(Request  $request) : JsonResponse
     {
-        return 0;
+        $validated = $request->validate([
+            'id' => 'required|int|max:255',
+        ]);
+        $table = new Table();
+        return response()->json($table->getCards($request->id),200);
     }
-    public function create()
+    public function showPrivate() : JsonResponse
     {
-        return 0;
+        return response()->json(0,200);
     }
-    public function update()
+    public function showPrivateDetails() : JsonResponse
     {
-        return 0;
+        return response()->json(0,200);
     }
-    public function delete()
+    public function create() : JsonResponse
     {
-        return 0;
+        return response()->json(0,200);
+    }
+    public function update() : JsonResponse
+    {
+        return response()->json(0,200);
+    }
+    public function delete() : JsonResponse
+    {
+        return response()->json(0,200);
     }
 }
