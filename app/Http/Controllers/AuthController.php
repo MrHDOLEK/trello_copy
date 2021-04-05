@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\WelcomeMessage;
+use App\Models\UserPersonalData;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +28,9 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required|string',
             'email' => 'required|string|email|unique:users',
-            'password' => 'required|string|confirmed'
+            'password' => 'required|string|confirmed',
+            'address' => 'string',
+            'regulation_accepted' => 'required|boolean'
         ]);
 
         $user = new User([
@@ -43,6 +46,13 @@ class AuthController extends Controller
         }
 
         $user->save();
+
+        $user_personal_data = new UserPersonalData([
+            'address' => (string)$request->address,
+            'regulation_accepted' => (bool)$request->regulation_accepted,
+            'user_id' => (integer)$user->id,
+        ]);
+        $user_personal_data->save();
 
         $user_permission = new UserPermission([
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
