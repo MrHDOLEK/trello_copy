@@ -3,12 +3,12 @@
 
 # Routy
 
-### Rejestracja/Logowanie
+# Rejestracja/Logowanie
 
 
-#### Metoda POST
+### Metoda POST
 
-##### Rejestracja `/api/v1/auth/signup`
+### Rejestracja `/api/v1/auth/signup`
     {    
          "name" : "Aleksander",    
          "email" : "test@test.pl",   
@@ -22,7 +22,7 @@
    }
     ``` 
 	  
-##### Logowanie `/api/v1/auth/login`
+### Logowanie `/api/v1/auth/login`
 	  {    
 		 "email" : "test@test.pl",   
 		 "password" :"test",  
@@ -37,13 +37,13 @@
 		"expires_at" : "2021-03-09 20:45:03"
 	}
     ```
-#### Metoda GET
+### Metoda GET
 - Użytkownik `/api/v1/auth/user`  
 - Wylogowanie `/api/v1/auth/logout`  
 
-### Zarządzanie danymi personalnymi użytkownika
+# Zarządzanie danymi personalnymi użytkownika
 
-#### Metoda POST
+### Metoda POST
 
 ##### Awatar `/api/v1/user/avatar/post`
 - Należy wysłać obraz z rozszerzeniem *jpg*
@@ -58,12 +58,12 @@
         "message": "Success!"
     }
 ```
-#### Metoda GET
+### Metoda GET
 
-##### Awatar `/api/v1/user/avatar`
+### Awatar `/api/v1/user/avatar`
 - Jeśli uda się pobrać awatar to otrzymasz go jako *blob*
 
-##### Adres `/api/v1/user/address/`
+### Adres `/api/v1/user/address/`
 - Jeśli uda się pobrać adres to otrzymasz taką wiadomość
 ```json
     {
@@ -75,7 +75,7 @@
     }
 ```
 
-##### Akceptacja regulaminu `/api/v1/user/regulation`
+### Akceptacja regulaminu `/api/v1/user/regulation`
 - Jeśli uda się pobrać akceptacje regulaminu to otrzymasz taką wiadomość
 ```json
     {
@@ -87,9 +87,9 @@
     }   
 ```
 
-#### Metoda PUT
+### Metoda PUT
 
-##### Adres `/api/v1/user/address/update`
+### Adres `/api/v1/user/address/update`
 ```json
     {
         "address": "example address"
@@ -102,7 +102,7 @@
     }
 ```
 
-##### Akceptacja regulaminu `/api/v1/user/regulation/update`
+### Akceptacja regulaminu `/api/v1/user/regulation/update`
 ```json
     {
        "regulation_accepted": false
@@ -115,9 +115,9 @@
     }
 ```
 
-#### Metoda DELETE
+### Metoda DELETE
 
-##### Awatar `/api/v1/user/avatar/delete`
+### Awatar `/api/v1/user/avatar/delete`
 - Jeśli uda się usunąć awatar to otrzymasz taką wiadomość
 ```json
     {
@@ -125,7 +125,7 @@
     }
 ```
 
-##### Adres `/api/v1/user/address/delete`
+### Adres `/api/v1/user/address/delete`
 - Jeśli uda się usunąć adres to otrzymasz taką wiadomość
 ```json
     {
