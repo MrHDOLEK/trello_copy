@@ -8,28 +8,31 @@
 
 ### Metoda POST
 
-### Rejestracja `/api/v1/auth/signup`
+- Rejestracja `/api/v1/auth/signup`
+   ```json
     {    
          "name" : "Aleksander",    
          "email" : "test@test.pl",   
          "password" :"test",  
          "password_confirmation": "test"    
     }
- - Jeśli się uda stworzyć użytkownika to dostaniesz taką wiadomość
+   ```
+- Jeśli się uda stworzyć użytkownika to dostaniesz taką wiadomość
    ```json
    {
          "message" : "Successfully created user!"
    }
-    ``` 
+   ``` 
 	  
-### Logowanie `/api/v1/auth/login`
-	  {    
-		 "email" : "test@test.pl",   
-		 "password" :"test",  
-		 "remember_me"  :  1  
-	  } 
-   
- - Jeśli się uda się zalogować to dostaniesz taką wiadomość
+- Logowanie `/api/v1/auth/login`
+	```json
+    {    
+	     "email" : "test@test.pl",   
+	     "password" :"test",  
+    	 "remember_me"  :  1  
+	} 
+    ```
+- Jeśli się uda się zalogować to dostaniesz taką wiadomość
     ```json
 	{
 		"access_token" : "13123132",  
@@ -45,27 +48,27 @@
 
 ### Metoda POST
 
-##### Awatar `/api/v1/user/avatar/post`
+- Awatar `/api/v1/user/avatar/post`
 - Należy wysłać obraz z rozszerzeniem *jpg*
-```json
+    ```json
     {
         "image": "image_here.jpg"
     }
-```
+    ```
 - Jeśli uda się zapisać awatar to otrzymasz taką wiadomość
-```json
+    ```json
     {
         "message": "Success!"
     }
-```
+    ```
 ### Metoda GET
 
-### Awatar `/api/v1/user/avatar`
+- Awatar `/api/v1/user/avatar`
 - Jeśli uda się pobrać awatar to otrzymasz go jako *blob*
 
-### Adres `/api/v1/user/address/`
+- Adres `/api/v1/user/address/`
 - Jeśli uda się pobrać adres to otrzymasz taką wiadomość
-```json
+    ```json
     {
         "address": [
             {
@@ -73,11 +76,11 @@
             }
         ]
     }
-```
+    ```
 
-### Akceptacja regulaminu `/api/v1/user/regulation`
+- Akceptacja regulaminu `/api/v1/user/regulation`
 - Jeśli uda się pobrać akceptacje regulaminu to otrzymasz taką wiadomość
-```json
+    ```json
     {
         "regulation_accepted": [
             {
@@ -85,50 +88,50 @@
             }
         ]
     }   
-```
+    ```
 
 ### Metoda PUT
 
-### Adres `/api/v1/user/address/update`
-```json
+- Adres `/api/v1/user/address/update`
+    ```json
     {
         "address": "example address"
     }
-```
+    ```
 - Jeśli uda się zapisać adres to otrzymasz taką wiadomość
-```json
+    ```json
     {
         "message": "Success! Address updated!"
     }
-```
+    ```
 
-### Akceptacja regulaminu `/api/v1/user/regulation/update`
-```json
+- Akceptacja regulaminu `/api/v1/user/regulation/update`
+    ```json
     {
        "regulation_accepted": false
     }
-```
+    ```
 - Jeśli uda się zapisać wartość to otrzymasz taką wiadomość
-```json
+    ```json
     {
         "message": "Succes! Regulation set as accepted!"
     }
-```
+    ```
 
 ### Metoda DELETE
 
-### Awatar `/api/v1/user/avatar/delete`
+- Awatar `/api/v1/user/avatar/delete`
 - Jeśli uda się usunąć awatar to otrzymasz taką wiadomość
-```json
+    ```json
     {
         "message": "Success! Avatar deleted!"
     }
-```
+    ```
 
-### Adres `/api/v1/user/address/delete`
+- Adres `/api/v1/user/address/delete`
 - Jeśli uda się usunąć adres to otrzymasz taką wiadomość
-```json
+    ```json
     {
         "message": "Success! Address deleted!"
     }
-```
+    ```
