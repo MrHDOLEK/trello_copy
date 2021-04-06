@@ -17,7 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->integer('status');
             $table->boolean('invoice');
-            $table->json('invoice_data');
+            $table->json('invoice_data')->nullable();
             $table->string('hash');
             $table->timestamps();
 

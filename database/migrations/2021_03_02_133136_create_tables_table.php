@@ -15,14 +15,14 @@ class CreateTablesTable extends Migration
     {
         Schema::create('tables', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->json('users');
             $table->boolean('is_visible');
             $table->timestamps();
 
             $table->foreignId('creator_id')->constrained('users');
             $table->foreignId('theme_id')->constrained();
-            $table->foreignId('team_id')->constrained();
+            $table->foreignId('team_id')->nullable()->constrained();
         });
     }
 

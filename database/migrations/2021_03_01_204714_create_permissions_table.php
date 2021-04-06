@@ -17,7 +17,7 @@ class CreatePermissionsTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->integer('type')->unique();
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('rule_name');
             $table->json('data');
             $table->timestamps();
