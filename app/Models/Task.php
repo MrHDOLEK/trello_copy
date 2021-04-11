@@ -16,7 +16,7 @@ class Task extends Model
     ];
 
     protected $hidden = [
-        'id','card_id'
+        'id','card_id','pivot'
     ];
 
     public function card() {

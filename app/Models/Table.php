@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,63 +18,83 @@ class Table extends Model
     private int $visible_public = 1;
     private int $visible_private = 0;
 
+    protected $guarded = ['id'];
     protected $fillable = [
-        'users','name','id'
+        'users', 'name','creator_id','theme_id'
     ];
     protected $hidden = [
-       'is_visible','theme_id','creator_id','creator_id', 'team_id'
+        'is_visible','team_id', 'pivot'
     ];
 
     public function user()
     {
-        return $this->hasOne(User::class,'id','creator_id');
+        return $this->hasOne(User::class, 'id', 'creator_id');
 
     }
 
     public function theme()
     {
-        return $this->hasOne(Theme::class,'id','theme_id');
+        return $this->hasOne(Theme::class, 'id', 'theme_id');
     }
 
     public function team()
     {
-        return $this->hasOne(Team::class,'id','team_id');
+        return $this->hasOne(Team::class, 'id', 'team_id');
     }
 
-     public function card()
+    public function card()
     {
-        return $this->belongsToMany(Card::class,'card_table' , 'card_id' , 'table_id');
+        return $this->hasMany(Card::class);
     }
 
     public function task()
     {
-        return $this->belongsToMany(Task::class,'task_card' , 'task_id' , 'card_id');
+        return $this->hasMany(Task::class);
     }
 
-    public function getPublic()
+    public function getPublicTable()
     {
-        $result = Table::where('isVisible', '=', $this->visible_public)
+        $result = Table::where('isVisible', $this->visible_public)
             ->paginate(20);
         return $result;
     }
 
-    public function getPrivate()
+    public function getPrivateTable(int $user_id)
     {
-
+        $result = Table::where('creator_id', $user_id)
+            ->get();
+        return $result;
     }
-    public function getCards(int $id_table)
-    {
-       // return Table::card();
-        //return Card::where('table_id',$id_table)
-          //  ->task()
-          //  ->get();
 
-        //$card = Card::where('table_id',$id_table)->get();
-       // dd($card->id);
-       // return Task::get();
-    /*Todo:
-       Odzysk po id danej tabeli calego contentu czyt taski,cardy*/
-        return Table::first()->card()->task()->get();
+    public function getPublicContent(int $id_table)
+    {
+        $content = Table::with('card.task')->find($id_table);
+
+        if (!$content->is_visible == 0) {
+            return $content;
+        }
+        return null;
+    }
+
+    public function getPrivateContent(int $id_table,int $user_id)
+    {
+        return Table::with('card.task')
+            ->where('creator_id', $user_id)
+            ->find($id_table);
+    }
+    public function new(string $name,string $name_user,int $creator_id)
+    {
+
+            return $table = Table::create([
+                'users' => json_encode([$name_user]),
+                'name' => $name,
+                'is_visible' => 1,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'creator_id' => $creator_id,
+                'theme_id' => 1,
+            ]);
+
 
     }
 }

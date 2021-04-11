@@ -5,6 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Tables\TablesController;
 use App\Http\Controllers\UserPersonalDataController;
+use App\Http\Controllers\Tables\CardsController;
+use App\Http\Controllers\Tables\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,13 +40,14 @@ Route::group([
     Route::get('/tables/public', [TablesController::class, 'showPublic']);
     Route::get('/tables/public/details', [TablesController::class, 'showPublicDetails']);
 
-    Route::get('/tables', [TablesController::class, 'showAll']);
-
-
     Route::group([
         'middleware' => 'auth:api'
     ], function () {
         Route::get('/tables/private', [TablesController::class, 'showPrivate']);
+        Route::get('/tables/private/details', [TablesController::class, 'showPrivateDetails']);
+        Route::post('/tables', [TablesController::class, 'create']);
+        Route::post('/cards', [CardsController::class, 'create']);
+        Route::post('/tasks', [TaskController::class, 'create']);
     });
 });
 
