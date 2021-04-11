@@ -18,7 +18,7 @@ class TablesSeeder extends Seeder
         DB::table('tables')->insert([
             'name' => 'welcome',
             'users' => json_encode(['admin']),
-            'isVisible' => 1,
+            'is_visible' => 1,
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'creator_id' => 2,
