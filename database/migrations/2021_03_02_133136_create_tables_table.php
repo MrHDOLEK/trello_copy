@@ -17,11 +17,13 @@ class CreateTablesTable extends Migration
             $table->id();
             $table->string('name');
             $table->json('users');
+
             $table->boolean('is_visible')->default(0);
+
             $table->timestamps();
 
             $table->foreignId('creator_id')->constrained('users');
-            $table->foreignId('theme_id')->constrained();
+            $table->foreignId('theme_id')->default(1)->constrained();
             $table->foreignId('team_id')->nullable()->constrained();
         });
     }

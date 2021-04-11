@@ -14,7 +14,9 @@
          "name" : "Aleksander",    
          "email" : "test@test.pl",   
          "password" :"test",  
-         "password_confirmation": "test"    
+         "password_confirmation": "test",
+         "address": "example address",
+         "regulation_accepted": true    
     }
    ```
 - Jeśli się uda stworzyć użytkownika to dostaniesz taką wiadomość
