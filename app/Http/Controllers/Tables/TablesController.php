@@ -59,7 +59,7 @@ class  TablesController extends Controller
         $user_id =(int) $request->user()->id;
         $table_name = (string) $request->name;
         $table = new Table();
-        $message = $table->new($table_name,$user_name,$user_id);
+        $message = $table->createTable($table_name,$user_name,$user_id);
         if (!empty($message)) {
             return response()->json('Table have been successfully created', 200);
         }
@@ -69,11 +69,34 @@ class  TablesController extends Controller
 
     public function update(Request $request): JsonResponse
     {
-        return response()->json(0, 200);
+        $validated = $request->validate([
+            'id' => 'required|int|max:255',
+            'name' => 'required|string|max:255',
+            'is_visible' => 'required|int|max:255',
+        ]);
+        $user_id =(int) $request->user()->id;
+        $table_name = (string) $request->name;
+        $table = new Table();
+        $message = $table->updateTable($request->id,$request->is_visible,$table_name,$user_id);
+        if (!empty($message)) {
+            return response()->json('Table have been successfully update', 200);
+        }
+
+        return response()->json(['message' => 'Update error'], 400);
     }
 
     public function delete(Request $request): JsonResponse
     {
-        return response()->json(0, 200);
+        $validated = $request->validate([
+            'id' => 'required|int|max:255',
+        ]);
+        $user_id =(int) $request->user()->id;
+        $table = new Table();
+        $message = $table->deleteTable($request->id,$user_id);
+        if (!empty($message)) {
+            return response()->json('Table have been successfully delete', 200);
+        }
+
+        return response()->json(['message' => 'Delete error'], 400);
     }
 }

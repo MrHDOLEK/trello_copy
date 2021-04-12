@@ -20,10 +20,10 @@ class Table extends Model
 
     protected $guarded = ['id'];
     protected $fillable = [
-        'users', 'name','creator_id','theme_id'
+        'users', 'name', 'creator_id', 'theme_id', 'is_visible'
     ];
     protected $hidden = [
-        'is_visible','team_id', 'pivot'
+        'team_id', 'pivot'
     ];
 
     public function user()
@@ -76,25 +76,51 @@ class Table extends Model
         return null;
     }
 
-    public function getPrivateContent(int $id_table,int $user_id)
+    public function getPrivateContent(int $id_table, int $user_id)
     {
         return Table::with('card.task')
             ->where('creator_id', $user_id)
-            ->find($id_table);
+            ->find($id_table)
+            ->firstOrFail();
     }
-    public function new(string $name,string $name_user,int $creator_id)
+
+    public function createTable(string $name, string $name_user, int $creator_id)
     {
+        return $table = Table::create([
+            'users' => json_encode([$name_user]),
+            'name' => $name,
+            'is_visible' => 1,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'creator_id' => $creator_id,
+            'theme_id' => 1,
+        ]);
+    }
 
-            return $table = Table::create([
-                'users' => json_encode([$name_user]),
-                'name' => $name,
-                'is_visible' => 1,
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'creator_id' => $creator_id,
-                'theme_id' => 1,
-            ]);
+    public function updateTable(int $id, int $is_visible, string $table_name, int $user_id)
+    {
+        $creator_id = Table::where('id',$id)->where('creator_id',$user_id)->firstOrFail();
+        if (!($creator_id->creator_id == $user_id)) {
+            return null;
+        }
+        Table::find($id)->update([
+            'name' => $table_name,
+            'is_visible' => $is_visible,
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'creator_id' => $user_id,
+            'theme_id' => 1,
+        ]);
 
+        return true;
+    }
 
+    public function deleteTable(int $id, int $user_id)
+    {
+        $creator_id = Table::where('id',$id)->where('creator_id',$user_id)->firstOrFail();
+        if (!($creator_id->creator_id == $user_id)) {
+            return null;
+        }
+        Table::find($id)->delete();
+        return true;
     }
 }

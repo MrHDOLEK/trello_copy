@@ -15,8 +15,8 @@ class CreateTaskCard extends Migration
     {
         Schema::create('task_card', function (Blueprint $table) {
 
-            $table->foreignId('card_id')->constrained('cards');
-            $table->foreignId('task_id')->constrained('tasks');
+            $table->foreignId('card_id')->constrained('cards')->onDelete('cascade');
+            $table->foreignId('task_id')->constrained('tasks')->onDelete('cascade');
 
         });
     }
