@@ -54,7 +54,7 @@ class Table extends Model
 
     public function getPublicTable()
     {
-        $result = Table::where('isVisible', $this->visible_public)
+        $result = Table::where('is_visible', $this->visible_public)
             ->paginate(20);
         return $result;
     }
@@ -78,10 +78,12 @@ class Table extends Model
 
     public function getPrivateContent(int $id_table, int $user_id)
     {
-        return Table::with('card.task')
-            ->where('creator_id', $user_id)
-            ->find($id_table)
-            ->firstOrFail();
+        $content = Table::with('card.task')->find($id_table);
+
+        if ($content->creator_id == $user_id) {
+            return $content;
+        }
+        return null;
     }
 
     public function createTable(string $name, string $name_user, int $creator_id)

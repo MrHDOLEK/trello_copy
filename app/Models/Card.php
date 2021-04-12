@@ -6,7 +6,6 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use MongoDB\Driver\Exception\ExecutionTimeoutException;
 
 class Card extends Model
 {
@@ -21,7 +20,7 @@ class Card extends Model
     ];
     //zabezpieczenie table+id
     protected $fillable = [
-        'card_name', 'card_content', 'card_type', 'updated_at','table_id'
+        'card_name', 'card_content', 'card_type', 'updated_at', 'table_id'
     ];
 
     protected $hidden = [
@@ -35,12 +34,14 @@ class Card extends Model
 
     public function task()
     {
-        return $this->belongsToMany(Task::class, 'task_card', 'task_id', 'card_id');
+        return $this->hasMany(Task::class);
     }
 
     public function createCard(int $id, string $card_name, string $card_content, int $user_id)
     {
-        $creator_id = Table::where('id',$id)->where('creator_id',$user_id)->firstOrFail();
+
+
+        $creator_id = Table::where('id', $id)->where('creator_id', $user_id)->firstOrFail();
         if (!($creator_id->creator_id == $user_id)) {
             return null;
         }
@@ -65,7 +66,7 @@ class Card extends Model
     public function updateCard(int $id, string $card_name, string $card_content, int $user_id)
     {
         $table_id = Card::find($id)->get('table_id');
-        $creator_id = Table::where('id',$table_id[0]['table_id'])->where('creator_id',$user_id)->firstOrFail();
+        $creator_id = Table::where('id', $table_id[0]['table_id'])->where('creator_id', $user_id)->firstOrFail();
         if (!($creator_id->creator_id == $user_id)) {
             return null;
         }
@@ -80,13 +81,10 @@ class Card extends Model
     public function deleteCard(int $id, int $user_id)
     {
         $table_id = Card::find($id)->get('table_id');
-        $creator_id = Table::where('id',$table_id[0]['table_id'])->where('creator_id',$user_id)->firstOrFail();
+        $creator_id = Table::where('id', $table_id[0]['table_id'])->where('creator_id', $user_id)->firstOrFail();
         if (!($creator_id->creator_id == $user_id)) {
             return null;
         }
-        //Do poprawy można to w pełni zrobić na orm
-        DB::table('card_table')->where('card_id', $id)->delete();
-        DB::table('task_card')->where('card_id', $id)->delete();
         Card::task()->delete();
         Card::find($id)->delete();
         return true;

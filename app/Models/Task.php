@@ -73,8 +73,6 @@ class Task extends Model
         if (!($creator_id->creator_id == $user_id)) {
             return null;
         }
-        //Do poprawy można to w pełni zrobić na orm
-        DB::table('task_card')->where('task_id', $id)->delete();
         Task::find($id)->delete();
 
         return true;
