@@ -22,17 +22,10 @@ class Table extends Model
 
     protected $guarded = ['id'];
     protected $fillable = [
-<<<<<<< HEAD
-        'users','name','id','creator_id'
-    ];
-    protected $hidden = [
-       'is_visible','theme_id', 'team_id'
-=======
         'users', 'name', 'creator_id', 'theme_id', 'is_visible'
     ];
     protected $hidden = [
         'team_id', 'pivot'
->>>>>>> bf5cdb31afc87c81c795d5311ba4d2840a740d58
     ];
 
     public function user()
