@@ -12,11 +12,7 @@ class Packet extends Model
     protected $table = 'packets';
 
     protected $fillable = [
-        'name','price','description'
-    ];
-
-    protected $hidden = [
-        'permission_id'
+        'name','price','description','permission_id'
     ];
 
     public function order() {

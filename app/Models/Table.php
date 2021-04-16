@@ -18,10 +18,10 @@ class Table extends Model
     private int $visible_private = 0;
 
     protected $fillable = [
-        'users','name','id'
+        'users','name','id','creator_id'
     ];
     protected $hidden = [
-       'is_visible','theme_id','creator_id','creator_id', 'team_id'
+       'is_visible','theme_id', 'team_id'
     ];
 
     public function user()

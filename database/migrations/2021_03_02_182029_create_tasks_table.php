@@ -20,7 +20,7 @@ class CreateTasksTable extends Migration
             $table->integer('task_type');
             $table->timestamps();
 
-            $table->foreignId('card_id')->constrained();
+            $table->foreignId('card_id')->constrained()->cascadeOnDelete();
         });
     }
 

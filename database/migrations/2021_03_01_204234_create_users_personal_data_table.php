@@ -19,7 +19,7 @@ class CreateUsersPersonalDataTable extends Migration
             $table->string('address')->nullable();
             $table->timestamps();
 
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
         });
     }
 

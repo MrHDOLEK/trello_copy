@@ -29,9 +29,13 @@ class UserPersonalDataController extends Controller
     }
 
     public function getAvatar(Request $request) {
-        $path = 'avatars/' . $request->user()->id;
+        $avatar = 'avatars/' . $request->user()->id . '/avatar.jpg';
+        $default_avatar = 'avatars/default/' . random_int(1,30) . '.png';
 
-        return Storage::disk('public')->get($path . '/avatar.jpg');
+        if(Storage::disk('public')->exists($avatar))
+            return Storage::disk('public')->get($avatar);
+        else
+            return Storage::disk('public')->get($default_avatar);
     }
 
     public function deleteAvatar(Request $request) {

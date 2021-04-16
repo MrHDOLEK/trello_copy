@@ -20,7 +20,7 @@ class CreateTablesTable extends Migration
             $table->boolean('is_visible')->default(false);
             $table->timestamps();
 
-            $table->foreignId('creator_id')->constrained('users');
+            $table->foreignId('creator_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('theme_id')->default(1)->constrained();
             $table->foreignId('team_id')->nullable()->constrained();
         });

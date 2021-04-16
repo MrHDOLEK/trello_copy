@@ -1,5 +1,12 @@
 <?php
 
+
+use App\Http\Controllers\Admin\ManageArticleCategoriesController;
+use App\Http\Controllers\Admin\ManageArticlesController;
+use App\Http\Controllers\Admin\ManageArticleTypesController;
+use App\Http\Controllers\Admin\ManageUsersController;
+use App\Http\Controllers\Admin\ManagePacketsController;
+use App\Http\Controllers\Admin\ManageTablesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
@@ -74,5 +81,71 @@ Route::group([
     ], function () {
         Route::get('',[UserPersonalDataController::class,'isRegulationAccepted']);
         Route::put('/update',[UserPersonalDataController::class,'setRegulationAcceptance']);
+    });
+});
+
+Route::group([
+    'prefix' => 'v1/manage',
+    'middleware' => 'auth:api'
+], function () {
+
+    Route::group([
+        'prefix' => 'user'
+    ], function () {
+        Route::post('/create',[ManageUsersController::class, 'createUser']);
+        Route::get('',[ManageUsersController::class,'getUsers']);
+        Route::get('/details',[ManageUsersController::class,'getUserDetails']);
+        Route::put('/update',[ManageUsersController::class,'updateUser']);
+        Route::delete('/delete',[ManageUsersController::class,'deleteUser']);
+    });
+
+    Route::group([
+        'prefix' => 'portal'
+    ], function () {
+
+        Route::group([
+            'prefix' => 'packet'
+        ], function () {
+            Route::post('/create',[ManagePacketsController::class, 'createPacket']);
+            Route::get('',[ManagePacketsController::class, 'getPackets']);
+            Route::put('/update',[ManagePacketsController::class, 'updatePacket']);
+            Route::delete('/delete',[ManagePacketsController::class, 'deletePacket']);
+        });
+
+        Route::group([
+            'prefix' => 'article'
+        ], function () {
+           Route::post('/create',[ManageArticlesController::class, 'createArticle']);
+           Route::get('',[ManageArticlesController::class, 'getArticles']);
+           Route::put('/update',[ManageArticlesController::class, 'updateArticle']);
+           Route::delete('/delete',[ManageArticlesController::class, 'deleteArticle']);
+
+           Route::group([
+               'prefix' => 'category'
+           ], function () {
+               Route::post('/create',[ManageArticleCategoriesController::class, 'create']);
+               Route::get('',[ManageArticleCategoriesController::class, 'get']);
+               Route::put('/update',[ManageArticleCategoriesController::class, 'update']);
+               Route::delete('/delete',[ManageArticleCategoriesController::class, 'delete']);
+           });
+
+           Route::group([
+               'prefix' => 'type'
+           ], function () {
+               Route::post('/create',[ManageArticleTypesController::class, 'create']);
+               Route::get('',[ManageArticleTypesController::class, 'get']);
+               Route::put('/update',[ManageArticleTypesController::class, 'update']);
+               Route::delete('/delete',[ManageArticleTypesController::class, 'delete']);
+           });
+        });
+    });
+
+    Route::group([
+        'prefix' => 'table'
+    ], function () {
+        Route::post('/create',[ManageTablesController::class, 'createTable']);
+        Route::get('',[ManageTablesController::class, 'getTables']);
+        Route::put('/update',[ManageTablesController::class, 'updateTable']);
+        Route::delete('/delete',[ManageTablesController::class, 'deleteTable']);
     });
 });
