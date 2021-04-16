@@ -20,12 +20,9 @@ class DatabaseSeeder extends Seeder
         $this->call(TablesSeeder::class);
         $this->call(CardsSeeder::class);
         $this->call(TasksSeeder::class);
-<<<<<<< HEAD
         $this->call(ArticleCategoriesSeeder::class);
         $this->call(ArticleTypesSeeder::class);
-=======
         $this->call(CardTableSeeder::class);
         $this->call(TaskCardSeeder::class);
->>>>>>> bf5cdb31afc87c81c795d5311ba4d2840a740d58
     }
 }
