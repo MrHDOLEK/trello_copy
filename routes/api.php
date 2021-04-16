@@ -7,6 +7,7 @@ use App\Http\Controllers\Tables\TablesController;
 use App\Http\Controllers\UserPersonalDataController;
 use App\Http\Controllers\Tables\CardsController;
 use App\Http\Controllers\Tables\TaskController;
+use App\Http\Controllers\Tables\TeamsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +57,10 @@ Route::group([
         Route::post('/tasks', [TaskController::class, 'create']);
         Route::put('/tasks', [TaskController::class, 'update']);
         Route::delete('/tasks', [TaskController::class, 'delete']);
+
+        Route::get('/teams', [TeamsController::class, 'show']);
+        Route::post('/teams', [TeamsController::class, 'create']);
+        Route::delete('/teams', [TeamsController::class, 'delete']);
     });
 });
 
