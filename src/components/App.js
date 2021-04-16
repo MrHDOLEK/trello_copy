@@ -13,15 +13,15 @@ import AuthenticationPage from "./authentication/AuthenticationPage";
 import MainPage from "./mainPage/MainPage";
 
 import { getUser } from "../actions/auth";
-
-// import { getCookie } from "../functions/cookies";
+import { getCookie } from "../functions/cookies";
 
 function App() {
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.authReducer.token);
+  // const token = useSelector((state) => state.authReducer.token);
 
   useEffect(() => {
-    dispatch(getUser());
+    const token = getCookie("token");
+    token && dispatch(getUser());
   });
 
   return (
@@ -34,11 +34,8 @@ function App() {
           <Route exact path="/login">
             <AuthenticationPage option={"login"} />
           </Route>
-          <PrivateRoute component={MainPage} exact path="/s" />
-          <Route path="/main">
-            <MainPage />
-          </Route>
-          <Redirect from="/" to="/main" />
+          <PrivateRoute component={MainPage} path="/main" />
+          <Redirect from="/" to="/main/boards_list" />
         </Switch>
       </Router>
     </div>

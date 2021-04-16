@@ -4,6 +4,7 @@ import { Link, Redirect } from "react-router-dom";
 
 import InputField from "../common/InputField";
 import Button from "../common/Button";
+import Checkbox from "../common/Checkbox";
 
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../actions/auth";
@@ -14,6 +15,7 @@ const Register = () => {
   const isAuthenticated = useSelector(
     (state) => state.authReducer.isAuthenticated
   );
+  const [checked, setChecked] = useState(false);
 
   const onChange = (event) => {
     setState((prevState) => ({
@@ -22,9 +24,17 @@ const Register = () => {
     }));
   };
 
+  const acceptTerms = (checked) => {
+    setState((prevState) => ({
+      ...prevState,
+      regulation_accepted: checked,
+    }));
+  };
+
   const onSubmit = (event) => {
     event.preventDefault();
-    dispatch(registerUser(state));
+    console.log(state);
+    checked && dispatch(registerUser(state));
   };
 
   return (
@@ -65,11 +75,20 @@ const Register = () => {
           id="password_confirmation"
           variant="variantOne"
         />
+        <Checkbox
+          labelText="I have read and accept the terms and conditions."
+          checked={checked}
+          onChange={() => {
+            setChecked(!checked);
+            acceptTerms(!checked);
+          }}
+        />
         <Button
           text="Register"
           type="submit"
           variant="variantOne"
           width="full"
+          disabled={!checked}
         />
       </form>
       <small className="text-gray-400 mt-3 text-sm">

@@ -1,9 +1,20 @@
 import React from "react";
 
-const Button = ({ text, type, variant, width, textColor }) => {
+const Button = ({
+  text,
+  type,
+  variant,
+  width,
+  textColor,
+  disabled,
+  ...props
+}) => {
   let classes;
   let buttonWidth;
   let textClasses;
+  let disabledClasses;
+
+  disabledClasses = "bg-gray-700 rounded p-2 mt-3 cursor-auto";
 
   if (width === "full") buttonWidth = "w-full";
   if (width === "half") buttonWidth = "w-1/2";
@@ -15,7 +26,16 @@ const Button = ({ text, type, variant, width, textColor }) => {
   if (textColor === "black") textClasses = "text-gray-900";
 
   return (
-    <button type={type} className={`${classes} ${buttonWidth} ${textClasses}`}>
+    <button
+      type={type}
+      className={
+        disabled
+          ? `${disabledClasses} ${buttonWidth}`
+          : `${classes} ${buttonWidth} ${textClasses}`
+      }
+      disabled={disabled}
+      {...props}
+    >
       {text}
     </button>
   );
