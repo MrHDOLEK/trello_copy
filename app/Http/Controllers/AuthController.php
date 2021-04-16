@@ -61,7 +61,7 @@ class AuthController extends Controller
         ]);
         $user_permission->save();
 
-        //Mail::to($user->email)->send(new WelcomeMessage()); COMMENTED FOR TESTING
+        //Mail::to($user->email)->send(new WelcomeMessage()); COMMENTED OUT FOR TESTING
         return response()->json([
             'message' => 'Successfully created user!'
         ], 201);
