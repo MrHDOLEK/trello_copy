@@ -12,6 +12,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Tables\TablesController;
 use App\Http\Controllers\UserPersonalDataController;
+use App\Http\Controllers\Tables\CardsController;
+use App\Http\Controllers\Tables\TaskController;
+use App\Http\Controllers\Tables\TeamsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,13 +48,26 @@ Route::group([
     Route::get('/tables/public', [TablesController::class, 'showPublic']);
     Route::get('/tables/public/details', [TablesController::class, 'showPublicDetails']);
 
-    Route::get('/tables', [TablesController::class, 'showAll']);
-
-
     Route::group([
         'middleware' => 'auth:api'
     ], function () {
         Route::get('/tables/private', [TablesController::class, 'showPrivate']);
+        Route::get('/tables/private/details', [TablesController::class, 'showPrivateDetails']);
+        Route::post('/tables', [TablesController::class, 'create']);
+        Route::put('/tables', [TablesController::class, 'update']);
+        Route::delete('/tables', [TablesController::class, 'delete']);
+
+        Route::post('/cards', [CardsController::class, 'create']);
+        Route::put('/cards', [CardsController::class, 'update']);
+        Route::delete('/cards', [CardsController::class, 'delete']);
+
+        Route::post('/tasks', [TaskController::class, 'create']);
+        Route::put('/tasks', [TaskController::class, 'update']);
+        Route::delete('/tasks', [TaskController::class, 'delete']);
+
+        Route::get('/teams', [TeamsController::class, 'show']);
+        Route::post('/teams', [TeamsController::class, 'create']);
+        Route::delete('/teams', [TeamsController::class, 'delete']);
     });
 });
 

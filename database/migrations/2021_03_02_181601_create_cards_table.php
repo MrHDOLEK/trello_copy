@@ -20,7 +20,11 @@ class  CreateCardsTable extends Migration
             $table->integer('card_type');
             $table->timestamps();
 
+<<<<<<< HEAD
             $table->foreignId('table_id')->constrained()->cascadeOnDelete();
+=======
+            $table->foreignId('table_id')->constrained()->onDelete('cascade');
+>>>>>>> bf5cdb31afc87c81c795d5311ba4d2840a740d58
         });
     }
 

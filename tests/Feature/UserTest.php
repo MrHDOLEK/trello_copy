@@ -24,7 +24,8 @@ class UserTest extends TestCase
             'name' => $name,
             'email' => $email,
             'password' => $this->password,
-            'password_confirmation' => $this->password
+            'password_confirmation' => $this->password,
+            "regulation_accepted" => true
         ]);
 
 
