@@ -20,11 +20,7 @@ class CreateTasksTable extends Migration
             $table->integer('task_type');
             $table->timestamps();
 
-<<<<<<< HEAD
-            $table->foreignId('card_id')->constrained()->cascadeOnDelete();
-=======
             $table->foreignId('card_id')->constrained()->onDelete('cascade');
->>>>>>> bf5cdb31afc87c81c795d5311ba4d2840a740d58
         });
     }
 
