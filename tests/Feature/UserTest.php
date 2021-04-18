@@ -15,7 +15,7 @@ class UserTest extends TestCase
 
     private string $password = "mypassword";
 
-    public function testUserCreation()
+    public function UserCreation()
     {
 
         $name = $this->faker->name();
@@ -37,7 +37,7 @@ class UserTest extends TestCase
 
     }//testUserCreation
 
-    public function testUserLogin()
+    public function UserLogin()
     {
 
         $email = 'test@test.pl';
