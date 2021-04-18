@@ -67,6 +67,7 @@ Route::group([
 
         Route::get('/teams', [TeamsController::class, 'show']);
         Route::post('/teams', [TeamsController::class, 'create']);
+        Route::put('/teams', [TeamsController::class, 'update']);
         Route::delete('/teams', [TeamsController::class, 'delete']);
     });
 });

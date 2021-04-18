@@ -37,4 +37,18 @@ class UserTest extends TestCase
 
     }//testUserCreation
 
+    public function testUserLogin()
+    {
+
+        $email = 'test@test.pl';
+        $response = $this->postJson('/api/v1/auth/login', [
+            'email' => $email,
+            'password' => $this->password,
+            "remember_me" => 1
+        ]);
+        $response->assertStatus(201);
+
+
+    }
+
 }

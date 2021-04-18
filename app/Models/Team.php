@@ -20,11 +20,13 @@ class Team extends Model
     {
         return $this->belongsToMany(Table::class);
     }
+
     public function show(int $user_id)
     {
-        $user = Table::where('id',$user_id)->firstOrFail();
-        return  Team::where('id',$user->team_id)->firstOrFail();
+        $user = Table::where('id', $user_id)->firstOrFail();
+        return Team::where('id', $user->team_id)->firstOrFail();
     }
+
     public function createTeam(string $team_name, array $users_mail, string $user_name)
     {
         try {
@@ -40,10 +42,32 @@ class Team extends Model
             return null;
         }
     }
-    public function deleteTeam()
+    public function updateTeam(int $id_table,string $team_name = null, array $users_mail = null)
     {
-        return null;
+        try {
+            Team::update([
+                'users' => json_encode(self::changeMailToId($users_mail)),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            ]);
+            return true;
+        } catch (Exception $e) {
+            return null;
+        }
     }
+    public function deleteTeam(int $id_user, int $id_table)
+    {
+        try {
+            $table = Table::where('id', $id_table)->where('creator_id', $id_user)->firstOrFail();
+            Table::where('id', $id_table)->where('creator_id', $id_user)->update([
+                'team_id' => null
+            ]);
+            Team::find($table->team_id)->delete();
+            return true;
+        } catch (Exception $e) {
+            return null;
+        }
+    }
+
     //Zainplementować to jako interfejs
     private function changeMailToId(array $users_mail): array
     {

@@ -33,9 +33,31 @@ class TeamsController extends Controller
         }
         return response()->json(['message' => 'Create error'], 400);
     }
-
+    public function update(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'team_name' => 'string|max:255',
+            'users_mail' => 'array',
+            'users_id' => 'array'
+        ]);
+        $team = new Team();
+        $message = $team->updateTeam($request->team_name, $request->users_mail);
+        if (!empty($message)) {
+            return response()->json('Team have been successfully update', 200);
+        }
+        return response()->json(['message' => 'Update error'], 400);
+    }
     public function delete(Request $request): JsonResponse
     {
-        return response()->json(['message' => 'No permission to view'], 403);
+        $validated = $request->validate([
+            'id' => 'required|int|max:255'
+        ]);
+        $id_user = $request->user()->id;
+        $team = new Team();
+        $message = $team->deleteTeam($id_user,$request->id);
+        if (!empty($message)) {
+            return response()->json('Team have been successfully delete', 200);
+        }
+        return response()->json(['message' => 'Delete error'], 400);
     }
 }
