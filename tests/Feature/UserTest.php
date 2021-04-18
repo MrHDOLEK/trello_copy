@@ -46,7 +46,7 @@ class UserTest extends TestCase
             'password' => 'test',
             "remember_me" => 1
         ]);
-        $response->assertStatus(201);
+        $response->assertStatus(200);
 
 
     }
