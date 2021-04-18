@@ -43,7 +43,7 @@ class UserTest extends TestCase
         $email = 'test@test.pl';
         $response = $this->postJson('/api/v1/auth/login', [
             'email' => $email,
-            'password' => $this->password,
+            'password' => 'test',
             "remember_me" => 1
         ]);
         $response->assertStatus(201);
