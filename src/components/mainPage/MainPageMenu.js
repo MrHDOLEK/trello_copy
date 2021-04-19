@@ -6,7 +6,7 @@ const MainPageMenu = () => {
   const classes =
     "hover:bg-gray-700 focus:bg-gray-700 rounded p-1 text-gray-200";
   return (
-    <nav className="md:w-1/4 p-0 m-0">
+    <nav className="md:w-1/4 p-0 m-0 sm:mr-1">
       <ul>
         <li className={classes}>
           <Link className="block p-0.5" to={`${path}/boards_list`}>

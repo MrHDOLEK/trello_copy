@@ -5,6 +5,7 @@ import {
   LOGOUT_SUCCESS,
   USER_LOADED,
 } from "./types";
+import { tokenConfig } from "../functions/token";
 
 const addressAPI = process.env.REACT_APP_BACKEND_API;
 
@@ -38,17 +39,4 @@ export const getUser = () => (dispatch, getState) => {
     .get(`${addressAPI}/api/v1/auth/user`, tokenConfig(getState))
     .then((res) => dispatch({ type: USER_LOADED, payload: res.data }))
     .catch((err) => console.log(err));
-};
-
-export const tokenConfig = (getState) => {
-  const token = getState().authReducer.token;
-  const config = {
-    headers: {},
-  };
-
-  if (token) {
-    config.headers["Authorization"] = `Bearer ${token}`;
-  }
-
-  return config;
 };
