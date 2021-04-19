@@ -156,12 +156,14 @@
 - id mozesz przekazywać w url lub w rensponse zależy jak ci wygodnie
 - Przy usuwaniu tablicy usuwasz całą zawartość podobnie  z card.
 - Ps.Dojdzie system przypisywania ludzi do taska i teamów do tablic i ze admin może wszystko.Plus system motywów ze użytkownik może sobie obrazek wstawić czy gotowy motyw do tablicy.
+- System teamów i permisji do tablic card już jest.
+
 
 ### Metoda GET
 
 1. **Pobranie listy publicznych tablic `/api/v1/manage/tables/public`**
 2. **Pobranie szczegółów danej tablicy `/api/v1/manage/tables/public/details?id=tutaj id tablicy`**
-3. **Pobranie listy prywatnych tablic `/api/v1/tables/private`**
+3. **Pobranie listy prywatnych tablic `/api/v1/manage/tables/private`**
 4. **Pobranie szczegółów danej tablicy prywatnej `/api/v1/manage/tables/private/details?id=tutaj id tablicy`**
 
 ### Metoda POST
@@ -198,8 +200,9 @@
 
 ```json
 {
-    "name": "kys2322123",
-    "is_visible": 1
+    "name": "kys2322123", 
+    "is_visible": 1, 
+    "team_id" : id teamu [nie jest wymagany] jezeli nie ma id to usuwamy team tak naprawde z tablicy
 }
 ```
 
@@ -229,3 +232,28 @@
 
 3. **Usuwanie taska w tablicy `/api/v1/manage/tasks?id=tutaj id taska`**
 
+# System zespołów
+Przypisywanie zespołu do danej tablicy odbywa się poprzez aktualizacje samej tablicy
+### Metoda GET
+
+1. **Pokazanie w jakich zespołach jest jezeli jest tworca tablicy`/api/v1/manage/teams`**
+2. **Pokazanie wszystkich zespołów [tylko admin] `/api/v1/manage/teams`**
+
+### Metoda POST
+1. **Utworzenie zespołu i przypisanie go do tablicy`/api/v1/manage/teams?id=id tablicy`**
+```json
+{
+    "team_name": "kys2322123",
+    "users_mail": [tutaj maile userów jako elementy arraya]
+}
+```
+### Metoda PUT
+1. **Aktualizacja zespołu`/api/v1/manage/teams?id=id tablicy`**
+```json
+{
+    "team_name": "kys2322123",
+    "users_mail": [tutaj maile userów jako elementy arraya]
+}
+```
+### Metoda DELETE
+1. **Usuniecie całego zespołu`/api/v1/manage/teams?id=id tablicy`**

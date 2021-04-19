@@ -8,6 +8,8 @@ use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
+    private $permission_user = 0;
+    private $permission_admin = 1;
     use Notifiable, HasApiTokens;
 
     protected $table = 'users';
@@ -27,7 +29,7 @@ class User extends Authenticatable
 
     public function userPermission()
     {
-        return $this->belongsTo(UserPermission::class);
+        return $this->hasOne(UserPermission::class, 'user_id', 'id');
     }
 
     public function tables()
@@ -50,13 +52,9 @@ class User extends Authenticatable
         }
         return false;
     }
-    public function checkPermission(User $user)
+    public function checkPermission(int $user_id): string
     {
-        $permission_id = UserPermission::where('user_id','=',$user->id)
-            ->first();
-        $permission_id =  $permission_id->attributes['permission_id'];
-        $permission_name = Permission::where('id','=',$permission_id)
-            ->first();
-        return $permission_name;
+        $permisssion = User::with('userPermission.permission')->find($user_id);
+        return $permisssion->userPermission->permission->name;
     }
 }

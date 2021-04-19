@@ -55,11 +55,11 @@ class  TablesController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
         ]);
-        $user_name =  (string) $request->user()->name;
-        $user_id =(int) $request->user()->id;
-        $table_name = (string) $request->name;
+        $user_name = (string)$request->user()->name;
+        $user_id = (int)$request->user()->id;
+        $table_name = (string)$request->name;
         $table = new Table();
-        $message = $table->createTable($table_name,$user_name,$user_id);
+        $message = $table->createTable($table_name, $user_name, $user_id);
         if (!empty($message)) {
             return response()->json('Table have been successfully created', 200);
         }
@@ -73,11 +73,12 @@ class  TablesController extends Controller
             'id' => 'required|int|max:255',
             'name' => 'required|string|max:255',
             'is_visible' => 'required|int|max:255',
+            'team_id' => 'int|max:255',
         ]);
-        $user_id =(int) $request->user()->id;
-        $table_name = (string) $request->name;
+        $user_id = (int)$request->user()->id;
+        $table_name = (string)$request->name;
         $table = new Table();
-        $message = $table->updateTable($request->id,$request->is_visible,$table_name,$user_id);
+        $message = $table->updateTable($request->id, $request->is_visible, $table_name, $user_id, $request->team_id);
         if (!empty($message)) {
             return response()->json('Table have been successfully update', 200);
         }
@@ -90,9 +91,9 @@ class  TablesController extends Controller
         $validated = $request->validate([
             'id' => 'required|int|max:255',
         ]);
-        $user_id =(int) $request->user()->id;
+        $user_id = (int)$request->user()->id;
         $table = new Table();
-        $message = $table->deleteTable($request->id,$user_id);
+        $message = $table->deleteTable($request->id, $user_id);
         if (!empty($message)) {
             return response()->json('Table have been successfully delete', 200);
         }

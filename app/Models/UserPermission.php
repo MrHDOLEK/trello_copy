@@ -17,10 +17,10 @@ class UserPermission extends Model
         'permission_id'
     ];
     public function user() {
-        return $this->hasOne(User::class);
+        return $this->hasOne(User::class,'id', 'user_id');
     }
 
     public function permission() {
-        return $this->hasOne(Permission::class);
+        return $this->hasOne(Permission::class,'id', 'permission_id');
     }
 }

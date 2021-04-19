@@ -27,14 +27,18 @@ class Task extends Model
     public function card() {
         return $this->hasOne(Card::class ,'id','card_id');
     }
-    public function getAssignedTask(int $id_card)
-    {
-        return Task::get();
-    }
     public function createTask(int $id, string $task_name, string $task_content, int $user_id)
     {
-        $creator_id = Table::with('card.task')->where('creator_id',$user_id)->firstOrFail();
-        if (!($creator_id->creator_id == $user_id)) {
+        $card = Card::where('id',$id)->first();
+        $table = $card->table;
+        $team = new Team();
+        try {
+            if ($team->checkExistUserInTeam($table->id, $user_id)) {
+
+            } else if (!($table->creator_id == $user_id)) {
+                return null;
+            }
+        } catch (\Exception $e) {
             return null;
         }
 
@@ -55,8 +59,16 @@ class Task extends Model
     }
     public function updateTask(int $id, string $task_name, string $task_content, int $user_id)
     {
-        $creator_id = Table::with('card.task')->where('creator_id',$user_id)->firstOrFail();
-        if (!($creator_id->creator_id == $user_id)) {
+        $task= Task::where('id',$id)->first();
+        $table = $task->card->table;
+        $team = new Team();
+        try {
+            if ($team->checkExistUserInTeam($table->id, $user_id)) {
+
+            } else if (!($table->creator_id == $user_id)) {
+                return null;
+            }
+        } catch (\Exception $e) {
             return null;
         }
         Task::find($id)->update([
@@ -68,9 +80,16 @@ class Task extends Model
     }
     public function deleteTask(int $id, int $user_id)
     {
-        $table_id = Card::find($id)->get('table_id');
-        $creator_id = Table::where('id',$table_id[0]['table_id'])->where('creator_id',$user_id)->firstOrFail();
-        if (!($creator_id->creator_id == $user_id)) {
+        $task= Task::where('id',$id)->first();
+        $table = $task->card->table;
+        $team = new Team();
+        try {
+            if ($team->checkExistUserInTeam($table->id, $user_id)) {
+
+            } else if (!($table->creator_id == $user_id)) {
+                return null;
+            }
+        } catch (\Exception $e) {
             return null;
         }
         Task::find($id)->delete();

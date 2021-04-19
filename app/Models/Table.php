@@ -21,10 +21,10 @@ class Table extends Model
 
     protected $guarded = ['id'];
     protected $fillable = [
-        'users', 'name', 'creator_id', 'theme_id', 'is_visible'
+        'users', 'name', 'creator_id', 'theme_id', 'is_visible', 'team_id'
     ];
     protected $hidden = [
-        'team_id', 'pivot'
+        'pivot'
     ];
 
     public function user()
@@ -80,11 +80,16 @@ class Table extends Model
     public function getPrivateContent(int $id_table, int $user_id)
     {
         $content = Table::with('card.task')->find($id_table);
-
+        $team = new Team();
         if ($content->creator_id == $user_id) {
             return $content;
         }
+        if ($team->checkExistUserInTeam($id_table, $user_id)) {
+            return $content;
+        }
         return null;
+
+
     }
 
     public function createTable(string $name, string $name_user, int $creator_id)
@@ -180,7 +185,7 @@ class Table extends Model
         }
     }
 
-    public function updateTable(int $id, int $is_visible, string $table_name, int $user_id)
+    public function updateTable(int $id, int $is_visible, string $table_name, int $user_id, int $team_id = null)
     {
         $creator_id = Table::where('id', $id)->where('creator_id', $user_id)->firstOrFail();
         if (!($creator_id->creator_id == $user_id)) {
@@ -190,8 +195,8 @@ class Table extends Model
             'name' => $table_name,
             'is_visible' => $is_visible,
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'creator_id' => $user_id,
             'theme_id' => 1,
+            'team_id' => $team_id
         ]);
 
         return true;

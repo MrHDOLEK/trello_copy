@@ -18,7 +18,14 @@ class TableTest extends TestCase
         $response = $this->get('api/v1/manage/tables/public');
         $response->assertStatus(200);
     }
-    public function createPrivateTable()
+    public function createTableWithoutLogin()
+    {
+        $response = $this->postJson('api/v1/manage/tables', [
+            'name' => $this->faker->name,
+        ]);
+        $response->assertStatus(400);
+    }
+    public function createPrivateLogin()
     {
         $response = $this->postJson('api/v1/manage/tables', [
             'name' => $this->faker->name,

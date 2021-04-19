@@ -41,8 +41,15 @@ class Card extends Model
     {
 
 
-        $creator_id = Table::where('id', $id)->where('creator_id', $user_id)->firstOrFail();
-        if (!($creator_id->creator_id == $user_id)) {
+        $creator_id = Table::where('id', $id)->where('creator_id', $user_id)->first();
+        $team = new Team();
+        try {
+            if ($team->checkExistUserInTeam($id, $user_id)) {
+
+            } else if (!($creator_id->creator_id == $user_id)) {
+                return null;
+            }
+        } catch (\Exception $e) {
             return null;
         }
 
@@ -65,11 +72,8 @@ class Card extends Model
 
     public function updateCard(int $id, string $card_name, string $card_content, int $user_id)
     {
-        $table_id = Card::find($id)->get('table_id');
-        $creator_id = Table::where('id', $table_id[0]['table_id'])->where('creator_id', $user_id)->firstOrFail();
-        if (!($creator_id->creator_id == $user_id)) {
-            return null;
-        }
+        $card = Card::where('id', $id)->firstOrFail();
+        self::checkPermission($user_id,$card);
         Card::find($id)->update([
             'card_name' => $card_name,
             'card_content' => json_encode($card_content),
@@ -80,14 +84,30 @@ class Card extends Model
 
     public function deleteCard(int $id, int $user_id)
     {
-        $table_id = Card::find($id)->get('table_id');
-        $creator_id = Table::where('id', $table_id[0]['table_id'])->where('creator_id', $user_id)->firstOrFail();
-        if (!($creator_id->creator_id == $user_id)) {
-            return null;
-        }
+        $card = Card::where('id', $id)->firstOrFail();
+        self::checkPermission($user_id,$card);
         Card::task()->delete();
         Card::find($id)->delete();
         return true;
     }
+
+    private function checkPermission(int $user_id,Card $card = null,$table_id = null,)
+    {
+        if (!($card == null)) {
+            $table_id = $card->table_id;
+        }
+        $creator_id = Table::where('id', $table_id)->first();
+        $team = new Team();
+        try {
+            if ($team->checkExistUserInTeam($table_id, $user_id)) {
+
+            } else if (!($creator_id->creator_id == $user_id)) {
+                return null;
+            }
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
+
 
 }

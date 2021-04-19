@@ -11,12 +11,15 @@ class Permission extends Model
 
     protected $table = 'permissions';
     protected $fillable = [
-        'name'
+        'name', 'type',
     ];
     protected $hidden = [
-        'id','type','description','rule_name','data','created_at','updated_at'
+        'id', 'description', 'rule_name', 'data', 'created_at', 'updated_at'
     ];
-    public function userPermission() {
-        return $this->belongsTo(UserPermission::class);
+
+    public function userPermission()
+    {
+        return $this->hasOne(Permission::class,'permission_id', 'id');
     }
+
 }

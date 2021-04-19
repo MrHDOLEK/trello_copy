@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Tables;
 
 use App\Http\Controllers\Controller;
 use App\Models\Team;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -12,6 +13,9 @@ class TeamsController extends Controller
     public function show(Request $request): JsonResponse
     {
         $team = new Team();
+        $user = new User();
+        dump($team->checkExistUserInTeam(3,$request->user()->id));
+        dd();
         $message = $team->show($request->user()->id);
         if (!empty($message)) {
             return response()->json($message, 200);
@@ -22,6 +26,7 @@ class TeamsController extends Controller
     public function create(Request $request): JsonResponse
     {
         $validated = $request->validate([
+            'id' => 'required|int|max:255',
             'team_name' => 'required|string|max:255',
             'users_mail' => 'required|array'
         ]);
@@ -36,12 +41,12 @@ class TeamsController extends Controller
     public function update(Request $request): JsonResponse
     {
         $validated = $request->validate([
+            'id' => 'required|int|max:255',
             'team_name' => 'string|max:255',
             'users_mail' => 'array',
-            'users_id' => 'array'
         ]);
         $team = new Team();
-        $message = $team->updateTeam($request->team_name, $request->users_mail);
+        $message = $team->updateTeam($request->id,$request->team_name,$request->users_mail,$request->user()->id);
         if (!empty($message)) {
             return response()->json('Team have been successfully update', 200);
         }
