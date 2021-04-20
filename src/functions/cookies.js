@@ -2,7 +2,7 @@ export function setCookie(cname, cvalue, ctime) {
   let d = new Date();
   d.setTime(d.getTime() + ctime * 24 * 60 * 60 * 1000);
   let expires = "expires=" + d.toUTCString();
-  document.cookie = `${cname}=${cvalue};${expires}; Secure;`;
+  document.cookie = `${cname}=${cvalue};${expires}; path=/; Secure;`;
 }
 
 export function getCookie(cname) {
