@@ -104,7 +104,7 @@ class Card extends Model
             } else if (!($creator_id->creator_id == $user_id)) {
                 return null;
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return null;
         }
     }
