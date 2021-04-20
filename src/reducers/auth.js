@@ -3,6 +3,7 @@ import {
   LOGIN_FAILED,
   LOGOUT_SUCCESS,
   USER_LOADED,
+  AVATAR_LOADED,
 } from "../actions/types";
 import { setCookie, deleteCookie, getCookie } from "../functions/cookies";
 
@@ -10,6 +11,7 @@ const initialState = {
   isLoading: false,
   isAuthenticated: false,
   user: null,
+  userAvatar: null,
   token: getCookie("token"),
 };
 
@@ -44,6 +46,11 @@ export default function (state = initialState, action) {
         isAuthenticated: false,
         token: null,
         user: null,
+      };
+    case AVATAR_LOADED:
+      return {
+        ...state,
+        userAvatar: action.payload,
       };
     default:
       return state;

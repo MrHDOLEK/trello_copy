@@ -5,7 +5,6 @@ import {
   Redirect,
   Route,
   Switch,
-  useRouteMatch,
 } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
@@ -23,8 +22,6 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 function App() {
   const dispatch = useDispatch();
 
-  // const token = useSelector((state) => state.authReducer.token);
-
   useEffect(() => {
     const token = getCookie("token");
     token && dispatch(getUser());
@@ -32,8 +29,8 @@ function App() {
 
   return (
     <div className="bg-gray-800 min-h-screen h-full text">
+      <Header />
       <Router>
-        <Header />
         <Switch>
           <Route exact path="/register">
             <AuthenticationPage option={"register"} />

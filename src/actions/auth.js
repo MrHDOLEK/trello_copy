@@ -1,5 +1,6 @@
 import axios from "axios";
 import {
+  AVATAR_LOADED,
   LOGIN_FAILED,
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
@@ -12,8 +13,8 @@ const addressAPI = process.env.REACT_APP_BACKEND_API;
 export const registerUser = (state) => (dispatch) => {
   axios
     .post(`${addressAPI}/api/v1/auth/signup`, state)
-    .then((res) => {
-      console.log(res.data.message);
+    .then((response) => {
+      console.log(response.data.message);
     })
     .catch((err) => console.log(err));
 };
@@ -28,8 +29,8 @@ export const logoutUser = () => (dispatch, getState) => {
 export const loginUser = (state) => (dispatch) => {
   axios
     .post(`${addressAPI}/api/v1/auth/login`, state)
-    .then((res) => {
-      dispatch({ type: LOGIN_SUCCESS, payload: res.data });
+    .then((response) => {
+      dispatch({ type: LOGIN_SUCCESS, payload: response.data });
     })
     .catch((err) => dispatch({ type: LOGIN_FAILED, payload: err.message }));
 };
@@ -37,6 +38,15 @@ export const loginUser = (state) => (dispatch) => {
 export const getUser = () => (dispatch, getState) => {
   axios
     .get(`${addressAPI}/api/v1/auth/user`, tokenConfig(getState))
-    .then((res) => dispatch({ type: USER_LOADED, payload: res.data }))
+    .then((response) => dispatch({ type: USER_LOADED, payload: response.data }))
+    .catch((err) => console.log(err));
+};
+
+export const getAvatar = () => (dispatch, getState) => {
+  axios
+    .get(`${addressAPI}/api/v1/user/avatar`, tokenConfig(getState))
+    .then((response) =>
+      dispatch({ type: AVATAR_LOADED, payload: response.data })
+    )
     .catch((err) => console.log(err));
 };

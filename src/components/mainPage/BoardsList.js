@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getPrivateBoards } from "../../actions/boards";
 import Loader from "react-loader-spinner";
+import Avatar from "../common/Avatar";
 
 function BoardsList() {
   const dispatch = useDispatch();
@@ -44,6 +46,7 @@ function BoardsList() {
             </Link>
           ))}
         </div>
+        <Avatar />
       </div>
     );
   }
