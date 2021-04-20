@@ -18,7 +18,7 @@ class UserController extends Controller
      */
     public function retrieveInfo(Request $request): JsonResponse
     {
-        $permission_name = $request->user()->checkPermission($request->user());
+        $permission_name = $request->user()->checkPermission($request->user()->id);
         return response()->json(array(
                 'user' => $request->user(),
                 'permission' => $permission_name
