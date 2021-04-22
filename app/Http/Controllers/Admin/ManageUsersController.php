@@ -21,7 +21,8 @@ class ManageUsersController extends Controller
 
         if ($user->checkExists($user->name, $user->email)) {
             return response([
-                'message' => 'User with given e-mail and name exists'
+                'message' => 'User with given e-mail and name exists',
+                200
             ]);
         }
         $user->save();
@@ -41,7 +42,8 @@ class ManageUsersController extends Controller
         $user_permission->save();
 
         return response([
-            'message' => 'User has been created!'
+            'message' => 'User has been created!',
+            200
         ]);
     }
 
@@ -73,7 +75,8 @@ class ManageUsersController extends Controller
         $user->update($request->all());
 
         return response([
-            'message' => 'Success! User has been updated!'
+            'message' => 'Success! User has been updated!',
+            200
         ]);
     }
 
@@ -82,7 +85,8 @@ class ManageUsersController extends Controller
         $user->delete();
 
         return response([
-            'message' => 'Success! User has been deleted!'
+            'message' => 'Success! User has been deleted!',
+            200
         ]);
    }
 }

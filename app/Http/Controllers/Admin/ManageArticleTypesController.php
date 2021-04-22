@@ -17,7 +17,8 @@ class ManageArticleTypesController extends Controller
         $type->save();
 
         return response([
-            'message' => 'Success! Type has been created!'
+            'message' => 'Success! Type has been created!',
+            200
         ]);
     }
 
@@ -33,7 +34,8 @@ class ManageArticleTypesController extends Controller
         $type->update($request->all());
 
         return response([
-            'message' => 'Success! Type has been updated!'
+            'message' => 'Success! Type has been updated!',
+            200
         ]);
     }
 
@@ -42,7 +44,8 @@ class ManageArticleTypesController extends Controller
         $type->delete();
 
         return response([
-            'message' => 'Success! Type has been deleted!'
+            'message' => 'Success! Type has been deleted!',
+            200
         ]);
     }
 }

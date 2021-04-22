@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class ManageTablesController extends Controller
 {
-    public function createTable(Request $request){
+    public function create(Request $request){
         $table = new Table([
             'name' => $request->name,
             'users' => json_encode($request->users),
@@ -18,32 +18,35 @@ class ManageTablesController extends Controller
         $table->save();
 
         return response([
-            'message' => 'Success! Table has been created!'
+            'message' => 'Success! Table has been created!',
+            200
         ]);
     }
 
-    public function getTables(Request $request) {
+    public function get(Request $request) {
         if(!empty($request->table_id))
             return Table::findOrFail($request->table_id);
 
         return Table::all();
     }
 
-    public function updateTable(Request $request) {
+    public function update(Request $request) {
         $table = Table::findOrFail($request->table_id);
         $table->update($request->all());
 
         return response([
-            'message' => 'Success! Table has been updated!'
+            'message' => 'Success! Table has been updated!',
+            200
         ]);
     }
 
-    public function deleteTable(Request $request) {
+    public function delete(Request $request) {
         $table = Table::findOrFail($request->table_id);
         $table->delete();
 
         return response([
-            'message' => 'Success! Table has been deleted!'
+            'message' => 'Success! Table has been deleted!',
+            200
         ]);
     }
 }

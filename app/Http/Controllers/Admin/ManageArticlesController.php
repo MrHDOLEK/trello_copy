@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class ManageArticlesController extends Controller
 {
-    public function createArticle(Request $request) {
+    public function create(Request $request) {
 
         $article = new Article([
             'title' => (string)$request->title,
@@ -28,32 +28,35 @@ class ManageArticlesController extends Controller
         $article->save();
 
         return response([
-            'message' => 'Success! Article has been created!'
+            'message' => 'Success! Article has been created!',
+            200
         ]);
     }
 
-    public function getArticles(Request $request) {
+    public function get(Request $request) {
         if(!empty($request->article_id))
             return Article::findOrFail($request->article_id);
 
         return Article::all();
     }
 
-    public function updateArticle(Request $request) {
+    public function update(Request $request) {
         $article = Article::findOrFail($request->article_id);
         $article->update($request->all());
 
         return response([
-            'message' => 'Success! Article has been updated!'
+            'message' => 'Success! Article has been updated!',
+            200
         ]);
     }
 
-    public function deleteArticle(Request $request) {
+    public function delete(Request $request) {
         $article = Article::findOrFail($request->article_id);
         $article->delete();
 
         return response([
-            'message' => 'Success! Article has been deleted!'
+            'message' => 'Success! Article has been deleted!',
+            200
         ]);
     }
 }

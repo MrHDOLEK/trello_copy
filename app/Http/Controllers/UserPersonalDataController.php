@@ -16,15 +16,16 @@ class UserPersonalDataController extends Controller
         $name = 'avatar.' . $avatar->extension();
 
         if(!($avatar->extension() === 'jpg'))
-            return response(['message' => 'Bad extension.'], 404);
+            return response(['message' => 'Bad extension.'], 500);
 
         if(!$avatar->isValid())
-            return response(['message' => 'Cannot upload file.'], 404);
+            return response(['message' => 'Cannot upload file.'], 500);
 
         Storage::disk('public')->putFileAs($path, $avatar, $name);
 
         return response([
             'message' => 'Success!',
+            200
         ]);
     }
 
@@ -43,7 +44,8 @@ class UserPersonalDataController extends Controller
         Storage::disk('public')->deleteDirectory($path);
 
         return response([
-            'message' => 'Success! Avatar deleted!'
+            'message' => 'Success! Avatar deleted!',
+            200
         ]);
     }
 
@@ -51,7 +53,8 @@ class UserPersonalDataController extends Controller
         $address = UserPersonalData::where('user_id', $request->user()->id)->get('address');
 
         return response([
-            'address' => $address
+            'address' => $address,
+            200
         ]);
     }
 
@@ -59,7 +62,8 @@ class UserPersonalDataController extends Controller
         UserPersonalData::where('user_id', $request->user()->id)->update(['address' => $request->address]);
 
         return response([
-            'message' => 'Success! Address updated!'
+            'message' => 'Success! Address updated!',
+            200
         ]);
     }
 
@@ -67,7 +71,8 @@ class UserPersonalDataController extends Controller
         UserPersonalData::where('user_id', $request->user()->id)->update(['address' => null]);
 
         return response([
-            'message' => 'Success! Address deleted!'
+            'message' => 'Success! Address deleted!',
+            200
         ]);
     }
 
@@ -75,7 +80,8 @@ class UserPersonalDataController extends Controller
         $regulation_accepted = UserPersonalData::where('user_id', $request->user()->id)->get('regulation_accepted');
 
         return response([
-            'regulation_accepted' => $regulation_accepted
+            'regulation_accepted' => $regulation_accepted,
+            200
         ]);
     }
 
@@ -83,7 +89,8 @@ class UserPersonalDataController extends Controller
         UserPersonalData::where('user_id', $request->user()->id)->update(['regulation_accepted' => $request->regulation_accepted]);
 
         return response([
-            'message' => 'Succes! Regulation set as accepted!'
+            'message' => 'Succes! Regulation set as accepted!',
+            200
         ]);
     }
 }

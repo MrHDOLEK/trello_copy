@@ -123,19 +123,19 @@ Route::group([
         Route::group([
             'prefix' => 'packet'
         ], function () {
-            Route::post('/create',[ManagePacketsController::class, 'createPacket']);
-            Route::get('',[ManagePacketsController::class, 'getPackets']);
-            Route::put('/update',[ManagePacketsController::class, 'updatePacket']);
-            Route::delete('/delete',[ManagePacketsController::class, 'deletePacket']);
+            Route::post('/create',[ManagePacketsController::class, 'create']);
+            Route::get('',[ManagePacketsController::class, 'get']);
+            Route::put('/update',[ManagePacketsController::class, 'update']);
+            Route::delete('/delete',[ManagePacketsController::class, 'delete']);
         });
 
         Route::group([
             'prefix' => 'article'
         ], function () {
-           Route::post('/create',[ManageArticlesController::class, 'createArticle']);
-           Route::get('',[ManageArticlesController::class, 'getArticles']);
-           Route::put('/update',[ManageArticlesController::class, 'updateArticle']);
-           Route::delete('/delete',[ManageArticlesController::class, 'deleteArticle']);
+           Route::post('/create',[ManageArticlesController::class, 'create']);
+           Route::get('',[ManageArticlesController::class, 'get']);
+           Route::put('/update',[ManageArticlesController::class, 'update']);
+           Route::delete('/delete',[ManageArticlesController::class, 'delete']);
 
            Route::group([
                'prefix' => 'category'
@@ -160,9 +160,9 @@ Route::group([
     Route::group([
         'prefix' => 'table'
     ], function () {
-        Route::post('/create',[ManageTablesController::class, 'createTable']);
-        Route::get('',[ManageTablesController::class, 'getTables']);
-        Route::put('/update',[ManageTablesController::class, 'updateTable']);
-        Route::delete('/delete',[ManageTablesController::class, 'deleteTable']);
+        Route::post('/create',[ManageTablesController::class, 'create']);
+        Route::get('',[ManageTablesController::class, 'get']);
+        Route::put('/update',[ManageTablesController::class, 'update']);
+        Route::delete('/delete',[ManageTablesController::class, 'delete']);
     });
 });

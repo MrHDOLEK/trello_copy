@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class ManagePacketsController extends Controller
 {
-    public function createPacket(Request $request) {
+    public function create(Request $request) {
         $packet = new Packet([
             'name' => $request->name,
             'price' => $request->price,
@@ -19,32 +19,35 @@ class ManagePacketsController extends Controller
         $packet->save();
 
         return response([
-            'message' => 'Success! Packet has been created!'
+            'message' => 'Success! Packet has been created!',
+            200
         ]);
     }
 
-    public function getPackets(Request $request) {
+    public function get(Request $request) {
         if(!empty($request->packet_id))
             return Packet::findOrFail($request->packet_id);
 
         return Packet::all();
     }
 
-    public function updatePacket(Request $request) {
+    public function update(Request $request) {
         $packet = Packet::findOrFail($request->packet_id);
         $packet->update($request->all());
 
         return response([
-            'message' => 'Success! Packet has been updated!'
+            'message' => 'Success! Packet has been updated!',
+            200
         ]);
     }
 
-    public function deletePacket(Request $request) {
+    public function delete(Request $request) {
         $packet = Packet::findOrFail($request->packet_id);
         $packet->delete();
 
         return response([
-            'message' => 'Success! Packet has been deleted!'
+            'message' => 'Success! Packet has been deleted!',
+            200
         ]);
     }
 }

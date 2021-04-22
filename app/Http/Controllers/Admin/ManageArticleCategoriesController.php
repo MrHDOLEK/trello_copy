@@ -17,7 +17,8 @@ class ManageArticleCategoriesController extends Controller
         $category->save();
 
         return response([
-            'message' => 'Success! Category has been created!'
+            'message' => 'Success! Category has been created!',
+            200
         ]);
     }
 
@@ -33,7 +34,8 @@ class ManageArticleCategoriesController extends Controller
         $category->update($request->all());
 
         return response([
-            'message' => 'Success! Category has been updated!'
+            'message' => 'Success! Category has been updated!',
+            200
         ]);
     }
 
@@ -42,7 +44,8 @@ class ManageArticleCategoriesController extends Controller
         $category->delete();
 
         return response([
-            'message' => 'Success! Category has been deleted!'
+            'message' => 'Success! Category has been deleted!',
+            200
         ]);
     }
 }
