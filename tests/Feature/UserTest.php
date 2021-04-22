@@ -14,8 +14,9 @@ class UserTest extends TestCase
     use WithFaker;
 
     private string $password = "mypassword";
+    public string $email = 'test@test.pl';
 
-    public function UserCreation()
+    public function testCreation()
     {
 
         $name = $this->faker->name();
@@ -35,20 +36,30 @@ class UserTest extends TestCase
                 'message' => "Successfully created user!",
             ]);
 
-    }//testUserCreation
+    }
 
-    public function UserLogin()
+    public function testLogin()
     {
 
-        $email = 'test@test.pl';
         $response = $this->postJson('/api/v1/auth/login', [
-            'email' => $email,
+            'email' => $this->email,
             'password' => 'test',
             "remember_me" => 1
         ]);
         $response->assertStatus(200);
 
 
+    }
+
+    public function testLogout()
+    {
+        $email = $this->email;
+        $user = User::where('email', $email)->first();
+        $token = JWTAuth::fromUser($user);
+        $response = $this->getJson('/api/v1/auth/logout?token=' . $token, [
+
+        ]);
+        $response->assertStatus(200);
     }
 
 }

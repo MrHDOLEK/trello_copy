@@ -15,7 +15,7 @@ class CreatePacketsPermissionsTable extends Migration
     {
         Schema::create('packets_permissions', function (Blueprint $table) {
             $table->id();
-            $table->integer('max_cards');
+            $table->integer('max_tables');
             $table->integer('max_teams');
         });
     }

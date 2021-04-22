@@ -24,5 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ArticleTypesSeeder::class);
         $this->call(CardTableSeeder::class);
         $this->call(TaskCardSeeder::class);
+        $this->call(PacketsPermissionsSeeder::class);
+        $this->call(PacketsSeeder::class);
     }
 }

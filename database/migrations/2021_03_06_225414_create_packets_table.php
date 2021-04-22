@@ -20,7 +20,7 @@ class CreatePacketsTable extends Migration
             $table->text('description');
             $table->timestamps();
 
-            $table->foreignId('permission_id')->nullable()->constrained('packets_permissions');
+            $table->foreignId('permission_id')->nullable()->constrained('packets_permissions')->cascadeOnDelete();
         });
     }
 

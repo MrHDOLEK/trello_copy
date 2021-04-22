@@ -91,7 +91,10 @@ class Table extends Model
 
 
     }
-
+    private function checkLimitTable(int $creator_id)
+    {
+        return null;
+    }
     public function createTable(string $name, string $name_user, int $creator_id)
     {
         try {
