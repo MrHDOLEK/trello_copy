@@ -19,6 +19,9 @@ import Dashboard from "./dashboard/Dashboard";
 
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
+import { CustomToastContainer } from "../functions/notify";
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   const dispatch = useDispatch();
 
@@ -29,6 +32,7 @@ function App() {
 
   return (
     <div className="bg-gray-800 min-h-screen h-full text">
+      <CustomToastContainer />
       <Header />
       <Router>
         <Switch>

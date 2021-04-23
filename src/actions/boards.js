@@ -8,14 +8,15 @@ import {
 } from "./types";
 import axios from "axios";
 import { tokenConfig } from "../functions/token";
+import { notifyError, notifySuccess } from "../functions/notify";
 
 const addressAPI = process.env.REACT_APP_BACKEND_API;
 
 export const createBoard = (state) => (dispatch, getState) => {
   axios
     .post(`${addressAPI}/api/v1/manage/tables`, state, tokenConfig(getState))
-    .then((response) => console.log(response))
-    .catch((error) => console.log(error));
+    .then((response) => notifySuccess(response.data))
+    .catch((error) => notifyError(error.message));
 };
 
 export const getPrivateBoards = () => (dispatch, getState) => {
@@ -25,7 +26,10 @@ export const getPrivateBoards = () => (dispatch, getState) => {
     .then((response) =>
       dispatch({ type: PRIVATE_BOARDS_FETCHED, payload: response.data })
     )
-    .catch((err) => dispatch({ type: PRIVATE_BOARDS_ERROR }));
+    .catch((err) => {
+      dispatch({ type: PRIVATE_BOARDS_ERROR });
+      notifyError(err.message);
+    });
 };
 
 export const getPrivateSingleBoard = (id) => (dispatch, getState) => {
@@ -38,5 +42,8 @@ export const getPrivateSingleBoard = (id) => (dispatch, getState) => {
     .then((response) =>
       dispatch({ type: SINGLE_PRIVATE_FETCHED, payload: response.data })
     )
-    .catch((err) => dispatch({ type: SINGLE_PRIVATE_ERROR }));
+    .catch((err) => {
+      dispatch({ type: SINGLE_PRIVATE_ERROR });
+      notifyError(err.message);
+    });
 };

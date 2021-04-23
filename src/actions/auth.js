@@ -7,6 +7,7 @@ import {
   USER_LOADED,
 } from "./types";
 import { tokenConfig } from "../functions/token";
+import { notifyError, notifySuccess } from "../functions/notify";
 
 const addressAPI = process.env.REACT_APP_BACKEND_API;
 
@@ -14,16 +15,19 @@ export const registerUser = (state) => (dispatch) => {
   axios
     .post(`${addressAPI}/api/v1/auth/signup`, state)
     .then((response) => {
-      console.log(response.data.message);
+      notifySuccess("Welcome new user! Please sign in yourself!");
     })
-    .catch((err) => console.log(err));
+    .catch((err) => notifyError(err.message));
 };
 
 export const logoutUser = () => (dispatch, getState) => {
   axios
     .get(`${addressAPI}/api/v1/auth/logout`, tokenConfig(getState))
-    .then(() => dispatch({ type: LOGOUT_SUCCESS }))
-    .catch((err) => console.log(err));
+    .then(() => {
+      dispatch({ type: LOGOUT_SUCCESS });
+      notifySuccess("See you later!");
+    })
+    .catch((err) => notifyError(err.message));
 };
 
 export const loginUser = (state) => (dispatch) => {
@@ -31,15 +35,19 @@ export const loginUser = (state) => (dispatch) => {
     .post(`${addressAPI}/api/v1/auth/login`, state)
     .then((response) => {
       dispatch({ type: LOGIN_SUCCESS, payload: response.data });
+      notifySuccess("You have been successfully logged in!");
     })
-    .catch((err) => dispatch({ type: LOGIN_FAILED, payload: err.message }));
+    .catch((err) => {
+      dispatch({ type: LOGIN_FAILED, payload: err.message });
+      notifyError(err.message);
+    });
 };
 
 export const getUser = () => (dispatch, getState) => {
   axios
     .get(`${addressAPI}/api/v1/auth/user`, tokenConfig(getState))
     .then((response) => dispatch({ type: USER_LOADED, payload: response.data }))
-    .catch((err) => console.log(err));
+    .catch((err) => notifyError(err.message));
 };
 
 export const getAvatar = () => (dispatch, getState) => {
@@ -48,5 +56,5 @@ export const getAvatar = () => (dispatch, getState) => {
     .then((response) =>
       dispatch({ type: AVATAR_LOADED, payload: response.data })
     )
-    .catch((err) => console.log(err));
+    .catch((err) => notifyError(err.message));
 };
