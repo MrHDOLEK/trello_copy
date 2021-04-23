@@ -5,16 +5,22 @@ namespace Tests;
 use App\Models\User;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Laravel\Passport\Passport;
+use Illuminate\Foundation\Testing\WithFaker;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication;
+    use CreatesApplication, WithFaker;
 
-    protected function createToken() : string
+    protected string $password = "test";
+    protected string $email = 'test@test.pl';
+
+    protected function createToken(): string
     {
-        $user = User::factory()->make();
-        Passport::actingAs($user);
-        $token = $user->generateToken();
-        return (string) $token;
+        $response = $this->postJson('/api/v1/auth/login', [
+            'email' => $this->email,
+            'password' => 'test',
+            "remember_me" => 1
+        ]);
+        return (string)$response['access_token'];
     }
 }

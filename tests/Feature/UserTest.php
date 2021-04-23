@@ -11,10 +11,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class UserTest extends TestCase
 {
 
-    use WithFaker;
-
-    private string $password = "mypassword";
-    public string $email = 'test@test.pl';
     public function testCreation()
     {
 
@@ -50,17 +46,17 @@ class UserTest extends TestCase
 
     }
 
+    public function testUserInfo()
+    {
+        $token = $this->createToken();
+        $response = $this->getJson('/api/v1/auth/user', ['Authorization' => 'Bearer ' . $token])
+            ->assertStatus(200);
+    }
+
     public function testLogout()
     {
         $token = $this->createToken();
         $response = $this->getJson('/api/v1/auth/logout', ['Authorization' => 'Bearer ' . $token])
             ->assertStatus(200);
     }
-    //Test nie działa
-    /*public function testUserInfo()
-    {
-        self::createToken();
-        $response = $this->getJson('/api/v1/auth/user', ['Authorization' => 'Bearer ' . $this->token])
-            ->assertStatus(200);
-    }*/
 }

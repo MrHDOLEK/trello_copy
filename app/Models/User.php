@@ -61,6 +61,10 @@ class User extends Authenticatable
 
     public function checkPermission(int $user_id): string
     {
+        if($user_id === null)
+        {
+            return "";
+        }
         $permisssion = User::with('userPermission.permission')->find($user_id);
         return $permisssion->userPermission->permission->name;
     }
