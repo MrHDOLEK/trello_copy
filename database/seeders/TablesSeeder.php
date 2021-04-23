@@ -25,6 +25,7 @@ class TablesSeeder extends Seeder
             'creator_id' => 2,
             'theme_id' => 1,
         ]);
-        Table::createTable('test','test',1);
+        $table = new Table();
+        $table->createTable('test','test',1);
     }
 }
