@@ -15,7 +15,6 @@ class UserTest extends TestCase
 
     private string $password = "mypassword";
     public string $email = 'test@test.pl';
-
     public function testCreation()
     {
 
@@ -53,12 +52,15 @@ class UserTest extends TestCase
 
     public function testLogout()
     {
-        $user = User::factory()->make();
-        Passport::actingAs($user);
-
-        $token = $user->generateToken();
+        $token = $this->createToken();
         $response = $this->getJson('/api/v1/auth/logout', ['Authorization' => 'Bearer ' . $token])
             ->assertStatus(200);
     }
-
+    //Test nie działa
+    /*public function testUserInfo()
+    {
+        self::createToken();
+        $response = $this->getJson('/api/v1/auth/user', ['Authorization' => 'Bearer ' . $this->token])
+            ->assertStatus(200);
+    }*/
 }
