@@ -31,7 +31,7 @@ class CardTest extends TestCase
     {
         $token = $this->createToken();
         $table = Table::get('id')->first();
-        $card = Card::where('table_id',$table['id'])->get('id')->first();
+        $card = Card::where('table_id',$table['id'])->latest('id')->first();
         $response = $this->putJson('/api/v1/manage/cards?id='.$card['id'], [
             'card_name' => $this->faker->name(),
             'card_content' => $this->faker->regexify('[A-Za-z0-9]{20}')
