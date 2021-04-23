@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Table;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -24,5 +25,6 @@ class TablesSeeder extends Seeder
             'creator_id' => 2,
             'theme_id' => 1,
         ]);
+        Table::createTable('test','test',1);
     }
 }

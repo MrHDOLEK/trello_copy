@@ -2,10 +2,12 @@
 
 namespace Tests;
 
+use App\Models\Table;
 use App\Models\User;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Laravel\Passport\Passport;
 use Illuminate\Foundation\Testing\WithFaker;
+use Tests\Feature\UserTest;
 
 abstract class TestCase extends BaseTestCase
 {
