@@ -4,10 +4,9 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Auth;
-
 use App\Models\User;
+use Laravel\Passport\Passport;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserTest extends TestCase
 {
@@ -16,7 +15,6 @@ class UserTest extends TestCase
 
     private string $password = "mypassword";
     public string $email = 'test@test.pl';
-    private string $token;
 
     public function testCreation()
     {
@@ -48,7 +46,6 @@ class UserTest extends TestCase
             'password' => 'test',
             "remember_me" => 1
         ]);
-        $this->token = $response->access_token;
         $response->assertStatus(200);
 
 
@@ -56,8 +53,12 @@ class UserTest extends TestCase
 
     public function testLogout()
     {
-        $response = $this->getJson('/api/v1/auth/logout?token=' . $this->token, []);
-        $response->assertStatus(200);
+        $user = User::factory()->make();
+        Passport::actingAs($user);
+
+        $token = $user->generateToken();
+        $response = $this->getJson('/api/v1/auth/logout', ['Authorization' => 'Bearer ' . $token])
+            ->assertStatus(200);
     }
 
 }

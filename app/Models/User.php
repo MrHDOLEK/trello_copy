@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
@@ -10,7 +11,7 @@ class User extends Authenticatable
 {
     private $permission_user = 0;
     private $permission_admin = 1;
-    use Notifiable, HasApiTokens;
+    use  HasFactory, Notifiable, HasApiTokens;
 
     protected $table = 'users';
 
@@ -41,17 +42,23 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Order::class);
     }
+
+    public function generateToken()
+    {
+        return $this->createToken('my-oauth-client-name')->accessToken;
+    }
+
     public function checkExists(string $name, string $email): bool
     {
         $users = User::where('email', '=', $email)
-            ->where('name', '=' , $name)
+            ->where('name', '=', $name)
             ->first();
-        if(!($users === null))
-        {
+        if (!($users === null)) {
             return true;
         }
         return false;
     }
+
     public function checkPermission(int $user_id): string
     {
         $permisssion = User::with('userPermission.permission')->find($user_id);
