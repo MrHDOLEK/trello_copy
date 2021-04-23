@@ -18,7 +18,7 @@ class CardTest extends TestCase
     public function testCreateCardInTable()
     {
         $token = $this->createToken();
-        $table = Table::get('id')->first();
+        $table = Table::latest('id')->first();
         $response = $this->postJson('/api/v1/manage/cards?id='.$table['id'], [
             'card_name' => $this->faker->name(),
             'card_content' => $this->faker->regexify('[A-Za-z0-9]{20}')
@@ -30,7 +30,7 @@ class CardTest extends TestCase
     public function testUpdateCardInTable()
     {
         $token = $this->createToken();
-        $table = Table::get('id')->first();
+        $table = Table::latest('id')->first();
         $card = Card::where('table_id',$table['id'])->latest('id')->first();
         $response = $this->putJson('/api/v1/manage/cards?id='.$card['id'], [
             'card_name' => $this->faker->name(),
@@ -43,8 +43,8 @@ class CardTest extends TestCase
     public function testDeleteCardInTable()
     {
         $token = $this->createToken();
-        $table = Table::get('id')->first();
-        $card = Card::where('table_id',$table['id'])->get('id')->first();
+        $table = Table::latest('id')->first();
+        $card = Card::where('table_id',$table['id'])->latest('id')->first();
         $response = $this->deleteJson('/api/v1/manage/cards?id='.$card['id'], [
         ],[
             'Authorization' => 'Bearer '.$token

@@ -43,7 +43,7 @@ class TableTest extends TestCase
     public function testUpdateTableAfterLogin()
     {
         $token = $this->createToken();
-        $table = Table::get('id')->first();
+        $table = Table::latest('id')->first();
         $response = $this->putJson('/api/v1/manage/tables?id='.$table['id'], [
             'name' => $this->faker->name(),
             "is_visible" => 0
