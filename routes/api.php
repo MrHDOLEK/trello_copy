@@ -66,6 +66,7 @@ Route::group([
         Route::delete('/tasks', [TaskController::class, 'delete']);
 
         Route::get('/teams', [TeamsController::class, 'show']);
+        Route::post('/teams/assignment', [TeamsController::class, 'assignment']);
         Route::post('/teams', [TeamsController::class, 'create']);
         Route::put('/teams', [TeamsController::class, 'update']);
         Route::delete('/teams', [TeamsController::class, 'delete']);

@@ -23,19 +23,42 @@ class Team extends Model
 
     public function show(int $user_id)
     {
+        $user = new User();
+        if ($user->checkPermission($user_id) == 'admin') {
+            $result = Team::get()->paginate(20);
+            return $result;
+        }
         $user = Table::where('creator_id', $user_id)->firstOrFail();
         return Team::where('id', $user->team_id)->firstOrFail();
     }
 
-    public function createTeam(string $team_name, array $users_mail, string $user_name)
+    public function createTeam(string $team_name, array $users_mail, int $user_id, int $table_id = null)
     {
         try {
-            Team::create([
+            $user_name = User::find($user_id)->name;
+            $team = Team::create([
                 'name' => $team_name,
                 'admin' => $user_name,
                 'users' => json_encode(self::changeMailToId($users_mail)),
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            ]);
+            if (!($table_id === null)) {
+                Table::where('id', $table_id)->where('creator_id', $user_id)->update([
+                    'team_id' => $team->id
+                ]);
+            }
+            return true;
+        } catch (Exception $e) {
+            return null;
+        }
+    }
+
+    public function assignmentTeam(int $id_table, int $id_team, int $user_id)
+    {
+        try {
+            Table::where('id', $id_table)->where('creator_id', $user_id)->update([
+                'team_id' => $id_team,
             ]);
             return true;
         } catch (Exception $e) {
@@ -53,7 +76,7 @@ class Team extends Model
                 $new_users_id = [];
             }
             $update_users_id = array_merge($users_id, $new_users_id);
-            Table::find($id_table)->team()->update([
+            Table::where('id', $id_table)->team()->update([
                 'name' => $team_name,
                 'users' => json_encode($update_users_id),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
