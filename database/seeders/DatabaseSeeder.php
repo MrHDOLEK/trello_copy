@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionSeeder::class);
         $this->call(UsersPermissionsSeeder::class);
         $this->call(ThemeSeeder::class);
+        $this->call(PacketsPermissionsSeeder::class);
+        $this->call(PacketsSeeder::class);
         $this->call(TablesSeeder::class);
         $this->call(CardsSeeder::class);
         $this->call(TasksSeeder::class);
@@ -24,7 +26,5 @@ class DatabaseSeeder extends Seeder
         $this->call(ArticleTypesSeeder::class);
         $this->call(CardTableSeeder::class);
         $this->call(TaskCardSeeder::class);
-        $this->call(PacketsPermissionsSeeder::class);
-        $this->call(PacketsSeeder::class);
     }
 }
