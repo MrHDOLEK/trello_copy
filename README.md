@@ -237,14 +237,22 @@ Przypisywanie zespołu do danej tablicy odbywa się poprzez aktualizacje samej t
 ### Metoda GET
 
 1. **Pokazanie w jakich zespołach jest jezeli jest tworca tablicy`/api/v1/manage/teams`**
-2. **Pokazanie wszystkich zespołów [tylko admin] `/api/v1/manage/teams`**
+2. **Pokazanie wszystkich zespołów [tylko admin] dostepna tutaj jest paginacja max 20 wyników na strone `/api/v1/manage/teams`**
 
 ### Metoda POST
 1. **Utworzenie zespołu i przypisanie go do tablicy`/api/v1/manage/teams?id=id tablicy`**
+ Jeżeli nie podasz id tablicy to zostanie utworzony team ale nie zostanie przypisany do danej tablicy.Jezeli chcesz przypisać team do konkretnej tablicy to musisz uzyć innego endp.
 ```json
 {
     "team_name": "kys2322123",
     "users_mail": [tutaj maile userów jako elementy arraya]
+}
+```
+2. **Przypisanie konkretnego zespołu do  konkrentej tablicy(Można takze aktualizować tak)`/api/v1/manage/teams/assignment`**
+```json
+{
+    "id_team": 3,
+    "id_table": 5
 }
 ```
 ### Metoda PUT
