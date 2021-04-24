@@ -14,7 +14,9 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
         "laravel/passport": "^10.1",
-        "laravel/tinker": "^2.5"
+        "laravel/tinker": "^2.5",
+        "laraveldaily/laravel-invoices": "^2.0",
+        "tzsk/payu": "^5.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",

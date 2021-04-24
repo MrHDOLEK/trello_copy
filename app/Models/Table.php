@@ -91,12 +91,15 @@ class Table extends Model
 
 
     }
-    private function checkLimitTable(int $creator_id)
-    {
-        return null;
-    }
+
     public function createTable(string $name, string $name_user, int $creator_id)
     {
+        $quantity_tables = Table::where('creator_id', $creator_id)->count();
+        $packet = new Packet();
+        $limits = $packet->checkLimit($creator_id);
+        if ($limits['max_tables'] <= $quantity_tables) {
+            return null;
+        }
         try {
             $table = Table::create([
                 'users' => json_encode([$name_user]),

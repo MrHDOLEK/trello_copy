@@ -12,10 +12,11 @@ class PacketPermission extends Model
     protected $table = 'packets_permissions';
 
     protected $fillable = [
-        'max_cards','max_teams'
+        'max_tabless', 'max_teams'
     ];
 
-    public function packet() {
-        return $this->belongsToMany(Packet::class);
+    public function packet()
+    {
+        return $this->belongsToMany(Packet::class, 'packets', 'permission_id');
     }
 }

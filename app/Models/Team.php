@@ -34,6 +34,13 @@ class Team extends Model
 
     public function createTeam(string $team_name, array $users_mail, int $user_id, int $table_id = null)
     {
+        $packet = new Packet();
+        $user = User::where('id', $user_id)->firstOrFail('name');
+        $limits = $packet->checkLimit($user_id);
+        $quantity_teams = Team::where('admin', $user['name'])->count();
+        if ($limits['max_teams'] <= $quantity_teams) {
+            return null;
+        }
         try {
             $user_name = User::find($user_id)->name;
             $team = Team::create([
