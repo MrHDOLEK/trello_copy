@@ -124,7 +124,7 @@ class Table extends Model
             ]);
             $task = Task::create([
                 'task_name' => 'Fix car',
-                'task_content' => json_encode('Broken battery'),
+                'task_content' => '{desc: "some string"}',
                 'task_type' => 1,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -149,7 +149,7 @@ class Table extends Model
             ]);
             $task = Task::create([
                 'task_name' => 'Wash the dog',
-                'task_content' => json_encode('Wash the dog'),
+                'task_content' => '{desc: "some string"}',
                 'task_type' => 1,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -174,7 +174,7 @@ class Table extends Model
             ]);
             $task = Task::create([
                 'task_name' => 'Make dinner',
-                'task_content' => json_encode('spaghetti and soup'),
+                'task_content' => '{desc: "some string"}',
                 'task_type' => 1,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
