@@ -26,7 +26,7 @@ class TaskTest extends TestCase
         ],[
             'Authorization' => 'Bearer '.$token
         ]);
-        $response->assertStatus(200);
+        $response->assertStatus(422);
     }
     public function testUpdateTaskInCard()
     {
