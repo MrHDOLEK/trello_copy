@@ -14,7 +14,7 @@ class TaskController extends Controller
         $validated = $request->validate([
             'id' => 'required|int|max:255',
             'task_name' => 'required|string|max:255',
-            'task_content' => 'required|string|max:255',
+            'task_content' => 'required|json|max:255',
         ]);
         $task = new Task();
         $message = $task->createTask($request->id,$request->task_name,$request->task_content,$request->user()->id);
@@ -29,7 +29,7 @@ class TaskController extends Controller
         $validated = $request->validate([
             'id' => 'required|int|max:255',
             'task_name' => 'required|string|max:255',
-            'task_content' => 'required|string|max:255',
+            'task_content' => 'required|json|max:255',
         ]);
         $task = new Task();
         $message = $task->updateTask($request->id,$request->task_name,$request->task_content,$request->user()->id);
