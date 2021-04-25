@@ -10,7 +10,7 @@ export const Dashboard = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const { selectedBoard, singleBoardLoading, singleBoardFetched } = useSelector(
-    (state) => state.boardsReducer
+    (state) => state.singleBoardReducer
   );
 
   useEffect(() => {
@@ -36,9 +36,11 @@ export const Dashboard = () => {
         <h1 className="text-gray-200 text-3xl text-center my-2">
           {selectedBoard.name}
         </h1>
-        <div className="sm:whitespace-nowrap overflow-x-auto">
+        {/* <div className="sm:whitespace-nowrap overflow-x-auto relative"> */}
+
+        <div className="sm:flex flex-row flex-nowrap overflow-x-auto">
           {selectedBoard.card.map((card) => (
-            <Card key={card.id} data={card} />
+            <Card key={card.id} card={card} />
           ))}
         </div>
       </div>
