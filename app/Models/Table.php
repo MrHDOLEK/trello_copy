@@ -186,7 +186,7 @@ class Table extends Model
             ]);
 
             return true;
-        } catch (Execution $e) {
+        } catch (\Exception $e) {
             return null;
         }
     }
