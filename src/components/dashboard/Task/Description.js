@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { editTaskDescription } from "../../../actions/tasks";
 
 export const Description = ({ data }) => {
+  console.log(data.task_content);
+  console.log(JSON.parse(data.task_content));
   const [inEditMode, setEditMode] = useState(false);
   const [state, setState] = useState(data.task_content);
   const textareaRef = useRef(null);
