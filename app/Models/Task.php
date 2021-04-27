@@ -57,7 +57,7 @@ class Task extends Model
         ]);
         return true;
     }
-    public function updateTask(int $id, string $task_name, string $task_content, int $user_id)
+    public function updateTask(int $id, string $task_name, $task_content, int $user_id)
     {
         $task= Task::where('id',$id)->first();
         $table = $task->card->table;
@@ -68,12 +68,12 @@ class Task extends Model
             } else if (!($table->creator_id == $user_id)) {
                 return null;
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return null;
         }
         Task::find($id)->update([
             'task_name' => $task_name,
-            'task_content' => $task_content,
+            'task_content' => json_encode($task_content),
             'task_type' => 1,
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s')]);
         return true;
@@ -89,7 +89,7 @@ class Task extends Model
             } else if (!($table->creator_id == $user_id)) {
                 return null;
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return null;
         }
         Task::find($id)->delete();
