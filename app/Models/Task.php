@@ -27,7 +27,7 @@ class Task extends Model
     public function card() {
         return $this->hasOne(Card::class ,'id','card_id');
     }
-    public function createTask(int $id, string $task_name, string $task_content, int $user_id)
+    public function createTask(int $id, string $task_name,$task_content, int $user_id)
     {
         $card = Card::where('id',$id)->first();
         $table = $card->table;
