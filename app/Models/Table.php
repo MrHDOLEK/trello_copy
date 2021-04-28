@@ -185,7 +185,7 @@ class Table extends Model
                 'task_id' => $task->id
             ]);
 
-            return true;
+            return self::getPrivateContent($table->id,$creator_id);
         } catch (\Exception $e) {
             return null;
         }

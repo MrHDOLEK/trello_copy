@@ -19,7 +19,10 @@ class TaskController extends Controller
         $task = new Task();
         $message = $task->createTask($request->id,$request->task_name,$request->task_content,$request->user()->id);
         if (!empty($message)) {
-            return response()->json('Task have been successfully created', 200);
+            return response()->json([
+                'message' => 'Task have been successfully created',
+                'task' => $message
+                ], 200);
         }
         return response()->json(['message' => 'Creation error'], 400);
     }

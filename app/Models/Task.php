@@ -55,7 +55,7 @@ class Task extends Model
             'card_id' => $id,
             'task_id' => $task->id
         ]);
-        return true;
+        return $task;
     }
     public function updateTask(int $id, string $task_name, $task_content, int $user_id)
     {

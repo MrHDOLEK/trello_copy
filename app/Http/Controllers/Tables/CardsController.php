@@ -19,7 +19,10 @@ class CardsController extends Controller
         $card = new Card();
         $message = $card->createCard($request->id, $request->card_name, $request->card_content, $request->user()->id);
         if (!empty($message)) {
-            return response()->json('Card have been successfully created', 200);
+            return response()->json([
+                'message' => 'Card have been successfully created',
+                'card' => $message
+            ], 200);
         }
         return response()->json(['message' => 'Creation error'], 400);
     }

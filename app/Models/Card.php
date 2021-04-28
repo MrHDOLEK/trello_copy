@@ -67,7 +67,7 @@ class Card extends Model
             'card_id' => $card->id,
             'table_id' => $id
         ]);
-        return true;
+        return $card;
     }
 
     public function updateCard(int $id, string $card_name, string $card_content, int $user_id)
