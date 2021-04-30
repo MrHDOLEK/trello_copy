@@ -23,9 +23,6 @@ class Table extends Model
     protected $fillable = [
         'users', 'name', 'creator_id', 'theme_id', 'is_visible', 'team_id'
     ];
-    protected $casts = [
-        'users' => 'json'
-    ];
     protected $hidden = [
         'pivot'
     ];
@@ -188,7 +185,7 @@ class Table extends Model
                 'task_id' => $task->id
             ]);
 
-            return self::getPrivateContent($table->id, $creator_id);
+            return self::getPrivateContent($table->id,$creator_id);
         } catch (\Exception $e) {
             return null;
         }

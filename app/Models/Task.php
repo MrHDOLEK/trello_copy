@@ -17,23 +17,22 @@ class Task extends Model
         'id'
     ];
     protected $fillable = [
-        'task_name', 'task_content', 'task_type', 'card_id', 'updated_at'
+        'task_name','task_content','task_type','card_id','updated_at'
     ];
     protected $casts = [
-        'task_content' => 'object'
+        'task_content' => 'object',
     ];
+
     protected $hidden = [
         'pivot'
     ];
 
-    public function card()
-    {
-        return $this->hasOne(Card::class, 'id', 'card_id');
+    public function card() {
+        return $this->hasOne(Card::class ,'id','card_id');
     }
-
-    public function createTask(int $id, string $task_name, $task_content, int $user_id)
+    public function createTask(int $id, string $task_name,$task_content, int $user_id)
     {
-        $card = Card::where('id', $id)->first();
+        $card = Card::where('id',$id)->first();
         $table = $card->table;
         $team = new Team();
         try {
@@ -60,10 +59,9 @@ class Task extends Model
         ]);
         return $task;
     }
-
     public function updateTask(int $id, string $task_name, $task_content, int $user_id)
     {
-        $task = Task::where('id', $id)->first();
+        $task= Task::where('id',$id)->first();
         $table = $task->card->table;
         $team = new Team();
         try {
@@ -82,10 +80,9 @@ class Task extends Model
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s')]);
         return true;
     }
-
     public function deleteTask(int $id, int $user_id)
     {
-        $task = Task::where('id', $id)->first();
+        $task= Task::where('id',$id)->first();
         $table = $task->card->table;
         $team = new Team();
         try {
