@@ -19,6 +19,9 @@ class Task extends Model
     protected $fillable = [
         'task_name','task_content','task_type','card_id','updated_at'
     ];
+    protected $casts = [
+        'task_content' => 'object',
+    ];
 
     protected $hidden = [
         'pivot'
@@ -41,7 +44,6 @@ class Task extends Model
         } catch (\Exception $e) {
             return null;
         }
-
 
         $task = Task::create([
             'task_name' => $task_name,

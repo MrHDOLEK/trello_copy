@@ -112,7 +112,7 @@ class Table extends Model
             ]);
             $card = Card::create([
                 'card_name' => 'To do',
-                'card_content' => json_encode('To do:'),
+                'card_content' => json_encode(['To do' => 'some string']),
                 'card_type' => 1,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -137,7 +137,7 @@ class Table extends Model
 
             $card = Card::create([
                 'card_name' => 'Doing - now',
-                'card_content' => json_encode('Doing - now:'),
+                'card_content' => json_encode(['Doing' => 'now']),
                 'card_type' => 1,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),

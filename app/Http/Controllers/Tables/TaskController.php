@@ -17,12 +17,20 @@ class TaskController extends Controller
             'task_content' => 'required|max:255',
         ]);
         $task = new Task();
-        $message = $task->createTask($request->id,$request->task_name,$request->task_content,$request->user()->id);
+        $message = $task->createTask($request->id, $request->task_name, $request->task_content, $request->user()->id);
         if (!empty($message)) {
             return response()->json([
                 'message' => 'Task have been successfully created',
-                'task' => $message
-                ], 200);
+                'task' => [
+                    "task_name" => $message->task_name,
+                    "task_content" => json_decode($message->task_content),
+                    "task_type" => $message->task_type,
+                    "updated_at" => $message->updated_at,
+                    "card_id" => $message->card_id,
+                    "created_at" => $message->created_at,
+                    "id" => $message->id,
+                ]
+            ], 200);
         }
         return response()->json(['message' => 'Creation error'], 400);
     }
@@ -35,7 +43,7 @@ class TaskController extends Controller
             'task_content' => 'required|json|max:255',
         ]);
         $task = new Task();
-        $message = $task->updateTask($request->id,$request->task_name,$request->task_content,$request->user()->id);
+        $message = $task->updateTask($request->id, $request->task_name, $request->task_content, $request->user()->id);
         if (!empty($message)) {
             return response()->json('Task have been successfully update', 200);
         }
@@ -49,7 +57,7 @@ class TaskController extends Controller
             'id' => 'required|int|max:255',
         ]);
         $task = new Task();
-        $message = $task->deleteTask($request->id,$request->user()->id);
+        $message = $task->deleteTask($request->id, $request->user()->id);
         if (!empty($message)) {
             return response()->json('Task have been successfully delete', 200);
         }
