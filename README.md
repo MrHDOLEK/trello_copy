@@ -71,7 +71,7 @@
 
 1. **Awatar `/api/v1/user/avatar`**
 
-- Jeśli uda się pobrać awatar to otrzymasz go jako *blob*
+- Jeśli uda się pobrać awatar to otrzymasz jego *url*
 
 2. **Adres `/api/v1/user/address/`**
 
@@ -265,3 +265,236 @@ Przypisywanie zespołu do danej tablicy odbywa się poprzez aktualizacje samej t
 ```
 ### Metoda DELETE
 1. **Usuniecie całego zespołu`/api/v1/manage/teams?id=id tablicy`**
+
+# Panel administratora
+
+Wszystkie routy administratora są **zabezpieczone**.
+W praktyce oznacza to, że wszelkie żądania wysłane z nieautoryzowanego konta (nie będącego adminem) otrzymają status **403|Forbidden**.
+
+### Metoda POST
+
+1. **Użytkownik `/api/v1/admin/manage/user/create`**
+```json
+{
+    "name" : "CookieMonster",    
+ 	"email" : "coockie@monster.pl",   
+    "password" :"CoockiesAreGreat",  
+    "password_confirmation": "CoockiesAreGreat",  
+    "address": "sesame street", //Address is not required
+    "regulation_accepted": true
+}
+```
+
+2. **Pakiet `/api/v1/admin/manage/portal/packet/create`**
+```json
+{
+    "name": "ChickenNugget",
+    "price": 9.99,
+    "description": "Pretty tasty, huh?", //Descrpition is not required
+    "permission_id": 1
+}
+```
+
+3. **Artykuł `/api/v1/admin/manage/portal/article/create`**
+```json
+{
+    "title": "How to be the best",
+    "intro": "How to be the best", //this is not required
+    "alias": "how-to-be-the-best",
+    "full": "This is full description", //this is not required
+    "style": 1, //this is not required
+    "image": "rockybalboa.jpg",
+    "removable": 1,
+    "meta_title": "SEO title", //this is not required
+    "meta_description": "SEO description", //this is not required
+    "category_id": 1,
+    "type_id": 1
+}
+```
+
+4. **Kategoria artykułów `/api/v1/admin/manage/portal/article/category/create`**
+```json
+{
+    "name": "Wealth",
+    "description": "Just be yourself"
+}
+```
+
+5. **Typ artykułu `/api/v1/admin/manage/portal/article/type/create`**
+```json
+{
+    "name": "Health",
+    "description": "Be healthy"
+}
+```
+
+6. **Tablica `/api/v1/admin/manage/table/create`**
+```json
+{
+    "name": "new great table"
+}
+```
+
+### Metoda GET
+
+1. **Użytkownik `/api/v1/admin/manage/user`**
+```json
+{
+    "user_id": 1 //Left empty to recieve all users
+}
+```
+
+2. **Dane personalne użytkownik wraz w uprawnieniami `/api/v1/admin/manage/user/details`**
+```json
+{
+    "user_id": 1 //Left empty to recieve all users
+}
+```
+
+3. **Pakiet `/api/v1/admin/manage/portal/packet`**
+```json
+{
+    "packet_id": 1 //Left empty to recieve all packets
+}
+```
+
+4. **Artykuł `/api/v1/admin/manage/portal/article`**
+```json
+{
+    "article_id": 1 //Left empty recieve all articles
+}
+```
+
+5. **Kategoria artykułu `/api/v1/admin/manage/portal/article/category`**
+```json
+{
+    "article_id": 1 //Left empty recieve all articles
+}
+```
+
+6. **Typ artykułu `/api/v1/admin/manage/portal/article/type`**
+```json
+{
+    "article_category_id": 1 //Left empty recieve all categories
+}
+```
+
+7. **Tablica `/api/v1/admin/manage/table`**
+```json
+{
+    "id": 1 //Left empty recieve all tables
+}
+```
+
+### Metoda PUT
+
+1. **Użytkownik `/api/v1/admin/manage/user/update`**
+```json
+{
+    "user_id": 4, //this is required
+    "name": "John",
+    "email": "email@email.pl",
+    "password": "password"
+}
+```
+
+2. **Pakiet `/api/v1/admin/manage/portal/packet/update`**
+```json
+{
+    "packet_id": 2, //this is required
+    "name": "updated name",
+    "price": 12.50,
+    "description": "description",
+    "permission_id": 1
+}
+```
+
+3. **Artykuł `/api/v1/admin/manage/portal/article/update`**
+```json
+{
+    "article_id": 1, //only this is required
+    "title": "How to be the best",
+    "intro": "How to be the best", 
+    "alias": "how-to-be-the-best",
+    "full": "This is full description",
+    "style": 1,
+    "image": "rockybalboa.jpg",
+    "removable": 1,
+    "meta_title": "SEO title",
+    "meta_description": "SEO description", 
+    "category_id": 1,
+    "type_id": 1
+}
+```
+
+4. **Kategoria artykułu `/api/v1/admin/manage/portal/article/category/update`**
+```json
+{
+    "article_category_id": 2,
+    "name": "updatedname",
+    "description": "description"
+}
+```
+
+5. **Typ artykułu `/api/v1/admin/manage/portal/article/type/update`**
+```json
+{
+    "article_type_id": 1,
+    "name": "UPDATED NAME",
+    "description": "description"
+}
+```
+
+6. **Tablica `/api/v1/admin/manage/table/update`**
+```json
+{
+    "id": 1, //only this is required
+    "is_visible": 1,
+    "name": "new great tabl11e",
+    "team_id": 1
+}
+```
+
+### Metoda DELETE 
+
+1. **Użytkownik `/api/v1/admin/manage/user/delete`**
+```json
+{
+    "user_id": 3
+}
+```
+
+2. **Pakiet `/api/v1/admin/manage/portal/packet/delete`**
+```json
+{
+    "packet_id": 3
+}
+```
+
+3. **Artykuł `/api/v1/admin/manage/portal/article/delete`**
+```json
+{
+    "article_id": 2
+}
+```
+
+4. **Kategoria artykułu `/api/v1/admin/manage/portal/article/category/delete`**
+```json
+{
+    "article_category_id": 1
+}
+```
+
+5. **Typ artykułu `/api/v1/admin/manage/portal/article/type/delete`**
+```json
+{
+    "article_type_id": 2
+}
+```
+
+6. **Tablica `/api/v1/admin/manage/table/delete`**
+```json
+{
+    "id": 2
+}
+```
