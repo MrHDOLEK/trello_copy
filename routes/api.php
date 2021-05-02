@@ -15,6 +15,7 @@ use App\Http\Controllers\UserPersonalDataController;
 use App\Http\Controllers\Tables\CardsController;
 use App\Http\Controllers\Tables\TaskController;
 use App\Http\Controllers\Tables\TeamsController;
+use App\Http\Controllers\PayuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -166,4 +167,10 @@ Route::group([
         Route::put('/update',[ManageTablesController::class, 'update']);
         Route::delete('/delete',[ManageTablesController::class, 'delete']);
     });
+});
+Route::group([
+    'prefix' => 'v1/payu'
+], function () {
+    Route::post('get_order/(?P<id>\d+)', [PayuController::class, 'getOrder']);
+    Route::post('get_payment_status/(?P<id>\w+)', [PayuController::class, 'getPaymentStatus']);
 });

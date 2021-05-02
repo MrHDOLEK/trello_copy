@@ -77,7 +77,7 @@ class Task extends Model
         }
         Task::find($id)->update([
             'task_name' => $task_name,
-            'task_content' => json_encode($task_content),
+            'task_content' => $task_content,
             'task_type' => 1,
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s')]);
         return true;
