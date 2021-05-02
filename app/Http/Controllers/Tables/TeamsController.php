@@ -24,7 +24,7 @@ class TeamsController extends Controller
     public function create(Request $request): JsonResponse
     {
         $request->validate([
-            'id' => 'required|int|max:255',
+            'id' => 'int|max:255',
             'team_name' => 'required|string|max:255',
             'users_mail' => 'required|array'
         ]);

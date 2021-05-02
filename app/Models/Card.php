@@ -26,6 +26,9 @@ class Card extends Model
     protected $hidden = [
         'created_at', 'pivot'
     ];
+    protected $casts = [
+        'card_content' => 'object'
+    ];
 
     public function table()
     {
@@ -67,13 +70,13 @@ class Card extends Model
             'card_id' => $card->id,
             'table_id' => $id
         ]);
-        return true;
+        return $card;
     }
 
     public function updateCard(int $id, string $card_name, string $card_content, int $user_id)
     {
         $card = Card::where('id', $id)->firstOrFail();
-        self::checkPermission($user_id,$card);
+        self::checkPermission($user_id, $card);
         Card::find($id)->update([
             'card_name' => $card_name,
             'card_content' => json_encode($card_content),
@@ -85,13 +88,13 @@ class Card extends Model
     public function deleteCard(int $id, int $user_id)
     {
         $card = Card::where('id', $id)->firstOrFail();
-        self::checkPermission($user_id,$card);
+        self::checkPermission($user_id, $card);
         Card::task()->delete();
         Card::find($id)->delete();
         return true;
     }
 
-    private function checkPermission(int $user_id,Card $card = null,$table_id = null,)
+    private function checkPermission(int $user_id, Card $card = null, $table_id = null,)
     {
         if (!($card == null)) {
             $table_id = $card->table_id;

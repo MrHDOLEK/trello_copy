@@ -61,7 +61,10 @@ class  TablesController extends Controller
         $table = new Table();
         $message = $table->createTable($table_name, $user_name, $user_id);
         if (!empty($message)) {
-            return response()->json('Table have been successfully created', 200);
+            return response()->json([
+                'message' => 'Table have been successfully created',
+                'board' => $message
+            ], 200);
         }
 
         return response()->json(['message' => 'Creation error'], 400);

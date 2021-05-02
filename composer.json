@@ -16,7 +16,7 @@
         "laravel/passport": "^10.1",
         "laravel/tinker": "^2.5",
         "laraveldaily/laravel-invoices": "^2.0",
-        "tzsk/payu": "^5.1"
+        "openpayu/openpayu" : "2.3.*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",

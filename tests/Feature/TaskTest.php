@@ -22,7 +22,7 @@ class TaskTest extends TestCase
         $card = Card::where('table_id',$table['id'])->latest('id')->first();
         $response = $this->postJson('/api/v1/manage/tasks?id='.$card['id'], [
             'task_name' => $this->faker->name(),
-            'task_content' => $this->faker->regexify('[A-Za-z0-9]{20}')
+            'task_content' => json_encode($this->faker->regexify('[A-Za-z0-9]{20}'))
         ],[
             'Authorization' => 'Bearer '.$token
         ]);
@@ -35,7 +35,7 @@ class TaskTest extends TestCase
         $card = Card::where('table_id',$table['id'])->latest('id')->first();
         $response = $this->putJson('/api/v1/manage/tasks?id='.$card['id'], [
             'task_name' => $this->faker->name(),
-            'task_content' => $this->faker->regexify('[A-Za-z0-9]{20}')
+            'task_content' => json_encode($this->faker->regexify('[A-Za-z0-9]{20}'))
         ],[
             'Authorization' => 'Bearer '.$token
         ]);

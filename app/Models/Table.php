@@ -24,6 +24,9 @@ class Table extends Model
     protected $fillable = [
         'users', 'name', 'creator_id', 'theme_id', 'is_visible', 'team_id'
     ];
+    protected $casts = [
+        'users' => 'json'
+    ];
     protected $hidden = [
         'pivot'
     ];
@@ -118,7 +121,7 @@ class Table extends Model
             ]);
             $card = Card::create([
                 'card_name' => 'To do',
-                'card_content' => json_encode('To do:'),
+                'card_content' => json_encode(['To do' => 'some string']),
                 'card_type' => 1,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -130,7 +133,7 @@ class Table extends Model
             ]);
             $task = Task::create([
                 'task_name' => 'Fix car',
-                'task_content' => json_encode('Broken battery'),
+                'task_content' => json_encode(['desc' => 'some string']),
                 'task_type' => 1,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -143,7 +146,7 @@ class Table extends Model
 
             $card = Card::create([
                 'card_name' => 'Doing - now',
-                'card_content' => json_encode('Doing - now:'),
+                'card_content' => json_encode(['Doing' => 'now']),
                 'card_type' => 1,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -155,7 +158,7 @@ class Table extends Model
             ]);
             $task = Task::create([
                 'task_name' => 'Wash the dog',
-                'task_content' => json_encode('Wash the dog'),
+                'task_content' => json_encode(['desc' => 'some string']),
                 'task_type' => 1,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -180,7 +183,7 @@ class Table extends Model
             ]);
             $task = Task::create([
                 'task_name' => 'Make dinner',
-                'task_content' => json_encode('spaghetti and soup'),
+                'task_content' => json_encode(['desc' => 'some string']),
                 'task_type' => 1,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
@@ -191,7 +194,11 @@ class Table extends Model
                 'task_id' => $task->id
             ]);
 
+<<<<<<< HEAD
             return true;
+=======
+            return self::getPrivateContent($table->id, $creator_id);
+>>>>>>> 71ad55d03b81d0809ea36d653a7ed0f7e1c39c43
         } catch (\Exception $e) {
             return null;
         }

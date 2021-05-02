@@ -17,19 +17,23 @@ class Task extends Model
         'id'
     ];
     protected $fillable = [
-        'task_name','task_content','task_type','card_id','updated_at'
+        'task_name', 'task_content', 'task_type', 'card_id', 'updated_at'
     ];
-
+    protected $casts = [
+        'task_content' => 'object'
+    ];
     protected $hidden = [
         'pivot'
     ];
 
-    public function card() {
-        return $this->hasOne(Card::class ,'id','card_id');
-    }
-    public function createTask(int $id, string $task_name, string $task_content, int $user_id)
+    public function card()
     {
-        $card = Card::where('id',$id)->first();
+        return $this->hasOne(Card::class, 'id', 'card_id');
+    }
+
+    public function createTask(int $id, string $task_name, $task_content, int $user_id)
+    {
+        $card = Card::where('id', $id)->first();
         $table = $card->table;
         $team = new Team();
         try {
@@ -41,7 +45,6 @@ class Task extends Model
         } catch (\Exception $e) {
             return null;
         }
-
 
         $task = Task::create([
             'task_name' => $task_name,
@@ -55,11 +58,12 @@ class Task extends Model
             'card_id' => $id,
             'task_id' => $task->id
         ]);
-        return true;
+        return $task;
     }
-    public function updateTask(int $id, string $task_name, string $task_content, int $user_id)
+
+    public function updateTask(int $id, string $task_name, $task_content, int $user_id)
     {
-        $task= Task::where('id',$id)->first();
+        $task = Task::where('id', $id)->first();
         $table = $task->card->table;
         $team = new Team();
         try {
@@ -68,19 +72,20 @@ class Task extends Model
             } else if (!($table->creator_id == $user_id)) {
                 return null;
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return null;
         }
         Task::find($id)->update([
             'task_name' => $task_name,
-            'task_content' => json_encode($task_content),
+            'task_content' => $task_content,
             'task_type' => 1,
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s')]);
         return true;
     }
+
     public function deleteTask(int $id, int $user_id)
     {
-        $task= Task::where('id',$id)->first();
+        $task = Task::where('id', $id)->first();
         $table = $task->card->table;
         $team = new Team();
         try {
@@ -89,7 +94,7 @@ class Task extends Model
             } else if (!($table->creator_id == $user_id)) {
                 return null;
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return null;
         }
         Task::find($id)->delete();
