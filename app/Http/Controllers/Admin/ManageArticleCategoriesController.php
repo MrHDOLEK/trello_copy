@@ -5,47 +5,55 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\ArticleCategory;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ManageArticleCategoriesController extends Controller
 {
-    public function create(Request $request) {
-        $category = new ArticleCategory([
-           'name' => $request->name,
-           'description' => $request->description
-        ]);
+    public function create(Request $request): Response {
+        $article_category = new ArticleCategory();
+        $article_category->createArticleCategory($request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string'
+        ]));
 
-        $category->save();
-
-        return response([
-            'message' => 'Success! Category has been created!',
+        return response(
+            'Success! Category has been created!',
             200
-        ]);
+        );
     }
 
-    public function get(Request $request) {
-        if(!empty($request->category_id))
-            return ArticleCategory::findOrFail($request->category_id);
+    public function get(Request $request): Response {
+        $article_category = new ArticleCategory();
+        $data = $article_category->getArticleCategories($request->validate([
+            "article_category_id" => "integer|max:255"
+        ]));
 
-        return ArticleCategory::all();
+        return response($data,200);
     }
 
-    public function update(Request $request) {
-        $category = ArticleCategory::findOrFail($request->category_id);
-        $category->update($request->all());
+    public function update(Request $request): Response {
+        $article_category = new ArticleCategory();
+        $article_category->updateArticleCategory($request->validate([
+            'article_category_id' => 'required|integer|max:255',
+            'name' => 'string|max:255',
+            'description' => 'string'
+        ]));
 
-        return response([
-            'message' => 'Success! Category has been updated!',
+        return response(
+            'Success! Category has been updated!',
             200
-        ]);
+        );
     }
 
-    public function delete(Request $request) {
-        $category = ArticleCategory::findOrFail($request->category_id);
-        $category->delete();
+    public function delete(Request $request): Response {
+        $article_category = new ArticleCategory();
+        $article_category->deleteArticleCategory($request->validate([
+            'article_category_id' => 'required|integer|max:255'
+        ]));
 
-        return response([
-            'message' => 'Success! Category has been deleted!',
+        return response(
+            'Success! Category has been deleted!',
             200
-        ]);
+        );
     }
 }

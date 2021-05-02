@@ -5,47 +5,58 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\ArticleType;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ManageArticleTypesController extends Controller
 {
-    public function create(Request $request) {
-        $type = new ArticleType([
-            'name' => $request->name,
-            'description' => $request->description
-        ]);
-
-        $type->save();
-
-        return response([
-            'message' => 'Success! Type has been created!',
-            200
-        ]);
-    }
-
-    public function get(Request $request) {
-        if(!empty($request->type_id))
-            return ArticleType::findOrFail($request->type_id);
-
-        return ArticleType::all();
-    }
-
-    public function update(Request $request) {
-        $type = ArticleType::findOrFail($request->type_id);
-        $type->update($request->all());
+    public function create(Request $request): Response {
+        $article_type = new ArticleType();
+        $article_type->createArticleType($request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string'
+        ]));
 
         return response([
-            'message' => 'Success! Type has been updated!',
+            'message' => 'Success! Type has been created!'],
             200
-        ]);
+        );
     }
 
-    public function delete(Request $request) {
-        $type = ArticleType::findOrFail($request->type_id);
-        $type->delete();
+    public function get(Request $request): Response {
+        $article_type = new ArticleType();
+        $data = $article_type->getArticleTypes($request->validate([
+            'article_type_id' => 'integer|max:255'
+        ]));
 
-        return response([
-            'message' => 'Success! Type has been deleted!',
+        return response(
+            $data,
             200
-        ]);
+        );
+    }
+
+    public function update(Request $request): Response {
+        $article_type = new ArticleType();
+        $article_type->updateArticleType($request->validate([
+            'article_type_id' => 'required|integer|max:255',
+            'name' => 'string|max:255',
+            'description' => 'string'
+        ]));
+
+        return response(
+            'Success! Type has been updated!',
+            200
+        );
+    }
+
+    public function delete(Request $request): Response {
+        $article_type = new ArticleType();
+        $article_type->deleteArticleType($request->validate([
+            'article_type_id' => 'required|integer|max:255'
+        ]));
+
+        return response(
+            'Success! Type has been deleted!',
+            200
+        );
     }
 }
