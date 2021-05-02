@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { getPrivateSingleBoard } from "../../actions/boards";
 import Loader from "react-loader-spinner";
 import { Card } from "./Card";
+import { DashboardMenu } from "./DashboardMenu";
 
 export const Dashboard = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ export const Dashboard = () => {
 
   if (singleBoardLoading)
     return (
-      <div className="flex">
+      <div className="flex pt-24">
         <Loader
           className="mx-auto"
           type="ThreeDots"
@@ -32,12 +33,8 @@ export const Dashboard = () => {
 
   if (!singleBoardLoading && singleBoardFetched) {
     return (
-      <div className="min-h-screen">
-        <h1 className="text-gray-200 text-3xl text-center my-2">
-          {selectedBoard.name}
-        </h1>
-        {/* <div className="sm:whitespace-nowrap overflow-x-auto relative"> */}
-
+      <div className="">
+        <DashboardMenu selectedBoard={selectedBoard} />
         <div className="sm:flex flex-row flex-nowrap overflow-x-auto">
           {selectedBoard.card.map((card) => (
             <Card key={card.id} card={card} />

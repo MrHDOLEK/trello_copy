@@ -2,20 +2,23 @@ import React, { useState } from "react";
 import InputField from "../common/InputField";
 import Button from "../common/Button";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import { createBoard } from "../../actions/boards";
 
 export const CreateNewBoard = () => {
   const [state, setState] = useState();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const onChange = (event) => {
     setState({ [event.target.name]: event.target.value });
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
-    dispatch(createBoard(state));
+    await dispatch(createBoard(state));
+    history.push("/main/boards_list");
   };
 
   return (

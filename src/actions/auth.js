@@ -38,8 +38,10 @@ export const loginUser = (state) => (dispatch) => {
       notifySuccess("You have been successfully logged in!");
     })
     .catch((err) => {
-      dispatch({ type: LOGIN_FAILED, payload: err.message });
-      notifyError(err.message);
+      const { message, errors } = err.response.data;
+      dispatch({ type: LOGIN_FAILED, payload: message });
+      errors.email && notifyError(errors.email[0]);
+      errors.password && notifyError(errors.password[0]);
     });
 };
 

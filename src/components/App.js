@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 import PrivateRoute from "./common/PrivateRoute";
 import AuthenticationPage from "./authentication/AuthenticationPage";
 import MainPage from "./mainPage/MainPage";
-import Header from "./layout/Header";
+import Header from "./layout/Header/Header";
 
 import { getUser } from "../actions/auth";
 import { getCookie } from "../functions/cookies";
@@ -33,8 +33,8 @@ function App() {
   return (
     <div className="bg-gray-800 min-h-screen h-full text">
       <CustomToastContainer />
-      <Header />
       <Router>
+        <Header />
         <Switch>
           <Route exact path="/register">
             <AuthenticationPage option={"register"} />

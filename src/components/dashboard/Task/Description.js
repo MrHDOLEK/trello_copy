@@ -1,12 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { editTaskDescription } from "../../../actions/tasks";
+import { editTaskContent } from "../../../actions/tasks";
 
 export const Description = ({ data }) => {
-  console.log(data.task_content);
-  console.log(JSON.parse(data.task_content));
+  const parsedContent = JSON.parse(data.task_content);
   const [inEditMode, setEditMode] = useState(false);
-  const [state, setState] = useState(data.task_content);
+  const [state, setState] = useState(parsedContent.desc);
   const textareaRef = useRef(null);
   const dispatch = useDispatch();
 
@@ -15,7 +14,7 @@ export const Description = ({ data }) => {
   };
 
   const endAndSaveEditMode = () => {
-    dispatch(editTaskDescription(state, data));
+    dispatch(editTaskContent(state, data));
     setEditMode(false);
   };
 
@@ -48,7 +47,6 @@ export const Description = ({ data }) => {
           ref={textareaRef}
           value={state}
           onChange={onChange}
-          // onBlur={() => setTimeout(() => setEditMode(false), 100)}
           className="block bg-white resize-none rounded w-full h-24 p-2 mb-1 focus:outline-none focus:ring-2 focus:ring-green-500"
         />
         <button

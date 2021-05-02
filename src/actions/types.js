@@ -12,4 +12,8 @@ export const SINGLE_PRIVATE_FETCHED = "SINGLE_PRIVATE_FETCHED";
 export const SINGLE_PRIVATE_ERROR = "SINGLE_PRIVATE_ERROR";
 
 export const TASK_UPDATE = "TASK_UPDATE";
+export const TASK_ADDED = "TASK_ADDED";
 export const TASK_DELETE = "TASK_DELETE";
+
+export const CARD_ADDED = "CARD_ADDED";
+export const CARD_DELETE = "CARD_DELETE";

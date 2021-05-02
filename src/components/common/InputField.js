@@ -1,15 +1,9 @@
 import React from "react";
 
-const InputField = ({
-  label,
-  type,
-  name,
-  id,
-  value,
-  onChange,
-  placeholder,
-  variant,
-}) => {
+const InputField = (
+  { label, type, name, id, value, onChange, placeholder, variant },
+  props
+) => {
   let classes;
   if (variant === "variantOne")
     classes =

@@ -34,6 +34,8 @@ export default function (state = initialState, action) {
         isFetched: false,
         privateTables: null,
       };
+
+      return { ...state };
     default:
       return state;
   }

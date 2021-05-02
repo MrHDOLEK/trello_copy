@@ -5,11 +5,12 @@ import { TaskTitle } from "./TaskTitle";
 import { TaskTimer } from "./TaskTimer";
 import { ModalWrapper } from "./Modal";
 import { TaskDeleteButton } from "./TaskDeleteButton";
+import Icon from "../../common/Icon";
 
 export const Task = ({ task, card }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState(task.task_name);
-  console.log(task);
+  const [isDeleted, setDeleted] = useState(false);
 
   const openModal = () => {
     setIsOpen(true);
@@ -23,14 +24,30 @@ export const Task = ({ task, card }) => {
     setTitle(event.target.value);
   };
 
+  const onClickDelete = () => {
+    closeModal();
+    setDeleted(true);
+  };
+
+  if (isDeleted) {
+    return (
+      <Fragment>
+        <div className="shadow bg-gray-400 cursor-not-allowed border border-gray-400 rounded p-1 flex justify-between">
+          <span>{title}</span>
+        </div>
+      </Fragment>
+    );
+  }
+
   return (
     <Fragment>
       <div
         onClick={openModal}
-        className="shadow bg-gray-50 hover:bg-gray-100 cursor-pointer border border-gray-300 rounded p-1 flex justify-between"
+        className="shadow bg-gray-50 hover:bg-gray-100 cursor-pointer border border-gray-300 rounded p-1 flex justify-between mb-1"
       >
         <span>{title}</span>
       </div>
+
       <ModalWrapper isOpen={modalIsOpen} onRequestClose={closeModal}>
         <TaskTitle
           title={title}
@@ -40,13 +57,16 @@ export const Task = ({ task, card }) => {
         />
         <Description data={task} card={card} />
         <TaskTimer />
-        <button
-          onClick={closeModal}
-          className="absolute right-3 top-3 hover:bg-gray-200 w-10 h-10 p-1 rounded-full outline-none hover:outline-none focus:outline-none"
-        >
-          X
+        <button onClick={closeModal} className="group absolute right-6 top-6">
+          <Icon
+            icon="x"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            iconClassName="group-hover:text-green-500"
+          />
         </button>
-        <TaskDeleteButton task={task} />
+        <TaskDeleteButton task={task} onClickDelete={onClickDelete} />
       </ModalWrapper>
     </Fragment>
   );

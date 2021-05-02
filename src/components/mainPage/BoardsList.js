@@ -30,7 +30,7 @@ function BoardsList() {
 
   if (!isLoading && isFetched) {
     return (
-      <div className="p-1">
+      <div className="p-1 border border-gray-700 rounded max-h-96 overflow-y-auto">
         <h1 className="text-center sm:text-left text-xl font-bold text-gray-200">
           Private Boards
         </h1>
@@ -41,7 +41,7 @@ function BoardsList() {
               key={board.id}
               className="bg-gray-200 rounded w-full flex-grow md:max-w-sm h-36 my-2 md:mr-4 hover:bg-gray-400 cursor-pointer"
             >
-              <div>{board.name}</div>
+              <div className="ml-2 mt-2 text-2xl">{board.name}</div>
             </Link>
           ))}
         </div>

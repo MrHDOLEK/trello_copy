@@ -1,8 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { editTaskTitle } from "../../../actions/tasks";
+import { editBoardTitle } from "../../actions/boards";
 
-export const TaskTitle = ({ title, task, cardName, onChange }) => {
+export const DashboardTitle = ({ title, board, onChange }) => {
   const [inEditMode, setEditMode] = useState(false);
   const dispatch = useDispatch();
   const inputRef = useRef(null);
@@ -12,7 +12,7 @@ export const TaskTitle = ({ title, task, cardName, onChange }) => {
   });
 
   const endAndSaveEditMode = () => {
-    dispatch(editTaskTitle(title, task));
+    dispatch(editBoardTitle(title, board));
     setEditMode(false);
   };
 
@@ -22,7 +22,6 @@ export const TaskTitle = ({ title, task, cardName, onChange }) => {
         <h2 onClick={() => setEditMode(true)} className="text-xl font-bold">
           {title}
         </h2>
-        <small className="text-gray-600">in card '{cardName}'</small>
       </div>
     );
   } else {
@@ -36,10 +35,9 @@ export const TaskTitle = ({ title, task, cardName, onChange }) => {
           onBlur={() => endAndSaveEditMode()}
           onKeyDown={(event) => event.key === "Enter" && endAndSaveEditMode()}
         />
-        <small className="text-gray-600">in card '{cardName}'</small>
       </div>
     );
   }
 };
 
-export default TaskTitle;
+export default DashboardTitle;
