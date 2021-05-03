@@ -65,8 +65,7 @@ class Table extends Model
 
     public function getPrivateTable(int $user_id)
     {
-        $result = Table::where('creator_id', $user_id)
-            ->get();
+        $result = Table::where('creator_id', $user_id)->get();
         return $result;
     }
 

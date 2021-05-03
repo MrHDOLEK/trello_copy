@@ -34,6 +34,7 @@ class  TablesController extends Controller
         $user_id = $request->user()->id;
         $tables = $table->getPrivateTable($user_id);
         return response()->json($tables, 200);
+        //return response()->json(['message' => 'Not table to view'], 404);
     }
 
     public function showPrivateDetails(Request $request): JsonResponse

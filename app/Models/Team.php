@@ -32,6 +32,30 @@ class Team extends Model
         return Team::where('id', $user->team_id)->firstOrFail();
     }
 
+    public function showAll(int $user_id)
+    {
+        if ($user_id == null) {
+            return null;
+        }
+        $allTeams = Team::where('users', 'like', '%' . $user_id . '%')->get();
+        if (empty($allTeams)) {
+            return null;
+        }
+        return $allTeams;
+    }
+
+    public function showTable(int $team_id)
+    {
+        if ($team_id == null) {
+            return null;
+        }
+        $tables = Table::where('team_id', $team_id)->get();
+        if (empty($tables)) {
+            return null;
+        }
+        return $tables;
+    }
+
     public function createTeam(string $team_name, array $users_mail, int $user_id, int $table_id = null)
     {
         $packet = new Packet();

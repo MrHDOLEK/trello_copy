@@ -238,6 +238,8 @@ Przypisywanie zespołu do danej tablicy odbywa się poprzez aktualizacje samej t
 
 1. **Pokazanie w jakich zespołach jest jezeli jest tworca tablicy`/api/v1/manage/teams`**
 2. **Pokazanie wszystkich zespołów [tylko admin] dostepna tutaj jest paginacja max 20 wyników na strone `/api/v1/manage/teams`**
+3. **Pokazanie wszystkich zespołów w  jakich jest użytkownik `/api/v1/manage/teams/all`*
+4. **Pokazanie wszystkich tablic jakie ma dany zespół`/api/v1/manage/teams?id=id zespołu`**
 
 ### Metoda POST
 1. **Utworzenie zespołu i przypisanie go do tablicy`/api/v1/manage/teams?id=id tablicy`**

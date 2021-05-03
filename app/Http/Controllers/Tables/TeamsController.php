@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Tables;
 use App\Http\Controllers\Controller;
 use App\Models\Team;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -19,6 +20,28 @@ class TeamsController extends Controller
             return response()->json($message, 200);
         }
         return response()->json(['message' => 'Permission error'], 401);
+    }
+    public function showAll(Request $request): JsonResponse
+    {
+        $team = new Team();
+        $user = new User();
+        $message = $team->showAll($request->user()->id);
+        if (!empty($message)) {
+            return response()->json($message, 200);
+        }
+        return response()->json(['message' => 'You not have team'], 401);
+    }
+    public function showTable(Request $request): JsonResponse
+    {
+        $request->validate([
+            'id' => 'int|max:255',
+        ]);
+        $team = new Team();
+        $message = $team->showTable($request->id);
+        if (!empty($message)) {
+            return response()->json($message, 200);
+        }
+        return response()->json(['message' => 'This team is not have table'], 401);
     }
 
     public function create(Request $request): JsonResponse
