@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { createTeam, getTeam } from "../../actions/team";
+import { createTeam } from "../../actions/team";
 import { notifyError } from "../../functions/notify";
 import Button from "../common/Button";
 import InputField from "../common/InputField";
@@ -80,7 +80,6 @@ const Teams = () => {
         textColor="black"
         onClick={onSubmit}
       />
-      <button onClick={() => dispatch(getTeam())}>CLICK</button>
     </div>
   );
 };

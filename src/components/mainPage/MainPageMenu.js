@@ -14,13 +14,18 @@ const MainPageMenu = () => {
           </Link>
         </li>
         <li className={classes}>
+          <Link className="block p-0.5" to={`${path}/teams_list`}>
+            Teams list
+          </Link>
+        </li>
+        <li className={classes}>
           <Link className="block p-0.5" to={`${path}/create_board`}>
             Create new board
           </Link>
         </li>
         <li className={classes}>
-          <Link className="block p-0.5" to={`${path}/teams`}>
-            Teams
+          <Link className="block p-0.5" to={`${path}/create_team`}>
+            Create new team
           </Link>
         </li>
       </ul>

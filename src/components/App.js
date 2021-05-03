@@ -21,6 +21,7 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 import { CustomToastContainer } from "../functions/notify";
 import "react-toastify/dist/ReactToastify.css";
+import AdminPanel from "./admin/AdminPanel";
 
 function App() {
   const dispatch = useDispatch();
@@ -45,6 +46,8 @@ function App() {
 
           <PrivateRoute component={MainPage} path="/main" />
           <PrivateRoute component={Dashboard} path="/dashboard/:id" />
+
+          <PrivateRoute component={AdminPanel} path="/admin" />
           <Redirect from="/" to="/main/boards_list" />
         </Switch>
       </Router>

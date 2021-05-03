@@ -1,6 +1,7 @@
 import axios from "axios";
 import { notifySuccess } from "../functions/notify";
 import tokenConfig from "../functions/token";
+import { FETCH_ALL_TEAMS } from "./types";
 
 const addressAPI = process.env.REACT_APP_BACKEND_API;
 
@@ -12,9 +13,26 @@ export const createTeam = (state) => (dispatch, getState) => {
     .catch((err) => console.log(err));
 };
 
-export const getTeam = () => (dispatch, getState) => {
+export const getTeams = () => (dispatch, getState) => {
   axios
     .get(`${addressAPI}/api/v1/manage/teams`, tokenConfig(getState))
     .then((response) => console.log(response))
     .catch((err) => console.log(err));
+};
+
+export const getUserTeams = () => (dispatch, getState) => {
+  axios
+    .get(`${addressAPI}/api/v1/manage/teams/all`, tokenConfig(getState))
+    .then((response) =>
+      dispatch({ type: FETCH_ALL_TEAMS, payload: response.data })
+    )
+    .catch((err) => console.log(err.message));
+};
+
+export const getTeamsTables = (id) => (dispatch, getState) => {
+  console.log(id);
+  axios
+    .get(`${addressAPI}/api/v1/manage/teams?id=${id}`, tokenConfig(getState))
+    .then((response) => console.log(response.data))
+    .catch((err) => console.log(err.message));
 };

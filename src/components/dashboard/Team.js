@@ -1,14 +1,14 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 
 export const Team = ({ board }) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   console.log(board);
 
-  const team = {
-    team_name: "kys123",
-    users_mail: ["mat@gmail.pl", "pat@gmail.pl", "test@test.pl"],
-  };
+  // const team = {
+  //   team_name: "kys123",
+  //   users_mail: ["mat@gmail.pl", "pat@gmail.pl", "test@test.pl"],
+  // };
 
   return <div>TEST</div>;
 };

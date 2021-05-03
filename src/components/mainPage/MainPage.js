@@ -5,6 +5,7 @@ import Teams from "./Teams";
 
 import React, { Fragment } from "react";
 import { Route, useRouteMatch } from "react-router-dom";
+import TeamsList from "./TeamsList";
 
 const MainPage = () => {
   const { url } = useRouteMatch();
@@ -17,7 +18,8 @@ const MainPage = () => {
           <div className="md:w-3/4">
             <Route path={`${url}/boards_list`} component={BoardsList} />
             <Route path={`${url}/create_board`} component={CreateNewBoard} />
-            <Route path={`${url}/teams`} component={Teams} />
+            <Route path={`${url}/create_team`} component={Teams} />
+            <Route path={`${url}/teams_list`} component={TeamsList} />
           </div>
         </div>
       </div>

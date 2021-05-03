@@ -3,12 +3,14 @@ import {
   PRIVATE_BOARDS_FETCHED,
   PRIVATE_BOARDS_FETCHING,
   PRIVATE_BOARDS_ERROR,
+  FETCH_ALL_TEAMS,
 } from "../actions/types";
 
 const initialState = {
   isLoading: false,
   isFetched: false,
   privateTables: null,
+  teams: [],
 };
 
 export default function (state = initialState, action) {
@@ -35,7 +37,9 @@ export default function (state = initialState, action) {
         privateTables: null,
       };
 
-      return { ...state };
+    case FETCH_ALL_TEAMS:
+      return { ...state, teams: action.payload };
+
     default:
       return state;
   }

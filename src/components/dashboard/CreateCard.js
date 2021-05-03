@@ -21,6 +21,7 @@ export const CreateCard = ({ selectedBoard }) => {
 
   const handleClick = () => {
     dispatch(addCard(name, selectedBoard));
+    setOpen(false);
   };
 
   const onChange = (event) => {

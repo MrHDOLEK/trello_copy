@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import Icon from "../../common/Icon";
 import GuestMenu from "./GuestMenu";
 import UserMenu from "./UserMenu";
 
