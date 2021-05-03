@@ -23,4 +23,8 @@ class UserPermission extends Model
     public function permission() {
         return $this->hasOne(Permission::class,'id', 'permission_id');
     }
+
+//    public function createUserPermission($data) {
+//        UserPermission::create($data);
+//    }
 }

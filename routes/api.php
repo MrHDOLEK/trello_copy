@@ -84,8 +84,8 @@ Route::group([
     Route::group([
         'prefix' => '/avatar'
     ], function () {
-        Route::post('/post',[UserPersonalDataController::class,'postAvatar']);
-        Route::get('',[UserPersonalDataController::class,'getAvatar']);
+        Route::post('/post',[UserPersonalDataController::class,'uploadAvatar']);
+        Route::get('',[UserPersonalDataController::class,'retrieveAvatar']);
         Route::delete('/delete',[UserPersonalDataController::class,'deleteAvatar']);
     });
 
@@ -106,18 +106,18 @@ Route::group([
 });
 
 Route::group([
-    'prefix' => 'v1/manage',
-    'middleware' => 'auth:api'
+    'prefix' => 'v1/admin/manage',
+    'middleware' => ['auth:api','admin']
 ], function () {
 
     Route::group([
         'prefix' => 'user'
     ], function () {
-        Route::post('/create',[ManageUsersController::class, 'createUser']);
-        Route::get('',[ManageUsersController::class,'getUsers']);
-        Route::get('/details',[ManageUsersController::class,'getUserDetails']);
-        Route::put('/update',[ManageUsersController::class,'updateUser']);
-        Route::delete('/delete',[ManageUsersController::class,'deleteUser']);
+        Route::post('/create',[ManageUsersController::class, 'create']);
+        Route::get('',[ManageUsersController::class,'get']);
+        Route::get('/details',[ManageUsersController::class,'getDetails']);
+        Route::put('/update',[ManageUsersController::class,'update']);
+        Route::delete('/delete',[ManageUsersController::class,'delete']);
     });
 
     Route::group([

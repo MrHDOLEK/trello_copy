@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -56,6 +57,13 @@ class Table extends Model
         return $this->hasMany(Task::class);
     }
 
+    public function getTables($validated): Collection|Table  {
+        if(!empty($validated))
+            return Table::findOrFail($validated['table_id']);
+
+        return Table::all();
+    }
+
     public function getPublicTable()
     {
         $result = Table::where('is_visible', $this->visible_public)
@@ -90,8 +98,6 @@ class Table extends Model
             return $content;
         }
         return null;
-
-
     }
 
     public function createTable(string $name, string $name_user, int $creator_id)
@@ -210,6 +216,18 @@ class Table extends Model
         return true;
     }
 
+    public function updateTableAsAdmin($validated)
+    {
+        $table = Table::find($validated['id'])->first();
+
+        if(empty($table))
+            return null;
+
+        $table->update($validated);
+
+        return true;
+    }
+
     public function deleteTable(int $id, int $user_id)
     {
         $creator_id = Table::where('id', $id)->where('creator_id', $user_id)->firstOrFail();
@@ -217,6 +235,17 @@ class Table extends Model
             return null;
         }
         Table::find($id)->delete();
+        return true;
+    }
+
+    public function deleteTableAsAdmin(int $table_id) {
+        $table = Table::find($table_id)->first();
+
+        if(empty($table))
+            return null;
+
+        $table->delete();
+
         return true;
     }
 }

@@ -68,4 +68,43 @@ class User extends Authenticatable
         $permisssion = User::with('userPermission.permission')->find($user_id);
         return $permisssion->userPermission->permission->name;
     }
+
+    public function getUsers($validated) {
+        if(!empty($validated))
+            return User::findOrFail($validated['user_id']);
+
+        return User::all();
+    }
+
+    public function getUserDetails($validated) {
+        $details = [
+            'personal_data' => UserPersonalData::where('user_id', $validated['user_id'])->first(),
+            'permission' => UserPermission::where('user_id', $validated['user_id'])->first()
+        ];
+
+        return $details;
+    }
+
+    public function updateUser($validated) {
+        $user = User::firstWhere('id', $validated['user_id']);
+        $user->update($validated);
+    }
+
+    public function deleteUser($validated) {
+        $user = User::firstWhere('id', $validated['user_id'])->first();
+        $user->delete();
+    }
+
+    public function isAdmin() {
+        $user_permission = $this->with('userPermission.permission')
+            ->find($this->id)
+            ->userPermission
+            ->permission
+            ->name;
+
+        if($user_permission === "admin")
+            return true;
+        else
+            return false;
+    }
 }

@@ -23,4 +23,25 @@ class Article extends Model
     public function article_type() {
         return $this->hasOne(ArticleType::class);
     }
+
+    public function createArticle($validated) {
+        Article::create($validated);
+    }
+
+    public function getArticles($validated) {
+        if(!empty($validated))
+            return Article::findOrFail($validated);
+
+        return Article::all();
+    }
+
+    public function updateArticle($validated) {
+        $article = Article::findOrFail($validated['article_id']);
+        $article->update($validated);
+    }
+
+    public function deleteArticle($validated) {
+        $article = Article::findOrFail($validated)->first();
+        $article->delete();
+    }
 }

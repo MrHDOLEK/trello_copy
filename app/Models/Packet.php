@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,7 +24,7 @@ class Packet extends Model
         return $this->hasOne(PacketPermission::class, 'id','permission_id');
     }
 
-    public function checkLimit(int $creator_id)
+    public function checkLimit(int $creator_id): int|array
     {
         $order = Order::where('user_id', $creator_id)->latest()->get();
         if ($order->isEmpty()) {
@@ -35,5 +36,26 @@ class Packet extends Model
         } else {
             return 0;
         }
+    }
+
+    public function createPacket($validated) {
+        Packet::create($validated);
+    }
+
+    public function getPackets($validated): Collection {
+        if(!empty($validated))
+            return Packet::findOrFail($validated);
+
+        return Packet::all();
+    }
+
+    public function updatePacket($validated) {
+        $packet = Packet::findOrFail($validated['packet_id']);
+        $packet->update($validated);
+    }
+
+    public function deletePacket($validated) {
+        $packet = Packet::findOrFail($validated)->first();
+        $packet->delete();
     }
 }
