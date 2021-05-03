@@ -36,6 +36,7 @@ export const loginUser = (state) => (dispatch) => {
     .then((response) => {
       dispatch({ type: LOGIN_SUCCESS, payload: response.data });
       notifySuccess("You have been successfully logged in!");
+      dispatch(getUser());
     })
     .catch((err) => {
       const { message, errors } = err.response.data;

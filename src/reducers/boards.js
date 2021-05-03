@@ -4,6 +4,7 @@ import {
   PRIVATE_BOARDS_FETCHING,
   PRIVATE_BOARDS_ERROR,
   FETCH_ALL_TEAMS,
+  FETCH_SINGLE_TEAM_BOARD,
 } from "../actions/types";
 
 const initialState = {
@@ -11,6 +12,7 @@ const initialState = {
   isFetched: false,
   privateTables: null,
   teams: [],
+  singleTeam: null,
 };
 
 export default function (state = initialState, action) {
@@ -39,6 +41,12 @@ export default function (state = initialState, action) {
 
     case FETCH_ALL_TEAMS:
       return { ...state, teams: action.payload };
+
+    case FETCH_SINGLE_TEAM_BOARD:
+      return {
+        ...state,
+        singleTeam: action.payload,
+      };
 
     default:
       return state;

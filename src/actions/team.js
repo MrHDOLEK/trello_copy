@@ -1,7 +1,7 @@
 import axios from "axios";
 import { notifySuccess } from "../functions/notify";
 import tokenConfig from "../functions/token";
-import { FETCH_ALL_TEAMS } from "./types";
+import { FETCH_ALL_TEAMS, FETCH_SINGLE_TEAM_BOARD } from "./types";
 
 const addressAPI = process.env.REACT_APP_BACKEND_API;
 
@@ -30,9 +30,14 @@ export const getUserTeams = () => (dispatch, getState) => {
 };
 
 export const getTeamsTables = (id) => (dispatch, getState) => {
-  console.log(id);
   axios
-    .get(`${addressAPI}/api/v1/manage/teams?id=${id}`, tokenConfig(getState))
-    .then((response) => console.log(response.data))
+    .get(
+      `${addressAPI}/api/v1/manage/teams/table?id=${id}`,
+      tokenConfig(getState)
+    )
+    .then((response) => {
+      dispatch({ type: FETCH_SINGLE_TEAM_BOARD, payload: response.data });
+      console.log(response.data);
+    })
     .catch((err) => console.log(err.message));
 };

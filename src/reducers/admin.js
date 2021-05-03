@@ -2,6 +2,7 @@ import {
   DELETE_PACKAGE,
   FETCH_ALL_PACKAGE,
   FETCH_ALL_USERS,
+  LOGOUT_SUCCESS,
 } from "../actions/types";
 
 /* eslint-disable import/no-anonymous-default-export */
@@ -27,6 +28,12 @@ export default function (state = initialState, action) {
         packages: state.packages.filter(
           (singlePackage) => singlePackage.id !== action.payload
         ),
+      };
+
+    case LOGOUT_SUCCESS:
+      return {
+        users: [],
+        packages: [],
       };
 
     default:

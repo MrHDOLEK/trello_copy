@@ -25,13 +25,14 @@ const TeamsList = () => {
 };
 
 const Team = ({ team }) => {
+  console.log(team);
   const dispatch = useDispatch();
-  const onClick = (id) => {
+  const onClick = () => {
     dispatch(getTeamsTables(team.id));
   };
 
   return (
-    <li className="bg-green-500 inline-block py-1 px-3 rounded">
+    <li className="bg-green-500 inline-block py-1 px-3 rounded mr-2">
       <button onClick={onClick}>{team.name}</button>
     </li>
   );

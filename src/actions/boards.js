@@ -133,3 +133,21 @@ export const editCardTitle = (state, card) => (dispatch, getState) => {
     })
     .catch((err) => notifyError(err.message));
 };
+
+export const editBoardTeam = (state, board) => (dispatch, getState) => {
+  const { id } = board;
+
+  const updatedBoard = {
+    team_id: state,
+    ...board,
+  };
+
+  axios
+    .put(
+      `${addressAPI}/api/v1/manage/tables?id=${id}`,
+      updatedBoard,
+      tokenConfig(getState)
+    )
+    .then((response) => console.log(response))
+    .catch((err) => console.log(err));
+};
