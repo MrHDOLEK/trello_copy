@@ -12,14 +12,18 @@ class Invoice extends Model
     protected $table = 'invoices';
 
     protected $fillable = [
-        'brutto','currency','type','pdf','netto','vat'
+        'brutto','currency','type','pdf','netto','vat','symbol','buyer','items','order_id'
     ];
 
     protected $hidden = [
-        'symbol','buyer','items','order_id'
+
     ];
 
     public function order() {
         return $this->hasOne(Order::class);
+    }
+    public function createInvoice(int $order_id)
+    {
+
     }
 }

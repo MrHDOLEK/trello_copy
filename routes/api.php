@@ -171,8 +171,9 @@ Route::group([
     });
 });
 Route::group([
-    'prefix' => 'v1/payu'
+    'prefix' => 'v1/payu',
+    'middleware' => 'auth:api'
 ], function () {
-    Route::post('order/(?P<id>\d+)', [PayuController::class, 'createOrder']);
-    Route::get('payment/(?P<id>\w+)', [PayuController::class, 'getPaymentStatus']);
+    Route::post('/order', [PayuController::class, 'createOrder']);
+    Route::get('/payment/status', [PayuController::class, 'getPaymentStatus']);
 });
