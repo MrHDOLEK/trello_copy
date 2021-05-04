@@ -37,6 +37,13 @@ class ManagePacketsController extends Controller
     }
 
     public function update(Request $request): Response {
+        if($request->packet_id === 1) {
+            return response(
+                'This packet cannot be changed!',
+                403
+            );
+        }
+        
         $packet = new Packet();
         $packet->updatePacket($request->validate([
             'packet_id' => 'required|integer|max:255',
