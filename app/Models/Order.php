@@ -12,11 +12,11 @@ class Order extends Model
     protected $table = 'orders';
 
     protected $fillable = [
-        'status','invoice','hash'
+        'status'
     ];
 
     protected $hidden = [
-        'user_id','subscription_id','invoice_data'
+        'user_id','subscription_id','invoice_data','updated_at','created_at','invoice_data','invoice','hash'
     ];
 
     public function user() {
@@ -33,5 +33,9 @@ class Order extends Model
 
     public function bill() {
         return $this->belongsTo(Bill::class);
+    }
+    public function create(int $user_id,bool $invoice,int $sub_id )
+    {
+
     }
 }

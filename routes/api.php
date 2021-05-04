@@ -173,6 +173,6 @@ Route::group([
 Route::group([
     'prefix' => 'v1/payu'
 ], function () {
-    Route::post('get_order/(?P<id>\d+)', [PayuController::class, 'getOrder']);
-    Route::post('get_payment_status/(?P<id>\w+)', [PayuController::class, 'getPaymentStatus']);
+    Route::post('order/(?P<id>\d+)', [PayuController::class, 'createOrder']);
+    Route::get('payment/(?P<id>\w+)', [PayuController::class, 'getPaymentStatus']);
 });
