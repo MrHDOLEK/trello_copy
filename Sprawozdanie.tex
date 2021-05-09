@@ -1,0 +1,92 @@
+\documentclass[12pt, letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\begin{titlepage}
+\title{\textbf{Projekt aplikacji do organizowania pracy}}
+\author{Aleksander Kowalski, Grzegorz Bogusz, Kacper Frankowski}
+\date{Legnica, May 2021}
+\end{titlepage}
+\begin{document}
+\maketitle
+\pagebreak
+\newpage
+\renewcommand*\contentsname{Spis treści}
+\tableofcontents
+\pagebreak
+\newpage
+\section{Wstęp}
+\subsection{Założenia aplikacji}
+\thispagestyle{empty}
+\item{Trello Copy to aplikacja działająca w przeglądarce. Jej głównym celem jest pomoc w organizacji pracy za pomocą tworzenia tablic, zakładek oraz zadań. Użytkownik może dzielić tablice poprzez dodawanie do nich innych użytkowników. Aplikacja jest wysoce inspirowana znanym serwisem Trello.}
+\subsection{Opis użytych technologii}
+\thispagestyle{empty}
+\item{Back-end aplikacji jest oparty o framework Laravel, który został wykorzystany do stworzenia API. Front-end jest oparty o bibliotekę React. Konsumuje on API, które jest z kolei hostowane na osobnym kontenerze z laravelem. Aplikacja jest skonteneryzowana, czyli każda instancja, np. back-end, jest osobnym kontenerem. Całość jest spięta w jedną sieć, ponieważ umożliwia to bezpieczną komunikacja pomiędzy kontenerami, aby to osiągnąć posłużyliśmy się narzędziem Docker. Aplikacja posiada także CI/CD, które jest oparte o github actions. Pomaga nam to zautomatyzować testowanie i deploy po commit'cie, na serwer docelowy. Back-end i zarówno Front-end posiadają testy funkcyjne, czyli testujemy wybrane funkcje serwisu i sprawdzamy po kodzie http czy odpowiedź jest poprawna i czy dana funkcjonalność działa.}
+\pagebreak
+\newpage
+\section{\textbf{Specyfikacja projektu}}
+\subsection{Zastosowanie aplikacji według roli}
+\item{W aplikacji użyto  trzech typów użytkowników:}
+\begin{itemize}
+    \item {użytkownik niezalogowany, inaczej gość, osoba przed uwierzytelnieniem,}
+    \item {użytkownik zalogowany, czyli osoba uwierzytelniona,}
+    \item {administrator,}
+\end{itemize}
+\subsubsection{Użytkownik niezalogowany}
+\item{Użytkownik niezalogowany widzi ekran logowania, blog i publiczne tablice. Logowanie odbywa się poprzez uprzednie zarejestrowanie na osobnej podstronie, potwierdzenie swojego maila, a następnie zalogowanie się. Jeżeli użytkownik wprowadzi złe dane to zostanie o tym powiadomiony. Jeżeli użytkownik wprowadzi odpowiednie dane to zaloguje się do aplikacji i będzie mógł z niej korzystać.}
+\subsubsection{Użytkownik zalogowany}
+\item{Użytkownik zalogowany może wykonywać takie czynności jak:}
+\begin{itemize}
+    \item {tworzenie tablicy, zakładek i zadań,}
+    \item {tworzenie zespołów i przypisywanie ich do tablic,}
+    \item {korzystanie z cudzej tablicy jeżeli użytkownik został przypisany do teamu.}
+\end{itemize}
+\pagebreak
+\subsubsection{Administrator}
+\item{Administrator może wykonywać takie czynności jak:}
+\begin{itemize}
+    \item {tworzenie użytkowników, zarządzanie nimi oraz usuwanie ich,}
+    \item {tworzenie pakietów, zarządzanie nimi oraz usuwanie ich,}
+    \item {tworzenie tablic, zarządzanie nimi oraz usuwanie ich,}
+    \item {tworzenie artykułów, zarządzanie nimi oraz usuwanie ich,}
+    \item {tworzenie kategorii i typów artykułów, zarządzanie nimi oraz usuwanie ich,}
+\end{itemize}
+\pagebreak
+\newpage
+\section{\textbf{Instrukcja uruchomienia}}
+\subsection{Lokalnie}
+\item{Instrukcja uruchomienia aplikacji lokalnie znajduje się pod adresem: }
+\item{\href{https://github.com/PHReactive/trello_copy/tree/docker}}
+\subsection{Zdalnie}
+\item{Aplikacja jest dostępna w sieci pod linkiem:}
+\item{\textbf{\href{http://azyl.tech:8185/login}}}
+\item{W celu korzystania z aplikacji, należy się do niej zalogować.}
+\item{W celu zalogowania się do panelu administracyjnego wystarczy wpisać te dane w panelu logowania:}
+\item{\textbf{Email:} admin@admin.pl}
+\item{\textbf{Hasło:} admin}
+\pagebreak
+\newpage
+\section{\textbf{Wnioski projektowe}}
+\subsection{Wstęp}
+\item{Podczas wybierania technologii zdecydowaliśmy się na framework Laravel  / PHP na back-endzie, a na front-endzie zdecydowaliśmy się na bibliotekę React / JS TS. Wybraliśmy Laravel z racji, iż jest to jeden z dużych i dobrych frameworków, który narzuca programiście swoją strukturę, nazewnictwo i wiele innych rzeczy, co czyni projekt bardzo czytelnym, niż w porównaniu do np. Yii. React wybraliśmy z uwagi na to, iż jest to jedna z wielu popularnych bibliotek do JS , co czyni ją łatwą do nauki. Dodatkowo, wsparcie sporej społeczności React'a pozwala na szybkie rozwiązywanie napotkanych problemów. Także, dzięki React'owi można było stworzyć aplikacje SPA bez większych nakładów pracy.}
+\subsection{Baza danych}
+\item{W trakcie projektowania aplikacji zdecydowaliśmy się na MySQL, ponieważ jest to najbardziej popularny system do zarządzania relacyjną bazą danych. Jego zalety przewyższają wady, a na potrzeby tego projektu w pełni to zdaje egzamin.}
+\subsection{Konteneryzacja aplikacji}
+\item{Do konteneryzacji aplikacji wykorzystaliśmy Dockera, z uwagi na jego popularność wśród systemów do konteneryzacji aplikacji. W jego sieci są obrazy do każdego możliwego języka, co czyni te narzędzie "easy to learn hard to master". W wielkim skrócie, aby już zacząć swoją przygodę z Dockerem, wystarczy napisać prosty plik "docker-compose", który pobierze i skonfiguruje dany obraz. Jeżeli chcemy tworzyć własne obrazy to tutaj przyda się znajomość powłoki Bash, ponieważ Docker jest oparty na jądrze linuxowym. Docker jest dostępny na każdym systemie, co czyni go uniwersalnym i pozwala pracować wielu osobom przy projekcie bez względu na używany przez nich system.}
+\pagebreak
+\subsection{Back-end}
+\item{W back-endzie aplikacji wykorzystaliśmy Laravel, ponieważ już wcześniej mieliśmy z nim do czynienia. Jest to jeden z popularnych i dobrych frameworków na rynku. Posiada bardzo rozbudowaną społeczność, co czyni go łatwym do nauki i nie tylko. Posiada także bardzo dużą bibliotekę dedykowanych funkcjonalności, co przyśpiesza znacznie prace nad projektem.}
+\subsection{Front-end}
+\item{Po stronie front-endu wykorzystaliśmy jeden z najpopularniejszych frameworków na rynku, czyli React. Technologia ta była wspierana Reduxem, który był odpowiedzialny za zarządzanie stanem aplikacji, oraz Tailwincdcss który znacznie wspomógł proces działania z wyglądem. Dodatkowo wykorzystane zostały mniejsze biblioteki do konkretnych celów, np. tworzenie modali, fetchowanie api. Wybory te wynikły z powodu doświadczenia w pracy z tymi technologiami, czy to w poprzednich projektach lub też zawodowo.}
+\subsection{Procesy CI-CD}
+\item{W projekcie wykorzystaliśmy procesy CI/CD w celu zautomatyzowania pewnych powtarzalnych czynności takich jak deploy aplikacji na serwer docelowy i testowanie aplikacji po każdym commit'cie. Dzięki zaoszczędzonemu czasu mogliśmy przyjrzeć się bardziej tym procesom i to co udostępnia github actions, na których oparliśmy ten proces.
+}
+\subsection{Autoryzacja}
+\item{Autoryzacje oparliśmy o token JWT, ponieważ posiadamy dwie niezależne od siebie instancje - back-end i front-end. Dzięki temu standardowi umożliwiamy bezpieczną autoryzacje użytkownika i łatwe zarządzanie uprawnieniami szczególnie, iż Laravel posiada dedykowany pakiet JWT, więc nie trzeba wymyślać koła na nowo co przyspiesza prace nad projektem.}
+\pagebreak
+\newpage
+\subsection{Podsumowanie}
+\item{Była to kolejna realizacja aplikacji webowej oraz projekt zespołowy. Dzięki temu projektowi utrwaliliśmy sobie rzeczy poznane semestr wcześniej, czyli framework Laravel, React, Docker i wiele innych. Aplikacja jest wykonana lepiej, niż aplikacja prezentowana semestr wcześniej, ponieważ wyciągnęliśmy wnioski z własnych błędów, a w wolnej chwili przećwiczyliśmy sobie braki, które można było zauważyć w poprzednim projekcie. Wykorzystaliśmy także nowe technologie, które używa się na co dzień w firmach np. CI / CD. Nauczyliśmy się również pisać o wiele lepsze obrazy w Dockerze i spinać to w sensowną całość, natomiast zdajemy sobie sprawę z tego, że czynności takie jak skonfigurowanie projektu lokalnie można było skrócić do jednej komendy wykorzystując funkcje Composera. Dzięki temu projektowi podszkoliliśmy się w pisaniu API, z którego później korzysta front-endowiec. To wymusiło na nas dobrą komunikacje, dokumentowanie pewnych procesów i zaplanowanie wszystkiego od góry. Jesteśmy świadomi, że architektura projektu pozostawia wiele do życzenia, lecz jesteśmy pewni, że następne projekty będą tylko lepsze. Projekty zespołowe są jedną z lepszych części studiów, ponieważ oprócz szlifowania umiejętności twardych, szlifujemy również umiejętności miękkie, co w przyszłości zaowocuje w pracy.
+}\pagebreak
+
+
+\end{document}
