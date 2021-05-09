@@ -2,7 +2,6 @@ import React, { Fragment, useState } from "react";
 
 import { Description } from "./Description";
 import { TaskTitle } from "./TaskTitle";
-import { TaskTimer } from "./TaskTimer";
 import { ModalWrapper } from "./Modal";
 import { TaskDeleteButton } from "./TaskDeleteButton";
 import Icon from "../../common/Icon";
