@@ -8,7 +8,8 @@
 ## Przydatne informacje ?
 - Szczegółowa instrukcja znajduje się pod tym linkiem : [branch docker](https://github.com/PHReactive/trello_copy/tree/docker)
 - Szczegółowa dokumentacja API znajduje się tutaj:   [branch laravel](https://github.com/PHReactive/trello_copy/blob/laravel/README.md)
--  Dokumentacja na zaliczenie projektu znajduje się tutaj: 
+-  Dokumentacja na zaliczenie projektu znajduje się tutaj w wer.pdf:  [Sprawozdanie](https://github.com/PHReactive/trello_copy/blob/main/Sprawozdanie.pdf)
+ -  Dokumentacja na zaliczenie projektu znajduje się tutaj w wer.tex:  [Sprawozdanie](https://github.com/PHReactive/trello_copy/blob/main/Sprawozdanie.tex)
 ## Technologie:
 - Konteryzacja:
 	- Docker
