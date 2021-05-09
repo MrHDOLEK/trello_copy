@@ -1,31 +1,46 @@
+<<<<<<< HEAD
 
 # Trello_copy
 
-## Opis
+=======
+
+# Getting Started with Create React App
+
+> > > > > > > a46ee93b5af8263a67ac053a7717cf5bd3bc79e0
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+<<<<<<< HEAD
 
 > Aplikacja która jest kopią popularnego seriwsu Trello w ramach nauki
 > nowych technologi i pracy w grupie.
+
 ## Przydatne informacje ?
+
 - Szczegółowa instrukcja znajduje się pod tym linkiem : [branch docker](https://github.com/PHReactive/trello_copy/tree/docker)
-- Szczegółowa dokumentacja API znajduje się tutaj:   [branch laravel](https://github.com/PHReactive/trello_copy/blob/laravel/README.md)
--  Dokumentacja na zaliczenie projektu znajduje się tutaj: 
+- Szczegółowa dokumentacja API znajduje się tutaj: [branch laravel](https://github.com/PHReactive/trello_copy/blob/laravel/README.md)
+- Dokumentacja na zaliczenie projektu znajduje się tutaj:
+
 ## Technologie:
+
 - Konteryzacja:
-	- Docker
+  - Docker
 - CI/CD:
-	- Githube Actions
- - Backend:
-	 - PHP 8
-	 - Laravel 8
-	 - MySQL 8
- - Frontend
-	 - React 17
-	 - Redux
-	 -  JS 18
+  - Githube Actions
+- Backend:
+  - PHP 8
+  - Laravel 8
+  - MySQL 8
+- Frontend
+  - React 17
+  - Redux
+  - JS 18
+
 ## Model bazy danych
+
 ![enter image description here](https://i.imgur.com/hjzhU2U.png)
 
-##  Contributors
+## Contributors
 
  <table>
   <tr>
