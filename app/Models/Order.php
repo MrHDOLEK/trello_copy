@@ -18,13 +18,15 @@ class Order extends Model
     protected $table = 'orders';
 
     protected $fillable = [
-        'status', 'user_id', 'subscription_id', 'invoice_data', 'updated_at', 'created_at', 'invoice_data', 'invoice', 'hash'
+        'status', 'user_id', 'subscription_id', 'invoice_data', 'updated_at', 'created_at', 'invoice_data', 'invoice', 'hash', 'ext_order_id'
     ];
 
     protected $hidden = [
 
     ];
-
+    protected $casts = [
+        'invoice' => 'boolean',
+    ];
     private $status_completed = 1;
     private $status_not_completed = 0;
     private $free_tier_packets = 1;
@@ -114,25 +116,36 @@ class Order extends Model
         ];
 
         $response = OpenPayU_Order::create($order);
+        Order::where('hash', $response->getResponse()->extOrderId)->update(['ext_order_id' => $response->getResponse()->orderId]);
         return $response->getResponse();
     }
 
     public function status(string $ext_order_id)
     {
         self::initPayu();
-        $wait_time = (int)0;
-        while (true) {
-            sleep($wait_time);
-            $response = OpenPayU_Order::retrieve($ext_order_id);
-            $payu_order = $response->getResponse()->orders[0];
-            $status = $payu_order->status;
-            if ($status == 'COMPLETED') {
-                Order::where('hash',$payu_order->extOrderId)->update(['status',$this->status_completed]);
-                return $status;
+        sleep(3);
+        $response = OpenPayU_Order::retrieve($ext_order_id);
+        $payu_order = $response->getResponse()->orders[0];
+        $status = $payu_order->status;
+        if ($status == 'COMPLETED') {
+            Order::where('hash', $payu_order->extOrderId)->update(['status' => $this->status_completed]);
+            $order = Order::where('hash', $payu_order->extOrderId)->firstOrFail();
+
+            if ($order->invoice == true) // send invoice
+            {
+                dump('dd');
+            } else //send Bill
+            {
+
             }
-            $wait_time += 4;
+            return $status;
+        } else {
+            return $status;
         }
+
+
     }
+
     /*To do:
      *Kaskodowe update w permisjach
      *Wystawianie rachunku/faktury do poprawy

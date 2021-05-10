@@ -150,14 +150,15 @@
     ```
 
 # System tablic
-- Aby utworzyć tablice musisz być zalogowany i aby edytować jakomś musisz być jej właścicielem 
+
+- Aby utworzyć tablice musisz być zalogowany i aby edytować jakomś musisz być jej właścicielem
 - "is_visible" : 1 tablica jest publiczna
 - "is_visible" : 0 tablica jest prywatna (domyśnie jak tworzysz tablice jest ona prywatna)
 - id mozesz przekazywać w url lub w rensponse zależy jak ci wygodnie
-- Przy usuwaniu tablicy usuwasz całą zawartość podobnie  z card.
-- Ps.Dojdzie system przypisywania ludzi do taska i teamów do tablic i ze admin może wszystko.Plus system motywów ze użytkownik może sobie obrazek wstawić czy gotowy motyw do tablicy.
+- Przy usuwaniu tablicy usuwasz całą zawartość podobnie z card.
+- Ps.Dojdzie system przypisywania ludzi do taska i teamów do tablic i ze admin może wszystko.Plus system motywów ze
+  użytkownik może sobie obrazek wstawić czy gotowy motyw do tablicy.
 - System teamów i permisji do tablic card już jest.
-
 
 ### Metoda GET
 
@@ -200,9 +201,14 @@
 
 ```json
 {
-    "name": "kys2322123", 
-    "is_visible": 1, 
-    "team_id" : id teamu [nie jest wymagany] jezeli nie ma id to usuwamy team tak naprawde z tablicy
+    "name": "kys2322123",
+    "is_visible": 1,
+    "team_id": id
+    teamu [
+    nie
+    jest
+    wymagany
+] jezeli nie ma id to usuwamy team tak naprawde z tablicy
 }
 ```
 
@@ -233,88 +239,127 @@
 3. **Usuwanie taska w tablicy `/api/v1/manage/tasks?id=tutaj id taska`**
 
 # System zespołów
+
 Przypisywanie zespołu do danej tablicy odbywa się poprzez aktualizacje samej tablicy
+
 ### Metoda GET
 
 1. **Pokazanie w jakich zespołach jest jezeli jest tworca tablicy`/api/v1/manage/teams`**
-2. **Pokazanie wszystkich zespołów [tylko admin] dostepna tutaj jest paginacja max 20 wyników na strone `/api/v1/manage/teams`**
-3. **Pokazanie wszystkich zespołów w  jakich jest użytkownik `/api/v1/manage/teams/all`*
+2. **Pokazanie wszystkich zespołów [tylko admin] dostepna tutaj jest paginacja max 20 wyników na
+   strone `/api/v1/manage/teams`**
+3. **Pokazanie wszystkich zespołów w jakich jest użytkownik `/api/v1/manage/teams/all`*
 4. **Pokazanie wszystkich tablic jakie ma dany zespół`/api/v1/manage/teams/table?id=id zespołu`**
 
 ### Metoda POST
+
 1. **Utworzenie zespołu i przypisanie go do tablicy`/api/v1/manage/teams?id=id tablicy`**
- Jeżeli nie podasz id tablicy to zostanie utworzony team ale nie zostanie przypisany do danej tablicy.Jezeli chcesz przypisać team do konkretnej tablicy to musisz uzyć innego endp.
+   Jeżeli nie podasz id tablicy to zostanie utworzony team ale nie zostanie przypisany do danej tablicy.Jezeli chcesz
+   przypisać team do konkretnej tablicy to musisz uzyć innego endp.
+
 ```json
 {
     "team_name": "kys2322123",
-    "users_mail": [tutaj maile userów jako elementy arraya]
+    "users_mail": [
+        tutaj
+        maile
+        userów
+        jako
+        elementy
+        arraya
+    ]
 }
 ```
-2. **Przypisanie konkretnego zespołu do  konkrentej tablicy(Można takze aktualizować tak)`/api/v1/manage/teams/assignment`**
+
+2. **Przypisanie konkretnego zespołu do konkrentej tablicy(Można takze aktualizować
+   tak)`/api/v1/manage/teams/assignment`**
+
 ```json
 {
     "id_team": 3,
     "id_table": 5
 }
 ```
+
 ### Metoda PUT
+
 1. **Aktualizacja zespołu`/api/v1/manage/teams?id=id tablicy`**
+
 ```json
 {
     "team_name": "kys2322123",
-    "users_mail": [tutaj maile userów jako elementy arraya]
+    "users_mail": [
+        tutaj
+        maile
+        userów
+        jako
+        elementy
+        arraya
+    ]
 }
 ```
+
 ### Metoda DELETE
+
 1. **Usuniecie całego zespołu`/api/v1/manage/teams?id=id tablicy`**
 
 # Panel administratora
 
-Wszystkie routy administratora są **zabezpieczone**.
-W praktyce oznacza to, że wszelkie żądania wysłane z nieautoryzowanego konta (nie będącego adminem) otrzymają status **403|Forbidden**.
+Wszystkie routy administratora są **zabezpieczone**. W praktyce oznacza to, że wszelkie żądania wysłane z
+nieautoryzowanego konta (nie będącego adminem) otrzymają status **403|Forbidden**.
 
 ### Metoda POST
 
 1. **Użytkownik `/api/v1/admin/manage/user/create`**
+
 ```json
 {
-    "name" : "CookieMonster",    
- 	"email" : "coockie@monster.pl",   
-    "password" :"CoockiesAreGreat",  
-    "password_confirmation": "CoockiesAreGreat",  
-    "address": "sesame street", //Address is not required
+    "name": "CookieMonster",
+    "email": "coockie@monster.pl",
+    "password": "CoockiesAreGreat",
+    "password_confirmation": "CoockiesAreGreat",
+    "address": "sesame street",
+    //Address is not required
     "regulation_accepted": true
 }
 ```
 
 2. **Pakiet `/api/v1/admin/manage/portal/packet/create`**
+
 ```json
 {
     "name": "ChickenNugget",
     "price": 9.99,
-    "description": "Pretty tasty, huh?", //Descrpition is not required
+    "description": "Pretty tasty, huh?",
+    //Descrpition is not required
     "permission_id": 1
 }
 ```
 
 3. **Artykuł `/api/v1/admin/manage/portal/article/create`**
+
 ```json
 {
     "title": "How to be the best",
-    "intro": "How to be the best", //this is not required
+    "intro": "How to be the best",
+    //this is not required
     "alias": "how-to-be-the-best",
-    "full": "This is full description", //this is not required
-    "style": 1, //this is not required
+    "full": "This is full description",
+    //this is not required
+    "style": 1,
+    //this is not required
     "image": "rockybalboa.jpg",
     "removable": 1,
-    "meta_title": "SEO title", //this is not required
-    "meta_description": "SEO description", //this is not required
+    "meta_title": "SEO title",
+    //this is not required
+    "meta_description": "SEO description",
+    //this is not required
     "category_id": 1,
     "type_id": 1
 }
 ```
 
 4. **Kategoria artykułów `/api/v1/admin/manage/portal/article/category/create`**
+
 ```json
 {
     "name": "Wealth",
@@ -323,6 +368,7 @@ W praktyce oznacza to, że wszelkie żądania wysłane z nieautoryzowanego konta
 ```
 
 5. **Typ artykułu `/api/v1/admin/manage/portal/article/type/create`**
+
 ```json
 {
     "name": "Health",
@@ -331,6 +377,7 @@ W praktyce oznacza to, że wszelkie żądania wysłane z nieautoryzowanego konta
 ```
 
 6. **Tablica `/api/v1/admin/manage/table/create`**
+
 ```json
 {
     "name": "new great table"
@@ -340,60 +387,76 @@ W praktyce oznacza to, że wszelkie żądania wysłane z nieautoryzowanego konta
 ### Metoda GET
 
 1. **Użytkownik `/api/v1/admin/manage/user`**
+
 ```json
 {
-    "user_id": 1 //Left empty to recieve all users
+    "user_id": 1
+    //Left empty to recieve all users
 }
 ```
 
 2. **Dane personalne użytkownik wraz w uprawnieniami `/api/v1/admin/manage/user/details`**
+
 ```json
 {
-    "user_id": 1 //Left empty to recieve all users
+    "user_id": 1
+    //Left empty to recieve all users
 }
 ```
 
 3. **Pakiet `/api/v1/admin/manage/portal/packet`**
+
 ```json
 {
-    "packet_id": 1 //Left empty to recieve all packets
+    "packet_id": 1
+    //Left empty to recieve all packets
 }
 ```
 
 4. **Artykuł `/api/v1/admin/manage/portal/article`**
+
 ```json
 {
-    "article_id": 1 //Left empty recieve all articles
+    "article_id": 1
+    //Left empty recieve all articles
 }
 ```
 
 5. **Kategoria artykułu `/api/v1/admin/manage/portal/article/category`**
+
 ```json
 {
-    "article_id": 1 //Left empty recieve all articles
+    "article_id": 1
+    //Left empty recieve all articles
 }
 ```
 
 6. **Typ artykułu `/api/v1/admin/manage/portal/article/type`**
+
 ```json
 {
-    "article_category_id": 1 //Left empty recieve all categories
+    "article_category_id": 1
+    //Left empty recieve all categories
 }
 ```
 
 7. **Tablica `/api/v1/admin/manage/table`**
+
 ```json
 {
-    "id": 1 //Left empty recieve all tables
+    "id": 1
+    //Left empty recieve all tables
 }
 ```
 
 ### Metoda PUT
 
 1. **Użytkownik `/api/v1/admin/manage/user/update`**
+
 ```json
 {
-    "user_id": 4, //this is required
+    "user_id": 4,
+    //this is required
     "name": "John",
     "email": "email@email.pl",
     "password": "password"
@@ -401,9 +464,11 @@ W praktyce oznacza to, że wszelkie żądania wysłane z nieautoryzowanego konta
 ```
 
 2. **Pakiet `/api/v1/admin/manage/portal/packet/update`**
+
 ```json
 {
-    "packet_id": 2, //this is required
+    "packet_id": 2,
+    //this is required
     "name": "updated name",
     "price": 12.50,
     "description": "description",
@@ -412,24 +477,27 @@ W praktyce oznacza to, że wszelkie żądania wysłane z nieautoryzowanego konta
 ```
 
 3. **Artykuł `/api/v1/admin/manage/portal/article/update`**
+
 ```json
 {
-    "article_id": 1, //only this is required
+    "article_id": 1,
+    //only this is required
     "title": "How to be the best",
-    "intro": "How to be the best", 
+    "intro": "How to be the best",
     "alias": "how-to-be-the-best",
     "full": "This is full description",
     "style": 1,
     "image": "rockybalboa.jpg",
     "removable": 1,
     "meta_title": "SEO title",
-    "meta_description": "SEO description", 
+    "meta_description": "SEO description",
     "category_id": 1,
     "type_id": 1
 }
 ```
 
 4. **Kategoria artykułu `/api/v1/admin/manage/portal/article/category/update`**
+
 ```json
 {
     "article_category_id": 2,
@@ -439,6 +507,7 @@ W praktyce oznacza to, że wszelkie żądania wysłane z nieautoryzowanego konta
 ```
 
 5. **Typ artykułu `/api/v1/admin/manage/portal/article/type/update`**
+
 ```json
 {
     "article_type_id": 1,
@@ -448,18 +517,21 @@ W praktyce oznacza to, że wszelkie żądania wysłane z nieautoryzowanego konta
 ```
 
 6. **Tablica `/api/v1/admin/manage/table/update`**
+
 ```json
 {
-    "id": 1, //only this is required
+    "id": 1,
+    //only this is required
     "is_visible": 1,
     "name": "new great tabl11e",
     "team_id": 1
 }
 ```
 
-### Metoda DELETE 
+### Metoda DELETE
 
 1. **Użytkownik `/api/v1/admin/manage/user/delete`**
+
 ```json
 {
     "user_id": 3
@@ -467,6 +539,7 @@ W praktyce oznacza to, że wszelkie żądania wysłane z nieautoryzowanego konta
 ```
 
 2. **Pakiet `/api/v1/admin/manage/portal/packet/delete`**
+
 ```json
 {
     "packet_id": 3
@@ -474,6 +547,7 @@ W praktyce oznacza to, że wszelkie żądania wysłane z nieautoryzowanego konta
 ```
 
 3. **Artykuł `/api/v1/admin/manage/portal/article/delete`**
+
 ```json
 {
     "article_id": 2
@@ -481,6 +555,7 @@ W praktyce oznacza to, że wszelkie żądania wysłane z nieautoryzowanego konta
 ```
 
 4. **Kategoria artykułu `/api/v1/admin/manage/portal/article/category/delete`**
+
 ```json
 {
     "article_category_id": 1
@@ -488,6 +563,7 @@ W praktyce oznacza to, że wszelkie żądania wysłane z nieautoryzowanego konta
 ```
 
 5. **Typ artykułu `/api/v1/admin/manage/portal/article/type/delete`**
+
 ```json
 {
     "article_type_id": 2
@@ -495,8 +571,42 @@ W praktyce oznacza to, że wszelkie żądania wysłane z nieautoryzowanego konta
 ```
 
 6. **Tablica `/api/v1/admin/manage/table/delete`**
+
 ```json
 {
     "id": 2
+}
+```
+
+# Płatności Payu
+
+Płatności są sprawdzane co godzine czy dana płatnośc została zrealizowana
+
+### Metoda GET
+
+1. **Podgląd statusu płatności `/api/v1/payu/payment/status`**
+   Aby sprawdzić status trzeba odzyskać przy rejestracji płatności orderId który jest zwracany.
+
+```json
+{
+    "order_id": "GWW3S282ZC210509GUEST000P01"
+}
+```
+
+### Metoda POST
+
+1. **Rejestrowanie płatności `/api/v1/payu/payu/order`**
+
+```json
+{
+    "sub_id": 2,
+    "invoice": false,
+    "user_personal_data": [
+        {
+            "first_name": "bolek",
+            "last_name": "bolek",
+            "phone": 1231234124
+        }
+    ]
 }
 ```

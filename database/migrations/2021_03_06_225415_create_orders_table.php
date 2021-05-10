@@ -19,6 +19,7 @@ class CreateOrdersTable extends Migration
             $table->boolean('invoice');
             $table->json('invoice_data')->nullable();
             $table->string('hash');
+            $table->string('ext_order_id')->nullable();
             $table->timestamps();
 
             $table->foreignId('user_id')->constrained();
