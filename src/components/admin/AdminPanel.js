@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import { useSelector } from "react-redux";
-import ArticlesList from "./Articles/ArticlesList";
 import BoardsList from "./Boards/BoardsList";
 import PacketsList from "./Packets/PacketsList";
 import UsersList from "./Users/UsersList";
