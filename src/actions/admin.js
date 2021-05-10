@@ -1,7 +1,12 @@
 import axios from "axios";
 import { notifyError, notifySuccess } from "../functions/notify";
 import { tokenConfig } from "../functions/token";
-import { FETCH_ALL_USERS, FETCH_ALL_PACKAGE, DELETE_PACKAGE } from "./types";
+import {
+  FETCH_ALL_USERS,
+  FETCH_ALL_PACKAGE,
+  DELETE_PACKAGE,
+  FETCH_ALL_BOARDS,
+} from "./types";
 
 const addressAPI = process.env.REACT_APP_BACKEND_API;
 
@@ -58,4 +63,13 @@ export const deletePackage = (id) => (dispatch, getState) => {
       dispatch({ type: DELETE_PACKAGE, payload: id });
     })
     .catch((err) => notifyError(err.message));
+};
+
+export const getTable = () => (dispatch, getState) => {
+  axios
+    .get(`${addressAPI}/api/v1/admin/manage/table`, tokenConfig(getState))
+    .then((response) =>
+      dispatch({ type: FETCH_ALL_BOARDS, payload: response.data })
+    )
+    .catch((err) => console.log(err.response));
 };

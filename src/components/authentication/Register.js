@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 
 import InputField from "../common/InputField";
 import Button from "../common/Button";
@@ -12,6 +12,7 @@ import { registerUser } from "../../actions/auth";
 const Register = () => {
   const [state, setState] = useState({});
   const dispatch = useDispatch();
+  const history = useHistory();
   const isAuthenticated = useSelector(
     (state) => state.authReducer.isAuthenticated
   );
@@ -34,7 +35,7 @@ const Register = () => {
   const onSubmit = (event) => {
     event.preventDefault();
     console.log(state);
-    checked && dispatch(registerUser(state));
+    checked && dispatch(registerUser(state)) && history.push("/login");
   };
 
   return (

@@ -8,7 +8,7 @@ import PacketsList from "./Packets/PacketsList";
 import UsersList from "./Users/UsersList";
 import { useHistory } from "react-router-dom";
 
-const options = ["Users", "Packages", "Articles", "Boards"];
+const options = ["Users", "Packages", "Boards"];
 
 const AdminPanel = () => {
   const history = useHistory();
@@ -32,7 +32,7 @@ const AdminPanel = () => {
 
       {selected === "Users" && <UsersList />}
       {selected === "Packages" && <PacketsList />}
-      {selected === "Articles" && <ArticlesList />}
+      {/* {selected === "Articles" && <ArticlesList />} */}
       {selected === "Boards" && <BoardsList />}
 
       <div></div>

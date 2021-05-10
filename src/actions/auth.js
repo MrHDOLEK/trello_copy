@@ -40,9 +40,13 @@ export const loginUser = (state) => (dispatch) => {
     })
     .catch((err) => {
       const { message, errors } = err.response.data;
+      console.log(err.response.data);
       dispatch({ type: LOGIN_FAILED, payload: message });
-      errors.email && notifyError(errors.email[0]);
-      errors.password && notifyError(errors.password[0]);
+      if (errors) {
+        errors.email && notifyError(errors.email[0]);
+        errors.password && notifyError(errors.password[0]);
+      }
+      notifyError(message);
     });
 };
 
